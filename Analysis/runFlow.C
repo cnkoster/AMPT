@@ -94,7 +94,7 @@ void runFlow(TString centrality="", Double_t gCentrality=1., Int_t iGroupMin=0, 
                                          //"AnalysisResults_Group%i-%i_fullEta_EPMSPM.root",iGroupMin, iGroupMax),"RECREATE");
     fResultsFile->WriteObject(fQC->GetQAList(),"QAList","SingleKey");
     fResultsFile->WriteObject(fQC->GetSpectraList(),"SpectraList","SingleKey");
-    fResultsFile->WriteObject(fQC->GetFlowQCList(),"FLowQCList","SingleKey");
+   // fResultsFile->WriteObject(fQC->GetFlowQCList(),"FLowQCList","SingleKey");
     fResultsFile->WriteObject(fQC->GetFlowSPMList(),"FLowSPMList","SingleKey");
     fResultsFile->Close();
 

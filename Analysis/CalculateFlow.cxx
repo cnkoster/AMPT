@@ -779,7 +779,7 @@ void CalculateFlow::Make(Event* anEvent) {
     // cout <<"Generic Framework matrix loop: " << totaltime << endl;
     
     //sw.tick();
-    CalculateFlowQC();
+   // CalculateFlowQC();
     CalculateFlowSPM();
     CalculateFlowSPM1();
     CalculateFlowEPM();
@@ -838,7 +838,7 @@ void CalculateFlow::ResetEventByEventQuantities()
 void CalculateFlow::Terminate(Int_t Nevents)
 {
     FinalizeSpectra(Nevents);
-    FinalizeFlowQC();
+    //FinalizeFlowQC();
     FinalizeFlowSPM();
     FinalizeFlowEPM();
     FinalizeQA();
