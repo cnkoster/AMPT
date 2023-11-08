@@ -30,7 +30,8 @@
 
 void runFlow(TString centrality="", Double_t gCentrality=1., Int_t iGroupMin=0, Int_t iGroupMax=3000, Double_t gSpectatorMin=0, Double_t gSpectatorMax=500) {
     
-    TFile *f= new TFile(Form("/dcache/alice/nkoster/PhD/AMPT_out/Run2_Energy_PbPb/Cent%s/TreeOutput_Group%i-%i_Cent%s.root",centrality.Data(),iGroupMin, iGroupMax, centrality.Data()));
+    TFile *f= new TFile(Form("/dcache/alice/nkoster/PhD/AMPT_out/Run2_Energy_PbPb/nEvents100/TreeOutput/TreeOutput_Group%i-%i.root",iGroupMin, iGroupMax));
+                             //"/dcache/alice/nkoster/PhD/AMPT_out/Run2_Energy_PbPb/Cent%s/TreeOutput_Group%i-%i_Cent%s.root",centrality.Data(),iGroupMin, iGroupMax, centrality.Data()));
                              
 //"/dcache/alice/nkoster/PhD/AMPT_out/Run2_Energy_PbPb/nEvents100/TreeOutput/TreeOutput_Group%i-%i.root",iGroupMin, iGroupMax));
     
@@ -88,11 +89,12 @@ void runFlow(TString centrality="", Double_t gCentrality=1., Int_t iGroupMin=0, 
 
     
     // Save list holding histogram with weights:
-    TFile *fResultsFile = new TFile(Form("AnalysisResults_Group%i-%i_Eta_EPMSPM_Cent%s.root",iGroupMin, iGroupMax, centrality.Data()),"RECREATE");
+    TFile *fResultsFile = new TFile(Form("AnalysisResults_Group%i-%i_fullEta_EPMSPM.root",iGroupMin, iGroupMax),"RECREATE");
+                                         //"AnalysisResults_Group%i-%i_Eta_EPMSPM_Cent%s.root",iGroupMin, iGroupMax, centrality.Data()),"RECREATE");
                                          //"AnalysisResults_Group%i-%i_fullEta_EPMSPM.root",iGroupMin, iGroupMax),"RECREATE");
     fResultsFile->WriteObject(fQC->GetQAList(),"QAList","SingleKey");
     fResultsFile->WriteObject(fQC->GetSpectraList(),"SpectraList","SingleKey");
-   // fResultsFile->WriteObject(fQC->GetFlowQCList(),"FLowQCList","SingleKey");
+    fResultsFile->WriteObject(fQC->GetFlowQCList(),"FLowQCList","SingleKey");
     fResultsFile->WriteObject(fQC->GetFlowSPMList(),"FLowSPMList","SingleKey");
     fResultsFile->Close();
 
