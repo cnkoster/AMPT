@@ -838,7 +838,7 @@ void CalculateFlow::ResetEventByEventQuantities()
 void CalculateFlow::Terminate(Int_t Nevents)
 {
     FinalizeSpectra(Nevents);
-    //  FinalizeFlowQC();
+    FinalizeFlowQC();
     FinalizeFlowSPM();
     FinalizeFlowEPM();
     FinalizeQA();
@@ -884,7 +884,6 @@ void CalculateFlow::CalculateFlowSPM()
             Mu = 0.;
             
             
-            
             Denom_pty=0.;
             
             
@@ -916,7 +915,6 @@ void CalculateFlow::CalculateFlowSPM()
             for(Int_t pt=0; pt<fPtDiffNBins; pt++) {
                 //std::cout<<fPOISPMPtDiffQRe[hr][charge]->GetBinContent(pt+1)<<std::endl;
                 if(fPOISPMPtDiffQRe[hr][charge]->GetBinCenter(pt+1)>0)continue;  //omly eta<0
-                    
                     QRe += fPOISPMPtDiffQRe[hr][charge]->GetBinContent(pt+1);
                     QIm += fPOISPMPtDiffQIm[hr][charge]->GetBinContent(pt+1);
                     Mu += fPOISPMPtDiffMul[0][charge]->GetBinContent(pt+1);
@@ -928,11 +926,16 @@ void CalculateFlow::CalculateFlowSPM()
 //            std::cout<< QRe << "  " << QIm << "  " << Mu << std::endl;
 //            std::cout<< QRe_RFP_V0A << "  " << QRe_RFP_V0C << "  " << QIm_RFP_V0A << std::endl;
             
-            x_QQ = ( (QRe_RFP_V0A*QRe) * (QRe_RFP_V0C*QRe_RFP_V0A) )/(QRe*QRe_RFP_V0C);
-            y_QQ = -1*( (QIm_RFP_V0A*QIm) * (QIm_RFP_V0C*QIm_RFP_V0A) )/(QIm*QIm_RFP_V0C);
-            x_uQ = (QRe*QRe_RFP_V0A);
-            y_uQ = -1*(QIm*QIm_RFP_V0A);
-            
+//            x_QQ = ( (QRe_RFP_V0A*QRe) * (QRe_RFP_V0C*QRe_RFP_V0A) )/(QRe*QRe_RFP_V0C);
+//            y_QQ = -1*( (QIm_RFP_V0A*QIm) * (QIm_RFP_V0C*QIm_RFP_V0A) )/(QIm*QIm_RFP_V0C);
+//            x_uQ = (QRe*QRe_RFP_V0A);
+//            y_uQ = -1*(QIm*QIm_RFP_V0A);
+          
+          
+              x_QQ = ( (QRe_RFP_V0A*QRe) * (QRe_RFP_V0C*QRe) )/(QRe_RFP_V0A*QRe_RFP_V0C);
+              y_QQ = ( (QIm_RFP_V0A*QIm) * (QIm_RFP_V0C*QIm) )/(QIm_RFP_V0A*QIm_RFP_V0C);
+              x_uQ = (QRe*QRe);
+              y_uQ = (QIm*QIm);
             
             
             if(TMath::Abs(Mu)>0. && TMath::Abs(x_QQ) > 0 && TMath::Abs(y_QQ) > 0){
@@ -955,7 +958,10 @@ void CalculateFlow::CalculateFlowSPM()
 //=====================================================================================================
 void CalculateFlow::CalculateFlowSPM1()
 {
-    
+    // verwacht dat deze niet werkt? Use q-vectors in V0A and V0C acceptance
+  // From the directed flow paper.
+  
+  
     Float_t QRe_RFP_V0A, QIm_RFP_V0A, Mu_RFP_V0A;
     Float_t QRe_RFP_V0C, QIm_RFP_V0C, Mu_RFP_V0C;
     Float_t QRe, QIm, Mu;
@@ -1123,6 +1129,10 @@ void CalculateFlow::CalculateFlowEPM()
         QIm += fPOISPMPtDiffQIm[h][charge]->GetBinContent(pt+1);
         Mu += fPOISPMPtDiffMul[h][charge]->GetBinContent(pt+1);
         
+//        QRe_RFP += fRFPSPMPtDiffQRe_V0A[hr][charge]->GetBinContent(pt+1)+fRFPSPMPtDiffQRe_V0C[hr][charge]->GetBinContent(pt+1); // Cos((hr+1.)*dPhi) --> Re(u)
+//        QIm_RFP += fRFPSPMPtDiffQIm_V0A[hr][charge]->GetBinContent(pt+1)+fRFPSPMPtDiffQIm_V0C[hr][charge]->GetBinContent(pt+1); // Sin((hr+1.)*dPhi) --> Im(u)
+//        Mu_RFP +=  fRFPSPMPtDiffMul_V0A[0][charge]->GetBinContent(pt+1)+fRFPSPMPtDiffMul_V0C[0][charge]->GetBinContent(pt+1);
+        
         if(fPOISPMPtDiffQRe[h][charge]->GetBinCenter(pt+1)<0) { //Only for eta<0
           QReInt += fPOISPMPtDiffQRe[h][charge]->GetBinContent(pt+1);
           QImInt += fPOISPMPtDiffQIm[h][charge]->GetBinContent(pt+1);
@@ -1131,7 +1141,9 @@ void CalculateFlow::CalculateFlowEPM()
         
         
       }
+
       //         std::cout<< "QRe: " << QRe << " | QReInt: " << QReInt << std::endl;
+      
       
       if(TMath::Abs(MuInt)>0.){
         meanCos = QReInt/MuInt;
@@ -1148,14 +1160,13 @@ void CalculateFlow::CalculateFlowEPM()
         //here change h+2 to h+1 (hr+1->hr, 2hr+3-> 2hr+1)
         qpRe = fPOISPMPtDiffQRe[h][charge]->GetBinContent(pt+1);
         qpIm = fPOISPMPtDiffQIm[h][charge]->GetBinContent(pt+1);
-        
         qpM = fPOISPMPtDiffMul[h][charge]->GetBinContent(pt+1);
         
         // std::cout<< "qpM: " << qpM <<std::endl;
         
         
-        if(qpM>0 && meanCos>0) {
-          meanPtdiff = ( (qpRe/qpM) * (QRe-qpRe)/(Mu-qpM) ) / (QRe/Mu);
+        if(qpM>0 && QRe/Mu>0) {
+          meanPtdiff = ( (qpRe/qpM) * (QReInt-qpRe)/(MuInt-qpM) ) / (QReInt/MuInt);
           //  std::cout<<meanPtdiff<< " " << FillPtBin <<std::endl;
           fFlowEPMCorPro[h][charge]->Fill(FillPtBin, meanPtdiff, 1.);            // ADD: fPOIEPMPtDiffQRe[h]
         }
