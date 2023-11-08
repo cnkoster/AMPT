@@ -184,18 +184,18 @@ void CalculateFlow::InitializeArraysForFlowSPM()
 void CalculateFlow::InitializeArraysForFlowEPM()
 {
     for(Int_t charge=0; charge<fCharge;charge++){
+      for (Int_t h=0;h<fFlowNHarmMax;h++) {
+        fPOIEPMPtDiffQRe[h][charge] = NULL;                  //POI Pt Diff Q Re [fQVecPower][fFlowHarmonic]
+        fPOIEPMPtDiffQIm[h][charge] = NULL;
+        fPOIEPMPtDiffMul[h][charge] = NULL;
         
-        fPOIEPMPtDiffQRe[0][charge] = NULL;                  //POI Pt Diff Q Re [fQVecPower][fFlowHarmonic]
-        fPOIEPMPtDiffQIm[0][charge] = NULL;
-        fPOIEPMPtDiffMul[0][charge] = NULL;
+        //        fPOIEPMIntQRe[h][charge] = NULL;                  //POI Pt Diff Q Re [fQVecPower][fFlowHarmonic]
+        //        fPOIEPMIntQIm[h][charge] = NULL;
+        //        fPOIEPMIntMul[h][charge] = NULL;
         
-//        fPOIEPMIntQRe[0][charge] = NULL;                  //POI Pt Diff Q Re [fQVecPower][fFlowHarmonic]
-//        fPOIEPMIntQIm[0][charge] = NULL;
-//        fPOIEPMIntMul[0][charge] = NULL;
-        
-        fFlowEPMIntPro[0][charge] = NULL;
-        fFlowEPMIntFlow2Hist[0][charge] = NULL;
-        
+        fFlowEPMIntPro[h][charge] = NULL;
+        fFlowEPMIntFlow2Hist[h][charge] = NULL;
+      }
     }
 }
 //=====================================================================================================
@@ -498,9 +498,8 @@ void CalculateFlow::UserCreateOutputObjects() {
             fFlowSPM1IntFlow2Hist[h][charge]->Sumw2();
             fFlowSPMList->Add(fFlowSPM1IntFlow2Hist[h][charge]);
             
-        }
-    }
-    for(Int_t charge=0; charge<fCharge; charge++){
+
+    
         // Event Plane Method (SPECTATORS +EPangle=0)
         
 //        fPOIEPMIntQRe[h][charge] = new TH1D(Form("fPOIEPMIntQRe[%d][%d]",h,charge),Form("fPOIEPMIntQRe[%d][%d]",h,charge),20,-0.8,0.8);//,fPtDiffNBins,fCRCPtBins);
@@ -510,26 +509,27 @@ void CalculateFlow::UserCreateOutputObjects() {
 //        fPOIEPMIntMul[h][charge] = new TH1D(Form("fPOIEPMIntMul[%d][%d]",h,charge),Form("fPOIEPMIntMul[%d][%d]",h,charge),20,-0.8,0.8);//,fPtDiffNBins,fCRCPtBins);
 //        fPOIEPMIntMul[h][charge]->Sumw2();
         
-        fFlowEPMIntPro[0][charge]= new TProfile(Form("fFlowEPMIntPro[%d][%d]",0,charge),Form("fFlowEPMIntPro%d][%d]",0,charge),9,ImPaBins,"s");
-        fFlowEPMIntPro[0][charge]->Sumw2();
+        fFlowEPMIntPro[h][charge]= new TProfile(Form("fFlowEPMIntPro[%d][%d]",h,charge),Form("fFlowEPMIntPro%d][%d]",h,charge),9,ImPaBins,"s");
+        fFlowEPMIntPro[h][charge]->Sumw2();
         
-        fFlowEPMIntFlow2Hist[0][charge] = new TH1D(Form("fFlowEPMIntFlow2Hist[%d][%d]",0,charge),Form("fFlowEPMIntFlow2Hist[%d][%d]",0,charge),9,ImPaBins);
-        fFlowEPMIntFlow2Hist[0][charge]->Sumw2();
-        fFlowSPMList->Add(fFlowEPMIntFlow2Hist[0][charge]);
-        
-        
-        fFlowEPMCorPro[0][charge]= new TProfile(Form("fFlowEPMCorPro[%d][%d]",0,charge),Form("fFlowEPMCorPro%d][%d]",0,charge),20,-0.8,0.8, "s");//,fPtDiffNBins,fCRCPtBins,"s");
-        fFlowEPMCorPro[0][charge]->Sumw2();
-        
-        fFlowEPMPtFlow2Hist[0][charge] = new TH1D(Form("fFlowEPMPtFlow2Hist[%d][%d]",0,charge),Form("fFlowEPMPtFlow2Hist[%d][%d]",0,charge),20,-0.8,0.8);//,fPtDiffNBins,fCRCPtBins);
-        fFlowEPMPtFlow2Hist[0][charge]->Sumw2();
-        fFlowSPMList->Add(fFlowEPMPtFlow2Hist[0][charge]);
+        fFlowEPMIntFlow2Hist[h][charge] = new TH1D(Form("fFlowEPMIntFlow2Hist[%d][%d]",h,charge),Form("fFlowEPMIntFlow2Hist[%d][%d]",h,charge),9,ImPaBins);
+        fFlowEPMIntFlow2Hist[h][charge]->Sumw2();
+        fFlowSPMList->Add(fFlowEPMIntFlow2Hist[h][charge]);
         
         
+        fFlowEPMCorPro[h][charge]= new TProfile(Form("fFlowEPMCorPro[%d][%d]",h,charge),Form("fFlowEPMCorPro%d][%d]",h,charge),20,-0.8,0.8, "s");//,fPtDiffNBins,fCRCPtBins,"s");
+        fFlowEPMCorPro[h][charge]->Sumw2();
         
+        fFlowEPMPtFlow2Hist[h][charge] = new TH1D(Form("fFlowEPMPtFlow2Hist[%d][%d]",h,charge),Form("fFlowEPMPtFlow2Hist[%d][%d]",h,charge),20,-0.8,0.8);//,fPtDiffNBins,fCRCPtBins);
+        fFlowEPMPtFlow2Hist[h][charge]->Sumw2();
+        fFlowSPMList->Add(fFlowEPMPtFlow2Hist[h][charge]);
         
-        
+        }
     }
+        
+        
+        
+  
 }
 
 
