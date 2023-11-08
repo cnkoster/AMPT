@@ -8,22 +8,23 @@ echo ${TMPDIR}
 export INPUT_FILES_DIR=/user/nkoster/PhD/AMPT/AnalyseTreeOutput
 
 iStart=0
-iEnd=200 
+iEnd=1000 
 
 echo ${OUTPUTDIR}
 
-cp ${INPUT_FILES_DIR}/CalculateFlowCME.h ${TMPDIR}
-cp ${INPUT_FILES_DIR}/CalculateFlowCME.cxx ${TMPDIR}
-cp ${INPUT_FILES_DIR}/run.C ${TMPDIR}
+cp ${INPUT_FILES_DIR}/CalculateFlow.h ${TMPDIR}
+cp ${INPUT_FILES_DIR}/CalculateFlow.cxx ${TMPDIR}
+cp ${INPUT_FILES_DIR}/runFlow.C ${TMPDIR}
 cp ${INPUT_FILES_DIR}/Event.h ${TMPDIR}
 cp ${INPUT_FILES_DIR}/Particle.h ${TMPDIR}
-
+cp ${INPUT_FILES_DIR}/Stopwatch_header.h ${TMPDIR}
 pwd
 ls
 
 ##run the analysis
 echo "+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+"
-root.exe -b -q CalculateFlowCME.cxx run.C'(55.,'${iStart}','${iEnd}',1,500)';
+root.exe -b -q CalculateFlow.cxx runFlow.C;
+
 
 
 if [ ! -f AnalysisResults*.root ]; then

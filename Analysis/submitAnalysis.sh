@@ -1,5 +1,8 @@
 #!/bin/bash
-outdir=/data/alice/nkoster/AMPT_out/Run2_Energy/nEvents100
+addon=${1}
+outdir=/data/alice/nkoster/AMPT_out/Run2_Energy/nEvent100/EPM
+#Cent30_60
+nGroups=1000
 
 if [ ! -d ${outdir} ]
 then
@@ -12,11 +15,11 @@ then
 mkdir -p ${outdir}/logs/
 fi
 
-rm -rf ${outdir}/runStbcJob.sh
-cp runStbcJob.sh ${outdir}
+rm -rf ${outdir}/runStbcJob${addon}.sh
+cp runStbcJob${addon}.sh ${outdir}
 
 cd ${outdir}
-qsub -o ${outdir}/logs/logOut1 -e ${outdir}/logs/logErr1 -q generic -v OUTPUTDIR=${outdir} runStbcJob.sh
+qsub -o ${outdir}/logs/logOut${addon} -e ${outdir}/logs/logErr${addon} -q generic -v OUTPUTDIR=${outdir} runStbcJob${addon}.sh
 cd -
 
 
