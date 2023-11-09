@@ -1190,7 +1190,8 @@ void CalculateFlow::CalculateFlowEPM()
         
         
         if(qpM>0 && QRe/Mu>0) {
-          meanPtdiff = ( (qpRe*QReInt)/qpM ) / (TMath::Abs(QReInt)/MuInt);
+          if(FillPtBin < 0 ) {meanPtdiff = ( (qpRe*QReInt)/QReInt ) / (TMath::Abs(QReInt)/MuInt);}
+          if(FillPtBin >= 0 ) {meanPtDiff = ( (qpRe*QRe)/QRe ) / (TMath::Abs(QRe)/Mu);}}
           //  std::cout<<meanPtdiff<< " " << FillPtBin <<std::endl;
           fFlowEPMCorPro[h][charge]->Fill(FillPtBin, meanPtdiff, 1.);            // ADD: fPOIEPMPtDiffQRe[h]
         }
@@ -1251,7 +1252,7 @@ void CalculateFlow::FinalizeFlowEPM()
         CorrErr = GetWeightedCorrelationsError(fFlowEPMCorPro[h][charge], pt);
         
         if(Corr && CorrErr){
-          fFlowEPMPtFlow2Hist[h][charge]->SetBinContent(pt, -Corr); //Let op!! Hier moet min als eta<0 in make function
+          fFlowEPMPtFlow2Hist[h][charge]->SetBinContent(pt, Corr); //Let op!! Hier moet min als eta<0 in make function
           fFlowEPMPtFlow2Hist[h][charge]->SetBinError(pt, CorrErr);}
         else {
           fFlowEPMPtFlow2Hist[h][charge]->SetBinContent(pt, 0); //Let op!! Hier moet min als eta<0 in make function
