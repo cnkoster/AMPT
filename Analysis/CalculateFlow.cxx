@@ -501,9 +501,13 @@ void CalculateFlow::UserCreateOutputObjects() {
             fFlowSPM1IntFlow2Hist[h][charge] = new TH1D(Form("fFlowSPM1IntFlow2Hist[%d][%d]",h,charge),Form("fFlowSPM1IntFlow2Hist[%d][%d]",h,charge),9,ImPaBins);
             fFlowSPM1IntFlow2Hist[h][charge]->Sumw2();
             fFlowSPMList->Add(fFlowSPM1IntFlow2Hist[h][charge]);
+          
+        }
+    }
             
 
-    
+  for (Int_t h=0;h<fFlowNHarm;h++) {
+      for(Int_t charge=0; charge<fCharge; charge++){
         // Event Plane Method (SPECTATORS +EPangle=0)
         
 //        fPOIEPMIntQRe[h][charge] = new TH1D(Form("fPOIEPMIntQRe[%d][%d]",h,charge),Form("fPOIEPMIntQRe[%d][%d]",h,charge),20,-0.8,0.8);//,fPtDiffNBins,fCRCPtBins);
