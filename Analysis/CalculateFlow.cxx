@@ -1212,53 +1212,54 @@ void CalculateFlow::FinalizeFlowEPM()
   Float_t v_p =0.;
   Float_t v_t=0.;
   
-  
-  for(Int_t charge=0; charge<fCharge; charge++){
-    for(Int_t pt=1;pt<=fFlowEPMIntPro_pos[0][charge]->GetNbinsX();pt++) {
-      
-      
-      Float_t Corr_QQ_y = 0; Double_t CorrErr_QQ_y = 0;
-      
-      
-      Corr_QQ_y = GetWeightedCorrelations(fFlowEPMIntPro_pos[0][charge], pt);
-      CorrErr_QQ_y = GetWeightedCorrelationsError(fFlowEPMIntPro_pos[0][charge], pt);
-      
-      
-      fFlowEPMIntFlow2Hist_pos[0][charge]->SetBinContent(pt, Corr_QQ_y); //Let op!! Hier moet min als eta<0 in make function
-      fFlowEPMIntFlow2Hist_pos[0][charge]->SetBinError(pt, CorrErr_QQ_y);
-    }
-    
-      for(Int_t pt=1;pt<=fFlowEPMIntPro_neg[0][charge]->GetNbinsX();pt++) {
+  for (Int_t h=0;h<fFlowNHarm;h++) {
+    for(Int_t charge=0; charge<fCharge; charge++){
+      for(Int_t pt=1;pt<=fFlowEPMIntPro_pos[h][charge]->GetNbinsX();pt++) {
         
         
         Float_t Corr_QQ_y = 0; Double_t CorrErr_QQ_y = 0;
         
         
-        Corr_QQ_y = GetWeightedCorrelations(fFlowEPMIntPro_neg[0][charge], pt);
-        CorrErr_QQ_y = GetWeightedCorrelationsError(fFlowEPMIntPro_neg[0][charge], pt);
+        Corr_QQ_y = GetWeightedCorrelations(fFlowEPMIntPro_pos[h][charge], pt);
+        CorrErr_QQ_y = GetWeightedCorrelationsError(fFlowEPMIntPro_pos[h][charge], pt);
         
         
-        fFlowEPMIntFlow2Hist_neg[0][charge]->SetBinContent(pt, -Corr_QQ_y); //Let op!! Hier moet min als eta<0 in make function
-        fFlowEPMIntFlow2Hist_neg[0][charge]->SetBinError(pt, CorrErr_QQ_y);
+        fFlowEPMIntFlow2Hist_pos[h][charge]->SetBinContent(pt, Corr_QQ_y); //Let op!! Hier moet min als eta<0 in make function
+        fFlowEPMIntFlow2Hist_pos[h][charge]->SetBinError(pt, CorrErr_QQ_y);
+      }
+      
+      for(Int_t pt=1;pt<=fFlowEPMIntPro_neg[h][charge]->GetNbinsX();pt++) {
+        
+        
+        Float_t Corr_QQ_y = 0; Double_t CorrErr_QQ_y = 0;
+        
+        
+        Corr_QQ_y = GetWeightedCorrelations(fFlowEPMIntPro_neg[h][charge], pt);
+        CorrErr_QQ_y = GetWeightedCorrelationsError(fFlowEPMIntPro_neg[h][charge], pt);
+        
+        
+        fFlowEPMIntFlow2Hist_neg[h][charge]->SetBinContent(pt, -Corr_QQ_y); //Let op!! Hier moet min als eta<0 in make function
+        fFlowEPMIntFlow2Hist_neg[h][charge]->SetBinError(pt, CorrErr_QQ_y);
       }
       
       
-      for(Int_t pt=1;pt<=fFlowEPMCorPro[0][charge]->GetNbinsX();pt++) {
+      for(Int_t pt=1;pt<=fFlowEPMCorPro[h][charge]->GetNbinsX();pt++) {
         
         Float_t Corr = 0; Double_t CorrErr = 0;
         
-        Corr= GetWeightedCorrelations(fFlowEPMCorPro[0][charge], pt);
-        CorrErr = GetWeightedCorrelationsError(fFlowEPMCorPro[0][charge], pt);
+        Corr= GetWeightedCorrelations(fFlowEPMCorPro[h][charge], pt);
+        CorrErr = GetWeightedCorrelationsError(fFlowEPMCorPro[h][charge], pt);
         
         if(Corr && CorrErr){
-          fFlowEPMPtFlow2Hist[0][charge]->SetBinContent(pt, -Corr); //Let op!! Hier moet min als eta<0 in make function
-          fFlowEPMPtFlow2Hist[0][charge]->SetBinError(pt, CorrErr);}
+          fFlowEPMPtFlow2Hist[h][charge]->SetBinContent(pt, -Corr); //Let op!! Hier moet min als eta<0 in make function
+          fFlowEPMPtFlow2Hist[h][charge]->SetBinError(pt, CorrErr);}
         else {
-          fFlowEPMPtFlow2Hist[0][charge]->SetBinContent(pt, 0); //Let op!! Hier moet min als eta<0 in make function
+          fFlowEPMPtFlow2Hist[h][charge]->SetBinContent(pt, 0); //Let op!! Hier moet min als eta<0 in make function
         }
       }
-    
+      
     }  // end of for(Int_t charge=0; charge<fCharge; charge++)
+  }// end of pt
   }
 
 
