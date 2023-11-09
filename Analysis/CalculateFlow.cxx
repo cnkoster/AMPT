@@ -1166,7 +1166,7 @@ void CalculateFlow::CalculateFlowEPM()
         
         
         if(qpM>0 && QRe/Mu>0) {
-          meanPtdiff = ( (qpRe/qpM) * (QReInt-qpRe)/(MuInt-qpM) ) / (QReInt/MuInt);
+          meanPtdiff = ( (qpRe*QReInt)/qpM ) / (TMath::Abs(QReInt)/MuInt);
           //  std::cout<<meanPtdiff<< " " << FillPtBin <<std::endl;
           fFlowEPMCorPro[h][charge]->Fill(FillPtBin, meanPtdiff, 1.);            // ADD: fPOIEPMPtDiffQRe[h]
         }
