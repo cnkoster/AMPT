@@ -28,7 +28,7 @@
 //10-20: 25% @ 2.19, 50% @ 3.20, 75% @ 4.34, 100% @ 20
 //========================q2=======================//
 
-void runFlow(TString centrality="", Double_t gCentrality=1., Int_t iGroupMin=0, Int_t iGroupMax=3000, Double_t gSpectatorMin=0, Double_t gSpectatorMax=500) {
+void runFlow(TString centrality="", Double_t gCentrality=1., Int_t iGroupMin=0, Int_t iGroupMax=2000, Double_t gSpectatorMin=0, Double_t gSpectatorMax=500) {
     
     TFile *f= new TFile(Form("/dcache/alice/nkoster/PhD/AMPT_out/Run2_Energy_PbPb/nEvents100/TreeOutput/TreeOutput_Group%i-%i.root",iGroupMin, iGroupMax));
                              //"/dcache/alice/nkoster/PhD/AMPT_out/Run2_Energy_PbPb/Cent%s/TreeOutput_Group%i-%i_Cent%s.root",centrality.Data(),iGroupMin, iGroupMax, centrality.Data()));
@@ -52,10 +52,10 @@ void runFlow(TString centrality="", Double_t gCentrality=1., Int_t iGroupMin=0, 
     Event *event = new Event();
     
     // get the branch and set the branch address
-    TBranch *bnevent = tree->GetBranch("event");
+  TBranch *bnevent = tree->GetBranch("event");
     bnevent->SetAddress(&event);
     
-    Long64_t nevent = tree->GetEntries();
+  Long64_t nevent = 100;//tree->GetEntries();
     Int_t nselected = 0;
     Int_t nb = 0;
     Double_t nSpectators = 0;
