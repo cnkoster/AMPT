@@ -1143,7 +1143,7 @@ void CalculateFlow::CalculateFlowEPM()
       
       for(Int_t pt=0; pt<fPtDiffNBins; pt++) {
         
-        if(fPOISPMPtDiffQRe[h][charge]->GetBinCenter(pt+1)=>0) {
+        if(fPOISPMPtDiffQRe[h][charge]->GetBinCenter(pt+1)>=0) {
           QRe += fPOISPMPtDiffQRe[h][charge]->GetBinContent(pt+1);
           QIm += fPOISPMPtDiffQIm[h][charge]->GetBinContent(pt+1);
           Mu += fPOISPMPtDiffMul[h][charge]->GetBinContent(pt+1);
