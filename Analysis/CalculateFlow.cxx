@@ -1171,8 +1171,11 @@ void CalculateFlow::CalculateFlowEPM()
         v_neg = QReInt/MuInt;
         v_pos = QRe/MuInt;
         fFlowEPMIntPro_pos[h][charge]->Fill(fImpactParameter, v_pos , 1.); //1 for weights
-        if(h==0){fFlowEPMIntPro_neg[h][charge]->Fill(fImpactParameter, -v_neg , 1.);} //1 for weights
-        if(h>0){fFlowEPMIntPro_neg[h][charge]->Fill(fImpactParameter, v_neg , 1.);}
+//        if(h==0){
+          fFlowEPMIntPro_neg[h][charge]->Fill(fImpactParameter, v_neg , 1.);
+          
+//        }//1 for weights
+//        if(h>0){fFlowEPMIntPro_neg[h][charge]->Fill(fImpactParameter, v_neg , 1.);}
         
         //  fFlowEPMRefCorPro[h][charge]->Fill(fImpactParameter, meanCos , 1.); //1 for weights  /ADD:fFlowEPMRefCorPro
       }
