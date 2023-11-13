@@ -55,7 +55,7 @@ void runFlow(Bool_t etaFlag = kTRUE, TString centrality="", Double_t gCentrality
   TBranch *bnevent = tree->GetBranch("event");
     bnevent->SetAddress(&event);
     
-  Long64_t nevent = 1000;//tree->GetEntries();
+  Long64_t nevent = 100;//tree->GetEntries();
     Int_t nselected = 0;
     Int_t nb = 0;
     Double_t nSpectators = 0;
