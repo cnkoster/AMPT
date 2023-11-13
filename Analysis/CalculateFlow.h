@@ -68,6 +68,7 @@ public:
   void SetminPtCut(Double_t minPt) {this->minPtCut = minPt;};
   void SetminNtrackCut(Double_t minNtrk) {this->minNtracks = minNtrk;};
   void SetmaxEtaCut(Double_t maxEta) {this->maxEtaCut = maxEta;};
+  void SetEtaDiff(Bool_t etaflag) {this->EtaDiff = etaflag;};
   void SetdoQA(Bool_t bflag) {this->doQA = bflag;};
   
   //CMW
@@ -241,6 +242,7 @@ private:
   Double_t minPtCut = 0;
   Double_t maxEtaCut = 99; //|eta|<maxEtaCut
   Int_t minNtracks = 0;
+  Bool_t EtaCut = kTRUE;
   
   
   // added
