@@ -72,6 +72,8 @@ void runFlow(TString centrality="", Double_t gCentrality=1., Int_t iGroupMin=0, 
     fQC->SetminNtrackCut(1);
     fQC->SetmaxEtaCut(0.8);
     fQC->SetdoQA(kTRUE);
+    fQC->SetEtaCut(kFALSE); // pt differential flow -> kTRUE for eta diff flow.
+  
     
     
     for (Long64_t i=0;i<nevent;i++) {
