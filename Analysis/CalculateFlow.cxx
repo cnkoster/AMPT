@@ -175,6 +175,14 @@ void CalculateFlow::InitializeArraysForFlowSPM()
             
             fFlowSPM1IntPro[h][charge] = NULL;
             fFlowSPM1IntFlow2Hist[h][charge] = NULL;
+          
+          fPOISPMPtDiffQRe_pos[h][charge] = NULL;                  //POI Pt Diff Q Re [fQVecPower][fFlowHarmonic]
+          fPOISPMPtDiffQIm_pos[h][charge] = NULL;
+          fPOISPMPtDiffMul_pos[h][charge] = NULL;
+          
+          fPOISPMPtDiffQRe_neg[h][charge] = NULL;                  //POI Pt Diff Q Re [fQVecPower][fFlowHarmonic]
+          fPOISPMPtDiffQIm_neg[h][charge] = NULL;
+          fPOISPMPtDiffMul_neg[h][charge] = NULL;
             
         }
         
@@ -927,13 +935,13 @@ void CalculateFlow::ResetEventByEventQuantities()
             if(fRFPSPMPtDiffQIm_V0C[h][charge]) fRFPSPMPtDiffQIm_V0C[h][charge]->Reset();
             if(fRFPSPMPtDiffMul_V0C[h][charge]) fRFPSPMPtDiffMul_V0C[h][charge]->Reset();
           
-          if(fPOIPtDiffQRe_pos[h][charge]) fPOIPtDiffQRe_pos[h][charge]->Reset();
-          if(fPOIPtDiffQIm_pos[h][charge]) fPOIPtDiffQIm_pos[h][charge]->Reset();
-          if(fPOIPtDiffMul_pos[h][charge]) fPOIPtDiffMul_pos[h][charge]->Reset();
+          if(fPOISPMPtDiffQRe_pos[h][charge]) fPOISPMPtDiffQRe_pos[h][charge]->Reset();
+          if(fPOISPMPtDiffQIm_pos[h][charge]) fPOISPMPtDiffQIm_pos[h][charge]->Reset();
+          if(fPOISPMPtDiffMul_pos[h][charge]) fPOISPMPtDiffMul_pos[h][charge]->Reset();
           
-          if(fPOIPtDiffQRe_neg[h][charge]) fPOIPtDiffQRe_neg[h][charge]->Reset();
-          if(fPOIPtDiffQIm_neg[h][charge]) fPOIPtDiffQIm_neg[h][charge]->Reset();
-          if(fPOIPtDiffMul_neg[h][charge]) fPOIPtDiffMul_neg[h][charge]->Reset();
+          if(fPOISPMPtDiffQRe_neg[h][charge]) fPOISPMPtDiffQRe_neg[h][charge]->Reset();
+          if(fPOISPMPtDiffQIm_neg[h][charge]) fPOISPMPtDiffQIm_neg[h][charge]->Reset();
+          if(fPOISPMPtDiffMul_neg[h][charge]) fPOISPMPtDiffMul_neg[h][charge]->Reset();
 
             
             
