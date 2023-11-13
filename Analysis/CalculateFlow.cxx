@@ -796,7 +796,7 @@ void CalculateFlow::Make(Event* anEvent) {
     
     //sw.tick();
    // CalculateFlowQC();
-   // CalculateFlowSPM();
+    CalculateFlowSPM();
     CalculateFlowSPM1();
     CalculateFlowEPM();
     
