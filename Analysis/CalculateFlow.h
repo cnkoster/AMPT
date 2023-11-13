@@ -87,6 +87,7 @@ private:
   Double_t wEta = 1; // In MC, set to 1 for now.
   Double_t wTrack = 1; // In MC, set to 1 for now.
   Double_t *fCRCPtBins;
+  Double_t *fBins;
   Bool_t doQA = kFALSE;
   Double_t trkWgt = 1;
   
@@ -151,6 +152,8 @@ private:
   const static Int_t fCharge = 3;
   Int_t fPtDiffNBins; //
   Int_t fEtaDiffNBins;
+  Int_t fNBins;
+  
   
   TH1D *fPOIPtDiffQRe[fQVecPower][fFlowNHarmMax][fCharge]; // real part
   TH1D *fPOIPtDiffQIm[fQVecPower][fFlowNHarmMax][fCharge]; // imaginary part
