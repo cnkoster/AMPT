@@ -948,10 +948,10 @@ void CalculateFlow::CalculateFlowSPM()
 //            y_uQ = -1*(QIm*QIm_RFP_V0A);
           
           
-              x_QQ = ( (QRe_RFP_V0A*QRe) * (QRe_RFP_V0C*QRe) )/(QRe_RFP_V0A*QRe_RFP_V0C);
-              y_QQ = ( (QIm_RFP_V0A*QIm) * (QIm_RFP_V0C*QIm) )/(QIm_RFP_V0A*QIm_RFP_V0C);
-              x_uQ = (QRe*QRe);
-              y_uQ = (QIm*QIm);
+              x_QQ = ( (QRe_RFP_V0A*QRe)/Mu * (QRe_RFP_V0C*QRe)/Mu )/(QRe_RFP_V0A*QRe_RFP_V0C)/Mu_RFP_V0A;
+              y_QQ = ( (QIm_RFP_V0A*QIm)/Mu * (QIm_RFP_V0C*QIm)/Mu )/(QIm_RFP_V0A*QIm_RFP_V0C)/Mu_RFP_V0A;
+              x_uQ = (QRe*QRe)/Mu;
+              y_uQ = (QIm*QIm)/Mu;
             
             
             if(TMath::Abs(Mu)>0. && TMath::Abs(x_QQ) > 0 && TMath::Abs(y_QQ) > 0){
