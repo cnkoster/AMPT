@@ -28,7 +28,7 @@
 //10-20: 25% @ 2.19, 50% @ 3.20, 75% @ 4.34, 100% @ 20
 //========================q2=======================//
 
-void runFlow(Bool_t eta = kTRUE, TString centrality="", Double_t gCentrality=1., Int_t iGroupMin=0, Int_t iGroupMax=2000, Double_t gSpectatorMin=0, Double_t gSpectatorMax=500) {
+void runFlow(Bool_t etaFlag = kTRUE, TString centrality="", Double_t gCentrality=1., Int_t iGroupMin=0, Int_t iGroupMax=2000, Double_t gSpectatorMin=0, Double_t gSpectatorMax=500) {
     
     TFile *f= new TFile(Form("/dcache/alice/nkoster/PhD/AMPT_out/Run2_Energy_PbPb/nEvents100/TreeOutput/TreeOutput_Group%i-%i.root",iGroupMin, iGroupMax));
                              //"/dcache/alice/nkoster/PhD/AMPT_out/Run2_Energy_PbPb/Cent%s/TreeOutput_Group%i-%i_Cent%s.root",centrality.Data(),iGroupMin, iGroupMax, centrality.Data()));
@@ -66,7 +66,7 @@ void runFlow(Bool_t eta = kTRUE, TString centrality="", Double_t gCentrality=1.,
     CalculateFlow *fQC = new CalculateFlow("CalculateFlow");
   
     TString diff;
-    if(eta) diff="eta";
+    if(etaFlag) diff="eta";
     else diff="pt";
     
     fQC->UserCreateOutputObjects();
@@ -75,7 +75,7 @@ void runFlow(Bool_t eta = kTRUE, TString centrality="", Double_t gCentrality=1.,
     fQC->SetminNtrackCut(1);
     fQC->SetmaxEtaCut(0.8);
     fQC->SetdoQA(kTRUE);
-    fQC->SetEtaCut(kFALSE); // pt differential flow -> kTRUE for eta diff flow.
+    fQC->SetEtaCut(etaFlag); // pt differential flow -> kTRUE for eta diff flow.
   
     
     
