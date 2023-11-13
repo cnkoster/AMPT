@@ -488,11 +488,27 @@ void CalculateFlow::UserCreateOutputObjects() {
         for(Int_t charge=0; charge<fCharge; charge++){
             fPOISPMPtDiffQRe[h][charge] = new TH1D(Form("fPOISPMPtDiffQRe[%d][%d]",h,charge),Form("fPOISPMPtDiffQRe[%d][%d]",h,charge), fNBins, fBins);//,fPtDiffNBins,fCRCPtBins);
             fPOISPMPtDiffQRe[h][charge]->Sumw2();
-            
             fPOISPMPtDiffQIm[h][charge] = new TH1D(Form("fPOISPMPtDiffQIm[%d][%d]",h,charge),Form("fPOISPMPtDiffQIm[%d][%d]",h,charge), fNBins, fBins);//,fPtDiffNBins,fCRCPtBins);
             fPOISPMPtDiffQIm[h][charge]->Sumw2();
             fPOISPMPtDiffMul[h][charge] = new TH1D(Form("fPOISPMPtDiffMul[%d][%d]",h,charge),Form("fPOISPMPtDiffMul[%d][%d]",h,charge), fNBins, fBins);//,fPtDiffNBins,fCRCPtBins);
             fPOISPMPtDiffMul[h][charge]->Sumw2();
+          
+          fPOISPMPtDiffQRe_pos[h][charge] = new TH1D(Form("fPOISPMPtDiffQRe_pos[%d][%d]",h,charge),Form("fPOISPMPtDiffQRe_pos[%d][%d]",h,charge), fNBins, fBins);//,fPtDiffNBins,fCRCPtBins);
+          fPOISPMPtDiffQRe_pos[h][charge]->Sumw2();
+          fPOISPMPtDiffQIm_pos[h][charge] = new TH1D(Form("fPOISPMPtDiffQIm_pos[%d][%d]",h,charge),Form("fPOISPMPtDiffQIm_pos[%d][%d]",h,charge), fNBins, fBins);//,fPtDiffNBins,fCRCPtBins);
+          fPOISPMPtDiffQIm_pos[h][charge]->Sumw2();
+          fPOISPMPtDiffMul_pos[h][charge] = new TH1D(Form("fPOISPMPtDiffMul_pos[%d][%d]",h,charge),Form("fPOISPMPtDiffMul_pos[%d][%d]",h,charge), fNBins, fBins);//,fPtDiffNBins,fCRCPtBins);
+          fPOISPMPtDiffMul_pos[h][charge]->Sumw2();
+          
+          
+          fPOISPMPtDiffQRe_neg[h][charge] = new TH1D(Form("fPOISPMPtDiffQRe_neg[%d][%d]",h,charge),Form("fPOISPMPtDiffQRe_neg[%d][%d]",h,charge), fNBins, fBins);//,fPtDiffNBins,fCRCPtBins);
+          fPOISPMPtDiffQRe_neg[h][charge]->Sumw2();
+          fPOISPMPtDiffQIm_neg[h][charge] = new TH1D(Form("fPOISPMPtDiffQIm_neg[%d][%d]",h,charge),Form("fPOISPMPtDiffQIm_neg[%d][%d]",h,charge), fNBins, fBins);//,fPtDiffNBins,fCRCPtBins);
+          fPOISPMPtDiffQIm_neg[h][charge]->Sumw2();
+          fPOISPMPtDiffMul_neg[h][charge] = new TH1D(Form("fPOISPMPtDiffMul_neg[%d][%d]",h,charge),Form("fPOISPMPtDiffMul_neg[%d][%d]",h,charge), fNBins, fBins);//,fPtDiffNBins,fCRCPtBins);
+          fPOISPMPtDiffMul_neg[h][charge]->Sumw2();
+          
+          
             fRFPSPMPtDiffQRe_V0A[h][charge] = new TH1D(Form("fRFPSPMPtDiffQRe_V0A[%d][%d]",h,charge),Form("fRFPSPMPtDiffQRe_V0A[%d][%d]",h,charge),fNBins,-10,10);//,fPtDiffNBins,fCRCPtBins);
             fRFPSPMPtDiffQRe_V0A[h][charge]->Sumw2();
             fRFPSPMPtDiffQIm_V0A[h][charge] = new TH1D(Form("fRFPSPMPtDiffQIm_V0A[%d][%d]",h,charge),Form("fRFPSPMPtDiffQIm_V0A[%d][%d]",h,charge),fNBins,-10,10);//,fPtDiffNBins,fCRCPtBins);
