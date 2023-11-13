@@ -150,6 +150,7 @@ private:
   const static Int_t fQVecPower = 5; //wordt dit alleen gebruikt voor de weights??
   const static Int_t fCharge = 3;
   Int_t fPtDiffNBins; //
+  Int_t fEtaDiffNBins;
   
   TH1D *fPOIPtDiffQRe[fQVecPower][fFlowNHarmMax][fCharge]; // real part
   TH1D *fPOIPtDiffQIm[fQVecPower][fFlowNHarmMax][fCharge]; // imaginary part

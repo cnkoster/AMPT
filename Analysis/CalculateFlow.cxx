@@ -350,12 +350,24 @@ void CalculateFlow::UserCreateOutputObjects() {
     fSpectraList->Add(fNegProtonsSpectra);
     
     // Calculate FlowQC Hists
-    fPtDiffNBins = 20; //37 for pt 20 for eta
-    fCRCPtBins = new Double_t[37];
-    Double_t PtBins[] = {0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.,1.25,1.5,1.75,2.,2.25,2.5,2.75,3.,3.25,3.5,3.75,4.,4.5,5.,5.5,6.,7.,8.,9.,10.,12.,14.,17.,20.,25.,30.,40.,50.};
-    Double_t ImPaBins[] = {3.72, 5.23, 7.31, 8.88, 10.20, 11.38, 12.47, 13.50, 14.51, 15.0};
-    for(Int_t r=0; r<37; r++) {
-        fCRCPtBins[r] = PtBins[r];
+    // choose for eta diff or pt diff:
+  bool eta=true;
+  Int_t fNBins; Double_t fBins;
+  
+  fPtDiffNBins = 36; //for pt 20 for eta
+  fEtaDiffBins = 16;
+  
+  fCRCPtBins = new Double_t[37];
+  Double_t PtBins[] = {0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.,1.25,1.5,1.75,2.,2.25,2.5,2.75,3.,3.25,3.5,3.75,4.,4.5,5.,5.5,6.,7.,8.,9.,10.,12.,14.,17.,20.,25.,30.,40.,50.};
+  Double_t EtaBins[] = {-0.8,-0.7, -0.6, -0.5, -0.4, -0.3, -0.2, -0.1, 0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8};
+  Double_t ImPaBins[] = {3.72, 5.23, 7.31, 8.88, 10.20, 11.38, 12.47, 13.50, 14.51, 15.0};
+  for(Int_t r=0; r<37; r++) {
+    fCRCPtBins[r] = PtBins[r];
+  }
+  
+  if(eta){fNBins = fEtaDiffBins; fBins = EtaBins;}
+  if(!eta){fNBins = fPtDiffBins; fBins = fCRCPtBins;}
+    
     }
     // so for each power of the Q-vector and each flowHarmonic make a Th1D
     // In output vinden we: [0][0] tot [13][13] ?
@@ -364,11 +376,11 @@ void CalculateFlow::UserCreateOutputObjects() {
     for (Int_t c=0;c<fQVecPower;c++) {
         for (Int_t h=0;h<fFlowNHarmMax;h++) {
             for(Int_t charge=0; charge<fCharge; charge++){
-                fPOIPtDiffQRe[c][h][charge] = new TH1D(Form("fPOIPtDiffQRe[%d][%d][%d]",c,h,charge),Form("fPOIPtDiffQRe[%d][%d][%d]",c,h,charge),20,-0.8,0.8);//,fPtDiffNBins,fCRCPtBins);
+                fPOIPtDiffQRe[c][h][charge] = new TH1D(Form("fPOIPtDiffQRe[%d][%d][%d]",c,h,charge),Form("fPOIPtDiffQRe[%d][%d][%d]",c,h,charge), fNBins, fBins);
                 //   fFlowQCList->Add(fPOIPtDiffQRe[c][h]);
-                fPOIPtDiffQIm[c][h][charge] = new TH1D(Form("fPOIPtDiffQIm[%d][%d][%d]",c,h,charge),Form("fPOIPtDiffQIm[%d][%d][%d]",c,h,charge),20,-0.8,0.8);//,fPtDiffNBins,fCRCPtBins);
+                fPOIPtDiffQIm[c][h][charge] = new TH1D(Form("fPOIPtDiffQIm[%d][%d][%d]",c,h,charge),Form("fPOIPtDiffQIm[%d][%d][%d]",c,h,charge), fNBins, fBins);//,fPtDiffNBins,fCRCPtBins);
                 //  fFlowQCList->Add(fPOIPtDiffQIm[c][h]);
-                fPOIPtDiffMul[c][h][charge] = new TH1D(Form("fPOIPtDiffMul[%d][%d][%d]",c,h,charge),Form("fPOIPtDiffMul[%d][%d][%d]",c,h,charge),20,-0.8,0.8);//,fPtDiffNBins,fCRCPtBins);
+                fPOIPtDiffMul[c][h][charge] = new TH1D(Form("fPOIPtDiffMul[%d][%d][%d]",c,h,charge),Form("fPOIPtDiffMul[%d][%d][%d]",c,h,charge), fNBins, fBins);//,fPtDiffNBins,fCRCPtBins);
                 //   fFlowQCList->Add(fPOIPtDiffMul[c][h]);
             }
         }
@@ -431,10 +443,10 @@ void CalculateFlow::UserCreateOutputObjects() {
         for(Int_t i=0; i<fFlowNHarm; i++) {
             for(Int_t j=0; j<fFlowQCNPro; j++) {
                 for(Int_t charge=0; charge<fCharge; charge++){
-                    fFlowQCCorPro[h][i][j][charge] = new TProfile(Form("fFlowQCCorPro[%d][%d][%d][%d]",h,i,j,charge),Form("fFlowQCCorPro[%d][%d][%d][%d]",h,i,j,charge),fPtDiffNBins,fCRCPtBins,"s");
+                    fFlowQCCorPro[h][i][j][charge] = new TProfile(Form("fFlowQCCorPro[%d][%d][%d][%d]",h,i,j,charge),Form("fFlowQCCorPro[%d][%d][%d][%d]",h,i,j,charge), fNBins, fBins,"s");
                     fFlowQCCorPro[h][i][j][charge]->Sumw2();
                     //      fFlowQCList->Add(fFlowQCCorPro[h][i][j]);
-                    fFlowQCCorHist[h][i][j][charge] = new TH1D(Form("fFlowQCCorHist[%d][%d][%d][%d]",h,i,j,charge),Form("fFlowQCCorHist[%d][%d][%d][%d]",h,i,j,charge),20,-0.8,0.8);//,fPtDiffNBins,fCRCPtBins);
+                    fFlowQCCorHist[h][i][j][charge] = new TH1D(Form("fFlowQCCorHist[%d][%d][%d][%d]",h,i,j,charge),Form("fFlowQCCorHist[%d][%d][%d][%d]",h,i,j,charge), fNBins, fBins);//,fPtDiffNBins,fCRCPtBins);
                     fFlowQCCorHist[h][i][j][charge]->Sumw2();
                     //  fFlowQCList->Add(fFlowQCCorHist[h][i][j]);
                 }
@@ -442,13 +454,13 @@ void CalculateFlow::UserCreateOutputObjects() {
             
             for(Int_t k=0; k<fFlowQCNCov; k++) {
                 for(Int_t charge=0; charge<fCharge; charge++){
-                    fFlowQCCorCovPro[h][i][k][charge] = new TProfile(Form("fFlowQCCorCovPro[%d][%d][%d][%d]",h,i,k,charge),Form("fFlowQCCorCovPro[%d][%d][%d][%d]",h,i,k,charge),fPtDiffNBins,fCRCPtBins,"s");
+                    fFlowQCCorCovPro[h][i][k][charge] = new TProfile(Form("fFlowQCCorCovPro[%d][%d][%d][%d]",h,i,k,charge),Form("fFlowQCCorCovPro[%d][%d][%d][%d]",h,i,k,charge), fNBins, fBins,"s");
                     fFlowQCCorCovPro[h][i][k][charge]->Sumw2();
                     //  fFlowQCList->Add(fFlowQCCorCovPro[h][i][k]);
-                    fFlowQCCorCovHist[h][i][k][charge] = new TH1D(Form("fFlowQCCorCovHist[%d][%d][%d][%d]",h,i,k,charge),Form("fFlowQCCorCovHist[%d][%d][%d][%d]",h,i,k,charge),20,-0.8,0.8);//,fPtDiffNBins,fCRCPtBins);
+                    fFlowQCCorCovHist[h][i][k][charge] = new TH1D(Form("fFlowQCCorCovHist[%d][%d][%d][%d]",h,i,k,charge),Form("fFlowQCCorCovHist[%d][%d][%d][%d]",h,i,k,charge), fNBins, fBins);//,fPtDiffNBins,fCRCPtBins);
                     fFlowQCCorCovHist[h][i][k][charge]->Sumw2();
                     //    fFlowQCList->Add(fFlowQCCorCovHist[h][i][k]);
-                    fFlowQCFinalPtDifHist[h][i][k][charge] = new TH1D(Form("fFlowQCFinalPtDifHist[%d][%d][%d][%d]",h,i,k,charge),Form("fFlowQCFinalPtDifHist[%d][%d][%d][%d]",h,i,k,charge),20,-0.8,0.8);//,fPtDiffNBins,fCRCPtBins);
+                    fFlowQCFinalPtDifHist[h][i][k][charge] = new TH1D(Form("fFlowQCFinalPtDifHist[%d][%d][%d][%d]",h,i,k,charge),Form("fFlowQCFinalPtDifHist[%d][%d][%d][%d]",h,i,k,charge), fNBins, fBins);//,fPtDiffNBins,fCRCPtBins);
                     fFlowQCFinalPtDifHist[h][i][k][charge]->Sumw2();
                     if(h==0){
                         fFlowQCList->Add(fFlowQCFinalPtDifHist[h][i][k][charge]);} //we say cen=55. so the histo is filled only for h=6
@@ -466,24 +478,24 @@ void CalculateFlow::UserCreateOutputObjects() {
     
     for (Int_t h=0;h<fFlowNHarm;h++) {
         for(Int_t charge=0; charge<fCharge; charge++){
-            fPOISPMPtDiffQRe[h][charge] = new TH1D(Form("fPOISPMPtDiffQRe[%d][%d]",h,charge),Form("fPOISPMPtDiffQRe[%d][%d]",h,charge),20,-0.8,0.8);//,fPtDiffNBins,fCRCPtBins);
+            fPOISPMPtDiffQRe[h][charge] = new TH1D(Form("fPOISPMPtDiffQRe[%d][%d]",h,charge),Form("fPOISPMPtDiffQRe[%d][%d]",h,charge), fNBins, fBins);//,fPtDiffNBins,fCRCPtBins);
             fPOISPMPtDiffQRe[h][charge]->Sumw2();
             
-            fPOISPMPtDiffQIm[h][charge] = new TH1D(Form("fPOISPMPtDiffQIm[%d][%d]",h,charge),Form("fPOISPMPtDiffQIm[%d][%d]",h,charge),20,-0.8,0.8);//,fPtDiffNBins,fCRCPtBins);
+            fPOISPMPtDiffQIm[h][charge] = new TH1D(Form("fPOISPMPtDiffQIm[%d][%d]",h,charge),Form("fPOISPMPtDiffQIm[%d][%d]",h,charge), fNBins, fBins);//,fPtDiffNBins,fCRCPtBins);
             fPOISPMPtDiffQIm[h][charge]->Sumw2();
-            fPOISPMPtDiffMul[h][charge] = new TH1D(Form("fPOISPMPtDiffMul[%d][%d]",h,charge),Form("fPOISPMPtDiffMul[%d][%d]",h,charge),20,-0.8,0.8);//,fPtDiffNBins,fCRCPtBins);
+            fPOISPMPtDiffMul[h][charge] = new TH1D(Form("fPOISPMPtDiffMul[%d][%d]",h,charge),Form("fPOISPMPtDiffMul[%d][%d]",h,charge), fNBins, fBins);//,fPtDiffNBins,fCRCPtBins);
             fPOISPMPtDiffMul[h][charge]->Sumw2();
-            fRFPSPMPtDiffQRe_V0A[h][charge] = new TH1D(Form("fRFPSPMPtDiffQRe_V0A[%d][%d]",h,charge),Form("fRFPSPMPtDiffQRe_V0A[%d][%d]",h,charge),20,-2,6);//,fPtDiffNBins,fCRCPtBins);
+            fRFPSPMPtDiffQRe_V0A[h][charge] = new TH1D(Form("fRFPSPMPtDiffQRe_V0A[%d][%d]",h,charge),Form("fRFPSPMPtDiffQRe_V0A[%d][%d]",h,charge),fNBins,-10,10);//,fPtDiffNBins,fCRCPtBins);
             fRFPSPMPtDiffQRe_V0A[h][charge]->Sumw2();
-            fRFPSPMPtDiffQIm_V0A[h][charge] = new TH1D(Form("fRFPSPMPtDiffQIm_V0A[%d][%d]",h,charge),Form("fRFPSPMPtDiffQIm_V0A[%d][%d]",h,charge),20,-2,6);//,fPtDiffNBins,fCRCPtBins);
+            fRFPSPMPtDiffQIm_V0A[h][charge] = new TH1D(Form("fRFPSPMPtDiffQIm_V0A[%d][%d]",h,charge),Form("fRFPSPMPtDiffQIm_V0A[%d][%d]",h,charge),fNBins,-10,10);//,fPtDiffNBins,fCRCPtBins);
             fRFPSPMPtDiffQIm_V0A[h][charge]->Sumw2();
-            fRFPSPMPtDiffMul_V0A[h][charge] = new TH1D(Form("fRFPSPMPtDiffMul_V0A[%d][%d]",h,charge),Form("fRFPSPMPtDiffMul_V0A[%d][%d]",h,charge),20,-2,6);//,fPtDiffNBins,fCRCPtBins);
+            fRFPSPMPtDiffMul_V0A[h][charge] = new TH1D(Form("fRFPSPMPtDiffMul_V0A[%d][%d]",h,charge),Form("fRFPSPMPtDiffMul_V0A[%d][%d]",h,charge),fNBins,-10,10);//,fPtDiffNBins,fCRCPtBins);
             fRFPSPMPtDiffMul_V0A[h][charge]->Sumw2();
-            fRFPSPMPtDiffQRe_V0C[h][charge] = new TH1D(Form("fRFPSPMPtDiffQRe_V0C[%d][%d]",h,charge),Form("fRFPSPMPtDiffQRe_V0C[%d][%d]",h,charge),20,-2,6);//,fPtDiffNBins,fCRCPtBins);
+            fRFPSPMPtDiffQRe_V0C[h][charge] = new TH1D(Form("fRFPSPMPtDiffQRe_V0C[%d][%d]",h,charge),Form("fRFPSPMPtDiffQRe_V0C[%d][%d]",h,charge),fNBins,-10,10);//,fPtDiffNBins,fCRCPtBins);
             fRFPSPMPtDiffQRe_V0C[h][charge]->Sumw2();
-            fRFPSPMPtDiffQIm_V0C[h][charge] = new TH1D(Form("fRFPSPMPtDiffQIm_V0C[%d][%d]",h,charge),Form("fRFPSPMPtDiffQIm_V0C[%d][%d]",h,charge),20,-2,6);//,fPtDiffNBins,fCRCPtBins);
+            fRFPSPMPtDiffQIm_V0C[h][charge] = new TH1D(Form("fRFPSPMPtDiffQIm_V0C[%d][%d]",h,charge),Form("fRFPSPMPtDiffQIm_V0C[%d][%d]",h,charge),fNBins,-10,10);//,fPtDiffNBins,fCRCPtBins);
             fRFPSPMPtDiffQIm_V0C[h][charge]->Sumw2();
-            fRFPSPMPtDiffMul_V0C[h][charge] = new TH1D(Form("fRFPSPMPtDiffMul_V0C[%d][%d]",h,charge),Form("fRFPSPMPtDiffMul_V0C[%d][%d]",h,charge),20,-2,6);//,fPtDiffNBins,fCRCPtBins);
+            fRFPSPMPtDiffMul_V0C[h][charge] = new TH1D(Form("fRFPSPMPtDiffMul_V0C[%d][%d]",h,charge),Form("fRFPSPMPtDiffMul_V0C[%d][%d]",h,charge),fNBins,-10,10);//,fPtDiffNBins,fCRCPtBins);
             fRFPSPMPtDiffMul_V0C[h][charge]->Sumw2();
             
             fFlowSPMIntPro[h][charge]= new TProfile(Form("fSPMEPresolutionPro[%d][%d]",h,charge),Form("fSPMEPresolutionPro%d][%d]",h,charge),9,ImPaBins,"s");
@@ -510,11 +522,11 @@ void CalculateFlow::UserCreateOutputObjects() {
       for(Int_t charge=0; charge<fCharge; charge++){
         // Event Plane Method (SPECTATORS +EPangle=0)
         
-//        fPOIEPMIntQRe[h][charge] = new TH1D(Form("fPOIEPMIntQRe[%d][%d]",h,charge),Form("fPOIEPMIntQRe[%d][%d]",h,charge),20,-0.8,0.8);//,fPtDiffNBins,fCRCPtBins);
+//        fPOIEPMIntQRe[h][charge] = new TH1D(Form("fPOIEPMIntQRe[%d][%d]",h,charge),Form("fPOIEPMIntQRe[%d][%d]",h,charge), fNBins, fBins);//,fPtDiffNBins,fCRCPtBins);
 //        fPOIEPMIntQRe[h][charge]->Sumw2();
-//        fPOIEPMIntQIm[h][charge] = new TH1D(Form("fPOIEPMIntQIm[%d][%d]",h,charge),Form("fPOIEPMIntQIm[%d][%d]",h,charge),20,-0.8,0.8);//,fPtDiffNBins,fCRCPtBins);
+//        fPOIEPMIntQIm[h][charge] = new TH1D(Form("fPOIEPMIntQIm[%d][%d]",h,charge),Form("fPOIEPMIntQIm[%d][%d]",h,charge), fNBins, fBins);//,fPtDiffNBins,fCRCPtBins);
 //        fPOIEPMIntQIm[h][charge]->Sumw2();
-//        fPOIEPMIntMul[h][charge] = new TH1D(Form("fPOIEPMIntMul[%d][%d]",h,charge),Form("fPOIEPMIntMul[%d][%d]",h,charge),20,-0.8,0.8);//,fPtDiffNBins,fCRCPtBins);
+//        fPOIEPMIntMul[h][charge] = new TH1D(Form("fPOIEPMIntMul[%d][%d]",h,charge),Form("fPOIEPMIntMul[%d][%d]",h,charge), fNBins, fBins);//,fPtDiffNBins,fCRCPtBins);
 //        fPOIEPMIntMul[h][charge]->Sumw2();
         
         fFlowEPMIntPro_pos[h][charge]= new TProfile(Form("fFlowEPMIntPro_pos[%d][%d]",h,charge),Form("fFlowEPMIntPro_pos[%d][%d]",h,charge),9,ImPaBins,"s");
@@ -532,10 +544,10 @@ void CalculateFlow::UserCreateOutputObjects() {
         fFlowSPMList->Add(fFlowEPMIntFlow2Hist_neg[h][charge]);
         
         
-        fFlowEPMCorPro[h][charge]= new TProfile(Form("fFlowEPMCorPro[%d][%d]",h,charge),Form("fFlowEPMCorPro[%d][%d]",h,charge),20,-0.8,0.8, "s");//,fPtDiffNBins,fCRCPtBins,"s");
+        fFlowEPMCorPro[h][charge]= new TProfile(Form("fFlowEPMCorPro[%d][%d]",h,charge),Form("fFlowEPMCorPro[%d][%d]",h,charge), fNBins, fBins, "s");//, fNBins, fBins,"s");
         fFlowEPMCorPro[h][charge]->Sumw2();
         
-        fFlowEPMPtFlow2Hist[h][charge] = new TH1D(Form("fFlowEPMPtFlow2Hist[%d][%d]",h,charge),Form("fFlowEPMPtFlow2Hist[%d][%d]",h,charge),20,-0.8,0.8);//,fPtDiffNBins,fCRCPtBins);
+        fFlowEPMPtFlow2Hist[h][charge] = new TH1D(Form("fFlowEPMPtFlow2Hist[%d][%d]",h,charge),Form("fFlowEPMPtFlow2Hist[%d][%d]",h,charge), fNBins, fBins);//,fPtDiffNBins,fCRCPtBins);
         fFlowEPMPtFlow2Hist[h][charge]->Sumw2();
         fFlowSPMList->Add(fFlowEPMPtFlow2Hist[h][charge]);
 
@@ -1065,7 +1077,6 @@ void CalculateFlow::FinalizeFlowSPM()
     Float_t v_t=0.;
     
     Float_t EP_res;
-    Double_t a =1.;
     
     //    for(Int_t charge=0; charge<fCharge; charge++){
     //        for(Int_t pt=1;pt<=fSPMEPresolutionPro[0][charge]->GetNbinsX();pt++) {
@@ -1087,10 +1098,7 @@ void CalculateFlow::FinalizeFlowSPM()
                 
                 EP_res = GetWeightedCorrelations(fSPMEPresolutionPro[h][charge],pt);
                 
-                if(h==0) {a=-1;}
-                if(h>0) {a=1;}
-                
-                fFlowSPMIntFlow2Hist[h][charge]->SetBinContent(pt, a*Corr_QQ_y);
+                fFlowSPMIntFlow2Hist[h][charge]->SetBinContent(pt, Corr_QQ_y);
                 fFlowSPMIntFlow2Hist[h][charge]->SetBinError(pt, CorrErr_QQ_y);
             }
         }
@@ -1191,7 +1199,7 @@ void CalculateFlow::CalculateFlowEPM()
 //          }
           
           //if(h>=0){
-            meanPtdiff = ( (qpRe*(QReInt+QRe))/qpM ) / (TMath::Abs(QReInt+QRe));//}
+            meanPtdiff = (( (qpRe*(QReInt+QRe))/qpM ) / (TMath::Abs(QReInt+QRe)) ) + (( -1*(qpIm*(QImInt+QIm))/qpM ) / (TMath::Abs(QImInt+QIm)) ) ;//}
           //  std::cout<<meanPtdiff<< " " << FillPtBin <<std::endl;
           fFlowEPMCorPro[h][charge]->Fill(FillPtBin, meanPtdiff, 1.);            // ADD: fPOIEPMPtDiffQRe[h]
         }
