@@ -75,7 +75,7 @@ void runFlow(Bool_t etaFlag = kTRUE, TString centrality="", Double_t gCentrality
     fQC->SetminNtrackCut(1);
     fQC->SetmaxEtaCut(0.8);
     fQC->SetdoQA(kTRUE);
-    fQC->SetEtaCut(etaFlag); // pt differential flow -> kTRUE for eta diff flow.
+    fQC->SetEtaDiff(etaFlag); // pt differential flow -> kTRUE for eta diff flow.
   
     
     
