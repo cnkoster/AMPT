@@ -1250,7 +1250,8 @@ void CalculateFlow::CalculateFlowEPM()
       QRe=0.; QIm=0.;
       Mu = 0.;
       
-      QReInt =0; QImInt=0; MuInt=0;
+      QRe_pos =0; QIm_pos=0; Mu_pos=0;
+      QRe_neg =0; QIm_neg=0; Mu_neg=0;
       
       for(Int_t pt=0; pt<fNBins; pt++) {
         
@@ -1292,14 +1293,14 @@ void CalculateFlow::CalculateFlowEPM()
         
         
         
-        if(qpM>0 && QRe/Mu>0) {
+        if(qpM>0) {
 //          if(h==0){
 //            if(FillPtBin < 0 ) {meanPtdiff = ( (qpRe*QReInt)/qpM ) / (TMath::Abs(QReInt));}
 //            if(FillPtBin >= 0 ) {meanPtdiff = ( (qpRe*QRe)/qpM ) / (TMath::Abs(QRe));}
 //          }
           
           //if(h>=0){
-            meanPtdiff = (( (qpRe*(QReInt+QRe))/qpM ) / (TMath::Abs(QReInt+QRe)) ) + (( -1*(qpIm*(QImInt+QIm))/qpM ) / (TMath::Abs(QImInt+QIm)) ) ;//}
+            meanPtdiff = (( (qpRe*(QRe_pos+QRe_neg))/qpM ) / (TMath::Abs(QRe_pos+QRe_neg)) ) + (( -1*(qpIm*(QIm_pos+QIm_neg))/qpM ) / (TMath::Abs(QIm_pos+QIm_neg)) ) ;//}
           //  std::cout<<meanPtdiff<< " " << FillPtBin <<std::endl;
           fFlowEPMCorPro[h][charge]->Fill(FillPtBin, meanPtdiff, 1.);            // ADD: fPOIEPMPtDiffQRe[h]
         }
