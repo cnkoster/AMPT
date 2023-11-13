@@ -351,7 +351,6 @@ void CalculateFlow::UserCreateOutputObjects() {
     
     // Calculate FlowQC Hists
     // choose for eta diff or pt diff:
-  bool eta=true;
 
   fPtDiffNBins = 36; //for pt 20 for eta
   fEtaDiffNBins = 16;
@@ -362,7 +361,7 @@ void CalculateFlow::UserCreateOutputObjects() {
   Double_t ImPaBins[] = {3.72, 5.23, 7.31, 8.88, 10.20, 11.38, 12.47, 13.50, 14.51, 15.0};
   
   
-  if(eta){
+  if(EtaDiff){
     fNBins = fEtaDiffNBins;
     fBins = new Double_t[fNBins+1];
     for(Int_t r=0; r<17; r++) {
@@ -370,7 +369,7 @@ void CalculateFlow::UserCreateOutputObjects() {
     }
   }
   
-  if(!eta){
+  if(!EtaDiff){
     fNBins = fPtDiffNBins;
     fBins = new Double_t[fNBins+1];
     for(Int_t r=0; r<37; r++) {
