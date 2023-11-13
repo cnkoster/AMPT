@@ -796,7 +796,7 @@ void CalculateFlow::Make(Event* anEvent) {
     
     //sw.tick();
    // CalculateFlowQC();
-    CalculateFlowSPM();
+   // CalculateFlowSPM();
     CalculateFlowSPM1();
     CalculateFlowEPM();
     
@@ -948,8 +948,8 @@ void CalculateFlow::CalculateFlowSPM()
 //            y_uQ = -1*(QIm*QIm_RFP_V0A);
           
           
-              x_QQ = ( (QRe_RFP_V0A*QRe)/Mu * (QRe_RFP_V0C*QRe)/Mu )/(QRe_RFP_V0A*QRe_RFP_V0C)/Mu_RFP_V0A;
-              y_QQ = ( (QIm_RFP_V0A*QIm)/Mu * (QIm_RFP_V0C*QIm)/Mu )/(QIm_RFP_V0A*QIm_RFP_V0C)/Mu_RFP_V0A;
+              x_QQ = ( (QRe_RFP_V0A*QRe)/Mu * (QRe_RFP_V0C*QRe)/Mu )/(QRe_RFP_V0A*QRe_RFP_V0C);
+              y_QQ = ( (QIm_RFP_V0A*QIm)/Mu * (QIm_RFP_V0C*QIm)/Mu )/(QIm_RFP_V0A*QIm_RFP_V0C);
               x_uQ = (QRe*QRe)/Mu;
               y_uQ = (QIm*QIm)/Mu;
             
@@ -1164,9 +1164,12 @@ void CalculateFlow::CalculateFlowEPM()
       
       if(TMath::Abs(MuInt)>0.){
         v_neg = QReInt/MuInt;
+        fFlowEPMIntPro_neg[h][charge]->Fill(fImpactParameter, v_neg , 1.);
+      }
+        
+        if(TMath::Abs(Mu)>0.) {
         v_pos = QRe/Mu;
         fFlowEPMIntPro_pos[h][charge]->Fill(fImpactParameter, v_pos , 1.); //1 for weights
-        fFlowEPMIntPro_neg[h][charge]->Fill(fImpactParameter, v_neg , 1.);
       }
       
       
