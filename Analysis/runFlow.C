@@ -69,13 +69,14 @@ void runFlow(Bool_t etaFlag = kTRUE, TString centrality="", Double_t gCentrality
     if(etaFlag) diff="eta";
     else diff="pt";
     
+    fQC->SetEtaDiff(etaFlag); // pt differential flow -> kTRUE for eta diff flow.
     fQC->UserCreateOutputObjects();
     fQC->SetmaxPtCut(20);
     fQC->SetminPtCut(0.2);
     fQC->SetminNtrackCut(1);
     fQC->SetmaxEtaCut(0.8);
     fQC->SetdoQA(kTRUE);
-    fQC->SetEtaDiff(etaFlag); // pt differential flow -> kTRUE for eta diff flow.
+    
   
     
     
