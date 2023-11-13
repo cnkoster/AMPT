@@ -1070,7 +1070,7 @@ void CalculateFlow::CalculateFlowSPM()
             if(TMath::Abs(Mu)>0. && TMath::Abs(x_QQ) > 0 && TMath::Abs(y_QQ) > 0){
                 Denom_pty = ( x_uQ/TMath::Sqrt(TMath::Abs(x_QQ)) + y_uQ/TMath::Sqrt(TMath::Abs(y_QQ)) ) / Mu; }
             
-            std::cout<<Denom_pty<<std::endl;
+//            std::cout<<Denom_pty<<std::endl;
             
             fFlowSPMIntPro[hr][charge]->Fill(fImpactParameter, Denom_pty,1.); //1 for weights
             fSPMEPresolutionPro[hr][charge]->Fill(fImpactParameter, EP_res);
