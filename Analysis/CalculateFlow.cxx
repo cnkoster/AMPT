@@ -1270,13 +1270,13 @@ void CalculateFlow::CalculateFlowEPM()
       }
       
       
-      if(TMath::Abs(MuInt)>0.){
+      if(TMath::Abs(Mu_neg)>0.){
         v_neg = QRe_neg/Mu_neg;
         fFlowEPMIntPro_neg[h][charge]->Fill(fImpactParameter, v_neg , 1.);
-        fFlowEPMIntPro[h][charge]->Fill(fImpactparameter, (QRe_neg+QRe_pos)/(Mu_pos+Mu_neg),1.);
+        fFlowEPMIntPro[h][charge]->Fill(fImpactParameter, (QRe_neg+QRe_pos)/(Mu_pos+Mu_neg),1.);
       }
         
-      if(TMath::Abs(Mu)>0.) {
+      if(TMath::Abs(Mu_pos)>0.) {
         v_pos = QRe_pos/Mu_pos;
         fFlowEPMIntPro_pos[h][charge]->Fill(fImpactParameter, v_pos , 1.); //1 for weights
       }
