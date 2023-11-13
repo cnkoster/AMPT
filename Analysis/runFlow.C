@@ -55,7 +55,7 @@ void runFlow(Bool_t etaFlag = kTRUE, TString centrality="", Double_t gCentrality
   TBranch *bnevent = tree->GetBranch("event");
     bnevent->SetAddress(&event);
     
-  Long64_t nevent = 100;//tree->GetEntries();
+  Long64_t nevent = tree->GetEntries();
     Int_t nselected = 0;
     Int_t nb = 0;
     Double_t nSpectators = 0;
@@ -95,7 +95,7 @@ void runFlow(Bool_t etaFlag = kTRUE, TString centrality="", Double_t gCentrality
 
     
     // Save list holding histogram with weights:
-    TFile *fResultsFile = new TFile(Form("AnalysisResults_Group%i-%i_%sDiff_EPMSPM.root",iGroupMin, iGroupMax, diff.Data()),"RECREATE");
+    TFile *fResultsFile = new TFile(Form("AnalysisResults_Group%i-%i_%sDiff_EPM.root",iGroupMin, iGroupMax, diff.Data()),"RECREATE");
                                          //"AnalysisResults_Group%i-%i_Eta_EPMSPM_Cent%s.root",iGroupMin, iGroupMax, centrality.Data()),"RECREATE");
                                          //"AnalysisResults_Group%i-%i_fullEta_EPMSPM.root",iGroupMin, iGroupMax),"RECREATE");
     fResultsFile->WriteObject(fQC->GetQAList(),"QAList","SingleKey");
