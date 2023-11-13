@@ -1151,16 +1151,11 @@ void CalculateFlow::CalculateFlowEPM()
           Mu += fPOISPMPtDiffMul[h][charge]->GetBinContent(pt+1);
         }
         
-//        QRe_RFP += fRFPSPMPtDiffQRe_V0A[hr][charge]->GetBinContent(pt+1)+fRFPSPMPtDiffQRe_V0C[hr][charge]->GetBinContent(pt+1); // Cos((hr+1.)*dPhi) --> Re(u)
-//        QIm_RFP += fRFPSPMPtDiffQIm_V0A[hr][charge]->GetBinContent(pt+1)+fRFPSPMPtDiffQIm_V0C[hr][charge]->GetBinContent(pt+1); // Sin((hr+1.)*dPhi) --> Im(u)
-//        Mu_RFP +=  fRFPSPMPtDiffMul_V0A[0][charge]->GetBinContent(pt+1)+fRFPSPMPtDiffMul_V0C[0][charge]->GetBinContent(pt+1);
-        
         if(fPOISPMPtDiffQRe[h][charge]->GetBinCenter(pt+1)<0) { //Only for eta<0
           QReInt += fPOISPMPtDiffQRe[h][charge]->GetBinContent(pt+1);
           QImInt += fPOISPMPtDiffQIm[h][charge]->GetBinContent(pt+1);
           MuInt += fPOISPMPtDiffMul[h][charge]->GetBinContent(pt+1);
         }
-        
         
       }
 
@@ -1169,15 +1164,9 @@ void CalculateFlow::CalculateFlowEPM()
       
       if(TMath::Abs(MuInt)>0.){
         v_neg = QReInt/MuInt;
-        v_pos = QRe/MuInt;
+        v_pos = QRe/Mu;
         fFlowEPMIntPro_pos[h][charge]->Fill(fImpactParameter, v_pos , 1.); //1 for weights
-//        if(h==0){
-          fFlowEPMIntPro_neg[h][charge]->Fill(fImpactParameter, v_neg , 1.);
-          
-//        }//1 for weights
-//        if(h>0){fFlowEPMIntPro_neg[h][charge]->Fill(fImpactParameter, v_neg , 1.);}
-        
-        //  fFlowEPMRefCorPro[h][charge]->Fill(fImpactParameter, meanCos , 1.); //1 for weights  /ADD:fFlowEPMRefCorPro
+        fFlowEPMIntPro_neg[h][charge]->Fill(fImpactParameter, v_neg , 1.);
       }
       
       
@@ -1186,26 +1175,26 @@ void CalculateFlow::CalculateFlowEPM()
         
         FillPtBin = fPOISPMPtDiffQRe[h][charge]->GetBinCenter(pt+1);
         qpRe=0.; qpIm=0.; qpM=0.;
-        //here change h+2 to h+1 (hr+1->hr, 2hr+3-> 2hr+1)
         qpRe = fPOISPMPtDiffQRe[h][charge]->GetBinContent(pt+1);
         qpIm = fPOISPMPtDiffQIm[h][charge]->GetBinContent(pt+1);
         qpM = fPOISPMPtDiffMul[h][charge]->GetBinContent(pt+1);
         
-        // std::cout<< "qpM: " << qpM <<std::endl;
         
         
         if(qpM>0 && QRe/Mu>0) {
-          if(h==0){
-            if(FillPtBin < 0 ) {meanPtdiff = ( (qpRe*QReInt)/qpM ) / (TMath::Abs(QReInt));}
-            if(FillPtBin >= 0 ) {meanPtdiff = ( (qpRe*QRe)/qpM ) / (TMath::Abs(QRe));}
-          }
+//          if(h==0){
+//            if(FillPtBin < 0 ) {meanPtdiff = ( (qpRe*QReInt)/qpM ) / (TMath::Abs(QReInt));}
+//            if(FillPtBin >= 0 ) {meanPtdiff = ( (qpRe*QRe)/qpM ) / (TMath::Abs(QRe));}
+//          }
           
-          if(h>0){meanPtdiff = ( (qpRe*(QReInt+QRe))/qpM ) / (TMath::Abs(QReInt+QRe));}
+          //if(h>=0){
+            meanPtdiff = ( (qpRe*(QReInt+QRe))/qpM ) / (TMath::Abs(QReInt+QRe));//}
           //  std::cout<<meanPtdiff<< " " << FillPtBin <<std::endl;
           fFlowEPMCorPro[h][charge]->Fill(FillPtBin, meanPtdiff, 1.);            // ADD: fPOIEPMPtDiffQRe[h]
         }
         
       }//end pt
+      
     } //end charge loop
   }//end harm loop
 
