@@ -23,7 +23,8 @@ ls
 
 ##run the analysis
 echo "+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+"
-root.exe -b -q CalculateFlow.cxx runFlow.C;
+root.exe -b -q CalculateFlow.cxx runFlow.C'(${ETAFLAG})';
+
 
 
 
