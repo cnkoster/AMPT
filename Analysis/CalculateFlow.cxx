@@ -539,14 +539,14 @@ void CalculateFlow::UserCreateOutputObjects() {
             
             fFlowSPMIntFlow2Hist[h][charge] = new TH1D(Form("fFlowSPMIntFlow2Hist[%d][%d]",h,charge),Form("fFlowSPMIntFlow2Hist[%d][%d]",h,charge),9,ImPaBins);
             fFlowSPMIntFlow2Hist[h][charge]->Sumw2();
-            fFlowSPMList->Add(fFlowSPMIntFlow2Hist[h][charge]);
+//            fFlowSPMList->Add(fFlowSPMIntFlow2Hist[h][charge]);
             
             fFlowSPM1IntPro[h][charge]= new TProfile(Form("fSPM1EPresolutionPro[%d][%d]",h,charge),Form("fSPM1EPresolutionPro%d][%d]",h,charge),9,ImPaBins,"s");
             fFlowSPM1IntPro[h][charge]->Sumw2();
             
             fFlowSPM1IntFlow2Hist[h][charge] = new TH1D(Form("fFlowSPM1IntFlow2Hist[%d][%d]",h,charge),Form("fFlowSPM1IntFlow2Hist[%d][%d]",h,charge),9,ImPaBins);
             fFlowSPM1IntFlow2Hist[h][charge]->Sumw2();
-            fFlowSPMList->Add(fFlowSPM1IntFlow2Hist[h][charge]);
+//            fFlowSPMList->Add(fFlowSPM1IntFlow2Hist[h][charge]);
           
         }
     }
