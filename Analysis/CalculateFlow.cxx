@@ -370,7 +370,7 @@ void CalculateFlow::UserCreateOutputObjects() {
   
   
   if(EtaDiff){
-    std::cout<< "We have eta bins" <<std::end;
+    std::cout<< "We have eta bins" <<std::endl;
     fNBins = fEtaDiffNBins;
     fBins = new Double_t[fNBins+1];
     for(Int_t r=0; r<17; r++) {
@@ -379,7 +379,7 @@ void CalculateFlow::UserCreateOutputObjects() {
   }
   
   if(!EtaDiff){
-    std::cout<< "We have pt bins" <<std::end; 
+    std::cout<< "We have pt bins" <<std::endl;
     fNBins = fPtDiffNBins;
     fBins = new Double_t[fNBins+1];
     for(Int_t r=0; r<37; r++) {
