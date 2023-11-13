@@ -242,7 +242,7 @@ private:
   Double_t minPtCut = 0;
   Double_t maxEtaCut = 99; //|eta|<maxEtaCut
   Int_t minNtracks = 0;
-  Bool_t EtaCut = kTRUE;
+  Bool_t EtaDiff= kTRUE;
   
   
   // added
