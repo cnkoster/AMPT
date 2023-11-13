@@ -363,7 +363,7 @@ void CalculateFlow::UserCreateOutputObjects() {
   
   
   if(eta){
-    fNBins = fEtaDiffBins;
+    fNBins = fEtaDiffNBins;
     fBins = new Double_t[fNBins+1];
     for(Int_t r=0; r<17; r++) {
       fBins[r] = EtaBins[r];
@@ -371,14 +371,13 @@ void CalculateFlow::UserCreateOutputObjects() {
   }
   
   if(!eta){
-    fNBins = fPtDiffBins;
+    fNBins = fPtDiffNBins;
     fBins = new Double_t[fNBins+1];
     for(Int_t r=0; r<37; r++) {
       fBins[r] = PtBins[r];
     }
   }
-    
-    }
+  
     // so for each power of the Q-vector and each flowHarmonic make a Th1D
     // In output vinden we: [0][0] tot [13][13] ?
     
