@@ -782,7 +782,6 @@ void CalculateFlow::Make(Event* anEvent) {
                 fPOIPtDiffMul[k][h][0]->Fill(xval,pow(wPhiEta,k));
                 
                 if( k==1 && h<3){
-                    
                     fPOISPMPtDiffQRe[h][0]->Fill(xval,pow(wPhiEta,k)*TMath::Cos((h+1.)*dPhi));
                     fPOISPMPtDiffQIm[h][0]->Fill(xval,pow(wPhiEta,k)*TMath::Sin((h+1.)*dPhi));
                     fPOISPMPtDiffMul[h][0]->Fill(xval,pow(wPhiEta,k));
@@ -824,7 +823,7 @@ void CalculateFlow::Make(Event* anEvent) {
         }
       
       if(dEta>=0){
-          for (Int_t h=0;h<fFlowNHarmMax;h++) {
+          for (Int_t h=0;h<3;h++) {
             fPOISPMPtDiffQRe_pos[h][0]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
             fPOISPMPtDiffQIm_pos[h][0]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
             fPOISPMPtDiffMul_pos[h][0]->Fill(xval,pow(wPhiEta,1));
@@ -852,7 +851,7 @@ void CalculateFlow::Make(Event* anEvent) {
       }
       
       if(dEta<0){
-          for (Int_t h=0;h<fFlowNHarmMax;h++) {
+          for (Int_t h=0;h<3;h++) {
             fPOISPMPtDiffQRe_neg[h][0]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
             fPOISPMPtDiffQIm_neg[h][0]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
             fPOISPMPtDiffMul_neg[h][0]->Fill(xval,pow(wPhiEta,1));
