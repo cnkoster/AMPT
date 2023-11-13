@@ -685,7 +685,7 @@ void CalculateFlow::Make(Event* anEvent) {
             }
         }
         
-        if(xval < -1.7){ // (-3.7,-1.7)
+        if(dEta < -1.7){ // (-3.7,-1.7)
             for (Int_t h=0;h<fFlowNHarm;h++) {
                 fRFPSPMPtDiffQRe_V0C[h][0]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
                 fRFPSPMPtDiffQIm_V0C[h][0]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
