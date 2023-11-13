@@ -915,7 +915,7 @@ void CalculateFlow::CalculateFlowSPM()
             Denom_pty=0.;
             
             
-            for(Int_t pt=0; pt<fPtDiffNBins; pt++) {
+            for(Int_t pt=0; pt<fNBins; pt++) {
                 
                 QRe_RFP_V0A += fRFPSPMPtDiffQRe_V0A[hr][charge]->GetBinContent(pt+1); // Cos((hr+1.)*dPhi) --> Re(u)
                 QIm_RFP_V0A += fRFPSPMPtDiffQIm_V0A[hr][charge]->GetBinContent(pt+1); // Sin((hr+1.)*dPhi) --> Im(u)
@@ -940,7 +940,7 @@ void CalculateFlow::CalculateFlowSPM()
             cosEvPlV0C = TMath::Cos(EventPlaneV0C);
             sinEvPlV0C = TMath::Sin(EventPlaneV0C);
             
-            for(Int_t pt=0; pt<fPtDiffNBins; pt++) {
+            for(Int_t pt=0; pt<fNBins; pt++) {
                 //std::cout<<fPOISPMPtDiffQRe[hr][charge]->GetBinContent(pt+1)<<std::endl;
                 if(fPOISPMPtDiffQRe[hr][charge]->GetBinCenter(pt+1)>0)continue;  //omly eta<0
                     QRe += fPOISPMPtDiffQRe[hr][charge]->GetBinContent(pt+1);
@@ -1030,7 +1030,7 @@ void CalculateFlow::CalculateFlowSPM1()
             
             
             
-            for(Int_t pt=0; pt<fPtDiffNBins; pt++) {
+            for(Int_t pt=0; pt<fNBins; pt++) {
                 
                 QRe_RFP_V0A += fRFPSPMPtDiffQRe_V0A[hr][charge]->GetBinContent(pt+1); // Cos((hr+1.)*dPhi) --> Re(u)
                 QIm_RFP_V0A += fRFPSPMPtDiffQIm_V0A[hr][charge]->GetBinContent(pt+1); // Sin((hr+1.)*dPhi) --> Im(u)
@@ -1151,7 +1151,7 @@ void CalculateFlow::CalculateFlowEPM()
       
       QReInt =0; QImInt=0; MuInt=0;
       
-      for(Int_t pt=0; pt<fPtDiffNBins; pt++) {
+      for(Int_t pt=0; pt<fNBins; pt++) {
         
         if(fPOISPMPtDiffQRe[h][charge]->GetBinCenter(pt+1)>=0) {
           QRe += fPOISPMPtDiffQRe[h][charge]->GetBinContent(pt+1);
@@ -1182,7 +1182,7 @@ void CalculateFlow::CalculateFlowEPM()
       
       
       // store pt-differential flow ******************************************************************************************************************************************
-      for(Int_t pt=0; pt<fPtDiffNBins; pt++) {
+      for(Int_t pt=0; pt<fNBins; pt++) {
         
         FillPtBin = fPOISPMPtDiffQRe[h][charge]->GetBinCenter(pt+1);
         qpRe=0.; qpIm=0.; qpM=0.;
@@ -1355,7 +1355,7 @@ void CalculateFlow::CalculateFlowQC()
             Q2f=kFALSE; Q4f=kFALSE;
             
             //here change h+2 to h+1 (hr+1->hr, 2hr+3-> 2hr+1)
-            for(Int_t pt=0; pt<fPtDiffNBins; pt++) {
+            for(Int_t pt=0; pt<fNBins; pt++) {
                 QRe += fPOIPtDiffQRe[1][hr][charge]->GetBinContent(pt+1); // Cos((hr+1.)*dPhi)
                 QIm += fPOIPtDiffQIm[1][hr][charge]->GetBinContent(pt+1); // Sin((hr+1.)*dPhi)
                 Q2Re2 += fPOIPtDiffQRe[2][2*hr+1][charge]->GetBinContent(pt+1); // w^2*Cos((hr+1.)*dPhi)
@@ -1406,7 +1406,7 @@ void CalculateFlow::CalculateFlowQC()
             // ********************************************************************
             
             // store pt-differential flow ****************************************
-            for(Int_t pt=0; pt<fPtDiffNBins; pt++) {
+            for(Int_t pt=0; pt<fNBins; pt++) {
                 
                 FillPtBin = fPOIPtDiffQRe[0][0][charge]->GetBinCenter(pt+1);
                 qpRe0=0.; qpIm0=0.; qpRe2=0.; qpIm2=0.; qp2Re=0.; qp2Im=0.; qpM0=0.; qpM=0.; qpM2=0.; qpM3=0.;
@@ -1536,7 +1536,7 @@ void CalculateFlow::CalculateFlowQC()
                             }
                         }
                         
-                    } // end of for(Int_t pt=1;pt<=fPtDiffNBins;pt++)
+                    } // end of for(Int_t pt=1;pt<=fNBins;pt++)
                     fFlowQCCorPro[h][hr][j][charge]->GetXaxis()->SetRange(1,416);
                 }
                 
@@ -1582,7 +1582,7 @@ void CalculateFlow::CalculateFlowQC()
                 }
                 
                 // pt-differential
-                for(Int_t pt=1; pt<=fPtDiffNBins; pt++) {
+                for(Int_t pt=1; pt<=fNBins; pt++) {
                     Double_t qp2    = fFlowQCCorHist[h][hr][1][charge]->GetBinContent(pt);
                     //std::cout<<"for h="<<h<<" hr="<<hr<<" j="<<1<<" | pt: "<<pt<<" qp2="<<qp2<<std::endl;
                     Double_t qp2E = fFlowQCCorHist[h][hr][1][charge]->GetBinError(pt);
@@ -1669,7 +1669,7 @@ void CalculateFlow::CalculateFlowQC()
                             fFlowQCFinalPtDifHist[h][hr][1][charge]->SetBinError(pt,Flow4E);
                         }
                     }
-                } // end of for(Int_t pt=1; pt<=fPtDiffNBins; pt++) {
+                } // end of for(Int_t pt=1; pt<=fNBins; pt++) {
             } // end of for (Int_t h=0; h<fCRCnCen; h++) {
         } // end of for(Int_t hr=0; hr<fFlowNHarm; hr++)
     } //end of for(Int_t charge=0;charge<fCharge;charge++)
@@ -1765,7 +1765,7 @@ void CalculateFlow::FinalizeFlowQC()
                         fFlowQCIntCorHist[hr][2][charge]->SetBinContent(pt,wCovTwoFour);
                     }
                 }
-            } // end of for(Int_t pt=1;pt<=fPtDiffNBins;pt++)
+            } // end of for(Int_t pt=1;pt<=fNBins;pt++)
             
             // 2- and 4-particle cumulants
             for(Int_t pt=1; pt<=fFlowQCIntCorHist[hr][0][charge]->GetNbinsX(); pt++) {
