@@ -569,6 +569,9 @@ void CalculateFlow::UserCreateOutputObjects() {
         fFlowEPMIntPro_neg[h][charge]= new TProfile(Form("fFlowEPMIntPro_neg[%d][%d]",h,charge),Form("fFlowEPMIntPro_neg[%d][%d]",h,charge),9,ImPaBins,"s");
         fFlowEPMIntPro_neg[h][charge]->Sumw2();
         
+        fFlowEPMIntPro[h][charge]= new TProfile(Form("fFlowEPMIntPro[%d][%d]",h,charge),Form("fFlowEPMIntPro[%d][%d]",h,charge),9,ImPaBins,"s");
+        fFlowEPMIntPro[h][charge]->Sumw2();
+        
         fFlowEPMIntFlow2Hist_pos[h][charge] = new TH1D(Form("fFlowEPMIntFlow2Hist_pos[%d][%d]",h,charge),Form("fFlowEPMIntFlow2Hist_pos[%d][%d]",h,charge),9,ImPaBins); //,fPtDiffNBins,fCRCPtBins);
         fFlowEPMIntFlow2Hist_pos[h][charge]->Sumw2();
         fFlowSPMList->Add(fFlowEPMIntFlow2Hist_pos[h][charge]);
@@ -577,6 +580,9 @@ void CalculateFlow::UserCreateOutputObjects() {
         fFlowEPMIntFlow2Hist_neg[h][charge]->Sumw2();
         fFlowSPMList->Add(fFlowEPMIntFlow2Hist_neg[h][charge]);
         
+        fFlowEPMIntFlow2Hist_pos[h][charge] = new TH1D(Form("fFlowEPMIntFlow2Hist_pos[%d][%d]",h,charge),Form("fFlowEPMIntFlow2Hist_pos[%d][%d]",h,charge),9,ImPaBins); //,fPtDiffNBins,fCRCPtBins);
+        fFlowEPMIntFlow2Hist_pos[h][charge]->Sumw2();
+        fFlowSPMList->Add(fFlowEPMIntFlow2Hist_pos[h][charge]);
         
         fFlowEPMCorPro[h][charge]= new TProfile(Form("fFlowEPMCorPro[%d][%d]",h,charge),Form("fFlowEPMCorPro[%d][%d]",h,charge), fNBins, fBins, "s");//, fNBins, fBins,"s");
         fFlowEPMCorPro[h][charge]->Sumw2();
@@ -1037,14 +1043,12 @@ void CalculateFlow::CalculateFlowSPM()
             cosEvPlV0C = TMath::Cos(EventPlaneV0C);
             sinEvPlV0C = TMath::Sin(EventPlaneV0C);
             
-            for(Int_t pt=0; pt<fNBins; pt++) {
-                //std::cout<<fPOISPMPtDiffQRe[hr][charge]->GetBinContent(pt+1)<<std::endl;
-                if(fPOISPMPtDiffQRe[hr][charge]->GetBinCenter(pt+1)>0)continue;  //omly eta<0
-                    QRe += fPOISPMPtDiffQRe[hr][charge]->GetBinContent(pt+1);
-                    QIm += fPOISPMPtDiffQIm[hr][charge]->GetBinContent(pt+1);
-                    Mu += fPOISPMPtDiffMul[0][charge]->GetBinContent(pt+1);
-                
-            }
+          for(Int_t pt=0; pt<fNBins; pt++) {
+            //std::cout<<fPOISPMPtDiffQRe[hr][charge]->GetBinContent(pt+1)<<std::endl;
+            QRe += fPOISPMPtDiffQRe[hr][charge]->GetBinContent(pt+1);
+            QIm += fPOISPMPtDiffQIm[hr][charge]->GetBinContent(pt+1);
+            Mu += fPOISPMPtDiffMul[0][charge]->GetBinContent(pt+1);
+          }
             
 //            std::cout<< " ------------------ " << std::endl;
 //            
@@ -1225,10 +1229,10 @@ void CalculateFlow::CalculateFlowEPM()
 {
     
     Float_t QRe, QIm, Mu;
-    Float_t QReInt, QImInt, MuInt;
+    Float_t QRe_pos, QIm_pos, Mu_pos, QRe_neg, QIm_neg, Mu_neg;
     Float_t qpRe, qpIm, qpM, meanPtdiff;
     Double_t FillPtBin = 0;
-    Float_t v_pos, v_neg;
+    Float_t v_pos, v_neg, v_tot;
   
     //!!!!!!!!!!!!!!!!!! NOTE: What we do here only makes sense for odd v2!!
   //!
@@ -1250,27 +1254,29 @@ void CalculateFlow::CalculateFlowEPM()
       
       for(Int_t pt=0; pt<fNBins; pt++) {
         
-      QRe += fPOISPMPtDiffQRe_pos[h][charge]->GetBinContent(pt+1);
-      QIm += fPOISPMPtDiffQIm_pos[h][charge]->GetBinContent(pt+1);
-      Mu += fPOISPMPtDiffMul_pos[h][charge]->GetBinContent(pt+1);
+      
+      QRe_pos += fPOISPMPtDiffQRe_pos[h][charge]->GetBinContent(pt+1);
+      QIm_pos += fPOISPMPtDiffQIm_pos[h][charge]->GetBinContent(pt+1);
+      Mu_pos += fPOISPMPtDiffMul_pos[h][charge]->GetBinContent(pt+1);
         
         
        //Only for eta<0
-      QReInt += fPOISPMPtDiffQRe_neg[h][charge]->GetBinContent(pt+1);
-      QImInt += fPOISPMPtDiffQIm_neg[h][charge]->GetBinContent(pt+1);
-      MuInt += fPOISPMPtDiffMul_neg[h][charge]->GetBinContent(pt+1);
+      QRe_neg += fPOISPMPtDiffQRe_neg[h][charge]->GetBinContent(pt+1);
+      QIm_neg += fPOISPMPtDiffQIm_neg[h][charge]->GetBinContent(pt+1);
+      Mu_neg += fPOISPMPtDiffMul_neg[h][charge]->GetBinContent(pt+1);
       
         
       }
       
       
       if(TMath::Abs(MuInt)>0.){
-        v_neg = QReInt/MuInt;
+        v_neg = QRe_neg/Mu_neg;
         fFlowEPMIntPro_neg[h][charge]->Fill(fImpactParameter, v_neg , 1.);
+        fFlowEPMIntPro[h][charge]->Fill(fImpactparameter, (QRe_neg+QRe_pos)/(Mu_pos+Mu_neg),1.);
       }
         
-        if(TMath::Abs(Mu)>0.) {
-        v_pos = QRe/Mu;
+      if(TMath::Abs(Mu)>0.) {
+        v_pos = QRe_pos/Mu_pos;
         fFlowEPMIntPro_pos[h][charge]->Fill(fImpactParameter, v_pos , 1.); //1 for weights
       }
       
@@ -1334,6 +1340,14 @@ void CalculateFlow::FinalizeFlowEPM()
         CorrErr = GetWeightedCorrelationsError(fFlowEPMIntPro_neg[h][charge], pt);
         fFlowEPMIntFlow2Hist_neg[h][charge]->SetBinContent(pt, Corr); //Let op!! Hier moet min als eta<0 in make function
         fFlowEPMIntFlow2Hist_neg[h][charge]->SetBinError(pt, CorrErr);
+      }
+      
+      for(Int_t pt=1;pt<=fFlowEPMIntPro[h][charge]->GetNbinsX();pt++) {
+        Float_t Corr = 0; Double_t CorrErr = 0;
+        Corr = GetWeightedCorrelations(fFlowEPMIntPro[h][charge], pt);
+        CorrErr = GetWeightedCorrelationsError(fFlowEPMIntPro[h][charge], pt);
+        fFlowEPMIntFlow2Hist[h][charge]->SetBinContent(pt, Corr); //Let op!! Hier moet min als eta<0 in make function
+        fFlowEPMIntFlow2Hist[h][charge]->SetBinError(pt, CorrErr);
       }
       
       

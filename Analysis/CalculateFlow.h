@@ -237,9 +237,11 @@ private:
   
   TProfile *fFlowEPMIntPro_pos[fFlowNHarmMax][fCharge];
   TProfile *fFlowEPMIntPro_neg[fFlowNHarmMax][fCharge];
+  TProfile *fFlowEPMIntPro[fFlowNHarmMax][fCharge];
   
   TH1D *fFlowEPMIntFlow2Hist_pos[fFlowNHarmMax][fCharge];
   TH1D *fFlowEPMIntFlow2Hist_neg[fFlowNHarmMax][fCharge];
+  TH1D *fFlowEPMIntFlow2Hist[fFlowNHarmMax][fCharge];
   
   TProfile *fFlowEPMCorPro[fFlowNHarmMax][fCharge];
   TH1D *fFlowEPMPtFlow2Hist[fFlowNHarmMax][fCharge];
