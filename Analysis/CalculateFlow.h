@@ -190,6 +190,14 @@ private:
   TH1D *fPOISPMPtDiffQIm[fFlowNHarmMax][fCharge]; // imaginary part
   TH1D *fPOISPMPtDiffMul[fFlowNHarmMax][fCharge];
   
+  TH1D *fPOISPMPtDiffQRe_neg[fFlowNHarmMax][fCharge]; // real part
+  TH1D *fPOISPMPtDiffQIm_neg[fFlowNHarmMax][fCharge]; // imaginary part
+  TH1D *fPOISPMPtDiffMul_neg[fFlowNHarmMax][fCharge];
+  
+  TH1D *fPOISPMPtDiffQRe_pos[fFlowNHarmMax][fCharge]; // real part
+  TH1D *fPOISPMPtDiffQIm_pos[fFlowNHarmMax][fCharge]; // imaginary part
+  TH1D *fPOISPMPtDiffMul_pos[fFlowNHarmMax][fCharge];
+  
   TH1D *fRFPSPMPtDiffQRe_V0A[fFlowNHarmMax][fCharge];
   TH1D *fRFPSPMPtDiffQIm_V0A[fFlowNHarmMax][fCharge];
   TH1D *fRFPSPMPtDiffMul_V0A[fFlowNHarmMax][fCharge];
