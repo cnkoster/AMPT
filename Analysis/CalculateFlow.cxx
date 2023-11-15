@@ -1450,7 +1450,7 @@ void CalculateFlow::CalculateFlowEPM()
           //          }
           
           //if(h>=0){
-          meanPtdiff = (( (qpRe*(QRe_pos+QRe_neg))/qpM ) / (TMath::Abs(QRe_pos+QRe_neg)) ) + (( -1*(qpIm*(QIm_pos+QIm_neg))/qpM ) / (TMath::Abs(QIm_pos+QIm_neg)) ) ;//}
+          meanPtdiff = qpRe/qpM;//(( (qpRe*(QRe_pos+QRe_neg))/qpM ) / (TMath::Abs(QRe_pos+QRe_neg)) ) + (( -1*(qpIm*(QIm_pos+QIm_neg))/qpM ) / (TMath::Abs(QIm_pos+QIm_neg)) ) ;//}
           //  std::cout<<meanPtdiff<< " " << FillPtBin <<std::endl;
           fFlowEPMCorPro[h][charge]->Fill(FillPtBin, meanPtdiff, 1.);            // ADD: fPOIEPMPtDiffQRe[h]
         }
