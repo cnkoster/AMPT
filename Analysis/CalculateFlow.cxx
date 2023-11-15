@@ -1550,7 +1550,10 @@ void CalculateFlow::CalculateFlowQC()
       for(Int_t pt=0; pt<fNBins; pt++) {
 
         FillPtBin = fPOIPtDiffQRe[0][0][charge]->GetBinCenter(pt+1);
+        std::cout<<FillPtBin<<std::endl;
+        
         qpRe0=0.; qpIm0=0.; qpRe2=0.; qpIm2=0.; qp2Re=0.; qp2Im=0.; qpM0=0.; qpM=0.; qpM2=0.; qpM3=0.;
+        
         //here change h+2 to h+1 (hr+1->hr, 2hr+3-> 2hr+1)
         qpRe0 = fPOIPtDiffQRe[0][hr][charge]->GetBinContent(pt+1);
         qpIm0 = fPOIPtDiffQIm[0][hr][charge]->GetBinContent(pt+1);
