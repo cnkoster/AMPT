@@ -1970,7 +1970,7 @@ void CalculateFlow::CalculateFlowQC()
     // Pt-DIFFERENTIAL
     for(Int_t hr=0; hr<fFlowNHarm; hr++) {
       for(Int_t j=0; j<fFlowQCNRef; j++) {
-        for(Int_t pt=1;pt<=fFlowQCRefCorPro[hr][j][charge]->GetNbinsX();pt++) {
+        for(Int_t pt=1;pt<=fNBins;pt++) { // fNBins was: fFlowQCRefCorPro[hr][j][charge]->GetNbinsX()
           Double_t stats[6]={0.};
           fFlowQCRefCorPro[hr][j][charge]->GetXaxis()->SetRange(pt,pt);
           fFlowQCRefCorPro[hr][j][charge]->GetStats(stats);
