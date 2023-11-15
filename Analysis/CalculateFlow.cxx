@@ -1576,7 +1576,7 @@ void CalculateFlow::CalculateFlowQC()
 
         if(qpM0>0 && QM0>0) {
           dQC2 = (qpRe0*QRe+qpIm0*QIm-qpM)/dQM2;
-          std::cout<<"pt bin: "FillPtBin<< " filled with : " << dQC2 << std::endl;
+          std::cout<<"pt bin: " << FillPtBin<< " filled with : " << dQC2 << std::endl;
           fFlowQCCorPro[fCenBin][hr][1][charge]->Fill(FillPtBin,dQC2,WdQM2*fCenWeightEbE);
           dQ2f = kTRUE;
         }
