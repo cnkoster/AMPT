@@ -1550,7 +1550,7 @@ void CalculateFlow::CalculateFlowQC()
       for(Int_t pt=0; pt<fNBins; pt++) {
 
         FillPtBin = fPOIPtDiffQRe[0][0][charge]->GetBinCenter(pt+1);
-        std::cout<<FillPtBin<<std::endl;
+        
         
         qpRe0=0.; qpIm0=0.; qpRe2=0.; qpIm2=0.; qp2Re=0.; qp2Im=0.; qpM0=0.; qpM=0.; qpM2=0.; qpM3=0.;
         
@@ -1576,6 +1576,7 @@ void CalculateFlow::CalculateFlowQC()
 
         if(qpM0>0 && QM0>0) {
           dQC2 = (qpRe0*QRe+qpIm0*QIm-qpM)/dQM2;
+          std::cout<<"pt bin: "FillPtBin<< " filled with : " << dQC2 << std::endl;
           fFlowQCCorPro[fCenBin][hr][1][charge]->Fill(FillPtBin,dQC2,WdQM2*fCenWeightEbE);
           dQ2f = kTRUE;
         }
