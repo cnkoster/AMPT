@@ -73,7 +73,7 @@ void runFlow(Bool_t etaFlag = kTRUE, TString centrality="", Double_t gCentrality
     fQC->UserCreateOutputObjects();
     fQC->SetmaxPtCut(10);
     fQC->SetminPtCut(0.2);
-    fQC->SetminNtrackCut(1);
+    fQC->SetminNtrackCut(500);
     fQC->SetmaxEtaCut(0.8);
     fQC->SetdoQA(kTRUE);
     
@@ -95,12 +95,13 @@ void runFlow(Bool_t etaFlag = kTRUE, TString centrality="", Double_t gCentrality
 
     
     // Save list holding histogram with weights:
-    TFile *fResultsFile = new TFile(Form("AnalysisResults_Group%i-%i_%sDiff_EPM.root",iGroupMin, iGroupMax, diff.Data()),"RECREATE");
+    TFile *fResultsFile = new TFile(Form("AnalysisResults_Group%i-%i_%sDiff_All.root",iGroupMin, iGroupMax, diff.Data()),"RECREATE");
                                          //"AnalysisResults_Group%i-%i_Eta_EPMSPM_Cent%s.root",iGroupMin, iGroupMax, centrality.Data()),"RECREATE");
                                          //"AnalysisResults_Group%i-%i_fullEta_EPMSPM.root",iGroupMin, iGroupMax),"RECREATE");
     fResultsFile->WriteObject(fQC->GetQAList(),"QAList","SingleKey");
     fResultsFile->WriteObject(fQC->GetSpectraList(),"SpectraList","SingleKey");
-   // fResultsFile->WriteObject(fQC->GetFlowQCList(),"FLowQCList","SingleKey");
+    fResultsFile->WriteObject(fQC->GetFlowQCList(),"FLowQCList","SingleKey");
+    fResultsFile->WriteObject(fQC->GetFlowGFList(),"FLowGFList","SingleKey");
     fResultsFile->WriteObject(fQC->GetFlowSPMList(),"FLowSPMList","SingleKey");
     fResultsFile->Close();
 

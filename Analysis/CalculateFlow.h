@@ -37,6 +37,7 @@ public:
   void InitializeArraysForFlowQC();
   void InitializeArraysForFlowSPM();
   void InitializeArraysForFlowEPM();
+  void InitializeArraysForFlowGF();
   void InitializeArraysForQA();
   virtual void ResetEventByEventQuantities();
   
@@ -44,9 +45,11 @@ public:
   virtual void CalculateFlowSPM();
   virtual void CalculateFlowSPM1();
   virtual void CalculateFlowEPM();
+  virtual void CalculateFlowGF();
   virtual void FinalizeFlowQC();
   virtual void FinalizeFlowSPM();
   virtual void FinalizeFlowEPM();
+  virtual void FinalizeFlowGF();
   virtual void FinalizeQA();
   
   Int_t GetCRCCenBin(Double_t Centrality);
@@ -59,9 +62,12 @@ public:
   void SetEvent(Event* e) {this->fEvent = e;};
   TList* GetFlowQCList() {return this->fFlowQCList;};
   TList* GetFlowSPMList() {return this->fFlowSPMList;};
+  TList* GetFlowGFList() {return this->fFlowSPMList;};
   TList* GetQAList() {return this->fQAList;};
   TList* GetSpectraList() {return this->fSpectraList;} // Particle spectra
   Event* GetEvent() {return this->fEvent;};
+  virtual std::complex<double> ucN(const Int_t n, const TArrayI& h, Int_t ptb);
+  virtual std::complex<double> ucN2(const Int_t n, TArrayI& h, TArrayI& cnt, Int_t ptb);
   
   
   void SetmaxPtCut(Double_t maxPt) {this->maxPtCut = maxPt;};
@@ -143,6 +149,34 @@ private:
   TH1D *fNegPionsSpectra;
   TH1D *fNegKaonsSpectra;
   TH1D *fNegProtonsSpectra;
+  
+  // Flow GF part
+  TList *fFlowGFList;
+  const static Int_t fkFlowGFNHarm = 4;
+  const static Int_t fkFlowGFNOrde = 4;
+  const static Int_t fFlowGFCenBin = 10;
+  const static Int_t fkGFPtB = 8;
+  TMatrixD *fReQGF; // fReQ[m][k] = sum_{i=1}^{M} w_{i}^{k} cos(m*phi_{i})
+  TMatrixD *fImQGF; // fImQ[m][k] = sum_{i=1}^{M} w_{i}^{k} sin(m*phi_{i})
+  TMatrixD *fReQGFPt[fkGFPtB]; // fReQ[m][k] = sum_{i=1}^{M} w_{i}^{k} cos(m*phi_{i})
+  TMatrixD *fImQGFPt[fkGFPtB]; // fImQ[m][k] = sum_{i=1}^{M} w_{i}^{k} sin(m*phi_{i})
+  
+  TProfile *fFlowGFIntCorPro[fkFlowGFNHarm][fkFlowGFNOrde]; //
+  TH1D *fFlowGFIntCorHist[fkFlowGFNHarm][fkFlowGFNOrde]; //
+  TH1D *fFlowGFIntCumHist[fkFlowGFNHarm][fkFlowGFNOrde]; //
+  TH1D *fFlowGFIntFinalHist[fkFlowGFNHarm][fkFlowGFNOrde]; //
+  
+  TProfile *fFlowGFIntCovPro[fkFlowGFNHarm][fkFlowGFNOrde][fkFlowGFNOrde]; //
+  TH1D *fFlowGFIntCovHist[fkFlowGFNHarm][fkFlowGFNOrde][fkFlowGFNOrde]; //
+  
+  TProfile *fFlowGFMixedCorPro[fkFlowGFNHarm][fkFlowGFNHarm]; //
+  TH1D *fFlowGFMixedCorHist[fkFlowGFNHarm][fkFlowGFNHarm]; //
+  TH1D *fFlowGFMixedFinalHist[fkFlowGFNHarm][fkFlowGFNHarm]; //
+  
+  TProfile *fFlowGFIntCorProPtB[fkGFPtB][fkFlowGFNHarm][fkFlowGFNOrde]; //
+  TH1D *fFlowGFIntCorHistPtB[fkGFPtB][fkFlowGFNHarm][fkFlowGFNOrde]; //
+  TProfile *fFlowGFIntCovProPtB[fkGFPtB][fkFlowGFNHarm][fkFlowGFNOrde][fkFlowGFNOrde]; //
+  TH1D *fFlowGFIntCovHistPtB[fkGFPtB][fkFlowGFNHarm][fkFlowGFNOrde][fkFlowGFNOrde]; //
   
   
   // Flow QC part
