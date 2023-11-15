@@ -62,7 +62,7 @@ public:
   void SetEvent(Event* e) {this->fEvent = e;};
   TList* GetFlowQCList() {return this->fFlowQCList;};
   TList* GetFlowSPMList() {return this->fFlowSPMList;};
-  TList* GetFlowGFList() {return this->fFlowSPMList;};
+  TList* GetFlowGFList() {return this->fFlowGFList;};
   TList* GetQAList() {return this->fQAList;};
   TList* GetSpectraList() {return this->fSpectraList;} // Particle spectra
   Event* GetEvent() {return this->fEvent;};
