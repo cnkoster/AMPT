@@ -465,7 +465,7 @@ void CalculateFlow::UserCreateOutputObjects() {
         fFlowQCIntFlow4Hist[i][j][charge]->Sumw2();
         
         if(j==0){
-          fFlowQCList->Add(fFlowQCIntFlow2Hist[i][j][charge]);
+          fFlowQCList->Add(fFlowQCIntFlow2Hist[i][j][charge]);}
           //        fFlowQCList->Add(fFlowQCIntFlow4Hist[i][j][charge]);}
           
           fFlowQCIntCumHist[i][j][charge] = new TH1D(Form("fFlowQCIntCumHist[%d][%d][%d]",i,j,charge),Form("fFlowQCIntCumHist[%d][%d][%d]",i,j,charge),9,ImPaBins);
@@ -474,7 +474,7 @@ void CalculateFlow::UserCreateOutputObjects() {
         }
       }
     }
-  }
+  
   
   // reference flow
   for(Int_t i=0; i<fFlowNHarm; i++) {
