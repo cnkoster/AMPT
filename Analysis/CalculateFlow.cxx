@@ -1096,7 +1096,7 @@ void CalculateFlow::CalculateFlowGF()
             std::complex<double> D = this->ucN(order[no], emptyness, -1);
             
             if(D.real()>0.) {
-                fFlowGFIntCorPro[hr][no]->Fill(fCentralityEBE,N.real()/D.real(),D.real()*fCenWeightEbE);
+                fFlowGFIntCorPro[hr][no]->Fill(fImpactParameter,N.real()/D.real(),D.real()*fCenWeightEbE);
                 CorrOrd[no] = N.real()/D.real();
                 WeigOrd[no] = D.real();
             }
@@ -1570,7 +1570,7 @@ void CalculateFlow::CalculateFlowQC()
         qpM3 = fPOIPtDiffMul[3][0][charge]->GetBinContent(pt+1);
 
         //if(hr==0) {//////////////////////////////////////////////////////////////////////////////////
-        // fFlowFlowectra->Fill(fCentralityEBE,FillPtBin,qpM*fCenWeightEbE);
+        // fFlowFlowectra->Fill(fImpactParameter,FillPtBin,qpM*fCenWeightEbE);
         //}
 
         dQM2 = qpM0*QM-qpM;
