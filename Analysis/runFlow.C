@@ -30,8 +30,8 @@
 
 void runFlow(Bool_t etaFlag = kTRUE, TString centrality="", Double_t gCentrality=1., Int_t iGroupMin=0, Int_t iGroupMax=2000, Double_t gSpectatorMin=0, Double_t gSpectatorMax=500) {
     
-    TFile *f= new TFile(Form("/dcache/alice/nkoster/PhD/AMPT_out/Run2_Energy_PbPb/nEvents100/TreeOutput/TreeOutput_Group%i-%i.root",iGroupMin, iGroupMax));
-                             //"/dcache/alice/nkoster/PhD/AMPT_out/Run2_Energy_PbPb/Cent%s/TreeOutput_Group%i-%i_Cent%s.root",centrality.Data(),iGroupMin, iGroupMax, centrality.Data()));
+    TFile *f= new TFile(Form(//"/dcache/alice/nkoster/PhD/AMPT_out/Run2_Energy_PbPb/nEvents100/TreeOutput/TreeOutput_Group%i-%i.root",iGroupMin, iGroupMax));
+                             "/dcache/alice/nkoster/PhD/AMPT_out/Run2_Energy_PbPb/Cent%s/TreeOutput_Group%i-%i_Cent%s.root",centrality.Data(),iGroupMin, iGroupMax, centrality.Data()));
                              
 //"/dcache/alice/nkoster/PhD/AMPT_out/Run2_Energy_PbPb/nEvents100/TreeOutput/TreeOutput_Group%i-%i.root",iGroupMin, iGroupMax));
     
@@ -55,7 +55,7 @@ void runFlow(Bool_t etaFlag = kTRUE, TString centrality="", Double_t gCentrality
   TBranch *bnevent = tree->GetBranch("event");
     bnevent->SetAddress(&event);
     
-  Long64_t nevent = tree->GetEntries();
+  Long64_t nevent = 100;//tree->GetEntries();
     Int_t nselected = 0;
     Int_t nb = 0;
     Double_t nSpectators = 0;
@@ -95,8 +95,8 @@ void runFlow(Bool_t etaFlag = kTRUE, TString centrality="", Double_t gCentrality
 
     
     // Save list holding histogram with weights:
-    TFile *fResultsFile = new TFile(Form("AnalysisResults_Group%i-%i_%sDiff_All.root",iGroupMin, iGroupMax, diff.Data()),"RECREATE");
-                                         //"AnalysisResults_Group%i-%i_Eta_EPMSPM_Cent%s.root",iGroupMin, iGroupMax, centrality.Data()),"RECREATE");
+    TFile *fResultsFile = new TFile(Form(//"AnalysisResults_Group%i-%i_%sDiff_All.root",iGroupMin, iGroupMax, diff.Data()),"RECREATE");
+                                         "AnalysisResults_Group%i-%i_%sDiff_All_Cent%s.root",iGroupMin, iGroupMax, diff.Data(), centrality.Data()),"RECREATE");
                                          //"AnalysisResults_Group%i-%i_fullEta_EPMSPM.root",iGroupMin, iGroupMax),"RECREATE");
     fResultsFile->WriteObject(fQC->GetQAList(),"QAList","SingleKey");
     fResultsFile->WriteObject(fQC->GetSpectraList(),"SpectraList","SingleKey");
