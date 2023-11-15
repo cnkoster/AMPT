@@ -1555,7 +1555,7 @@ void CalculateFlow::CalculateFlowQC()
         qpRe0=0.; qpIm0=0.; qpRe2=0.; qpIm2=0.; qp2Re=0.; qp2Im=0.; qpM0=0.; qpM=0.; qpM2=0.; qpM3=0.;
         
         //here change h+2 to h+1 (hr+1->hr, 2hr+3-> 2hr+1)
-        std::cout<<fPOIPtDiffQRe[0][hr][charge]->GetNbinsX()<<std::endl;
+        //std::cout<<fPOIPtDiffQRe[0][hr][charge]->GetNbinsX()<<std::endl;
         
         qpRe0 = fPOIPtDiffQRe[0][hr][charge]->GetBinContent(pt+1);
         qpIm0 = fPOIPtDiffQIm[0][hr][charge]->GetBinContent(pt+1);
@@ -2156,6 +2156,7 @@ void CalculateFlow::FinalizeFlowGF()
                 std::cout<<"qc2: "<<qc2<<" qc4: "<<qc4<<" qc6: "<<qc6<<" qc8: "<<qc8<<"\n";
             }
             if(qc2>0.) {
+              std::cout<<v2<<std::endl; 
                 fFlowGFIntFinalHist[h][0]->SetBinContent(pt,v2);        //v_n{2}
                 fFlowGFIntFinalHist[h][0]->SetBinError(pt,v2Error);
             }
