@@ -1555,6 +1555,8 @@ void CalculateFlow::CalculateFlowQC()
         qpRe0=0.; qpIm0=0.; qpRe2=0.; qpIm2=0.; qp2Re=0.; qp2Im=0.; qpM0=0.; qpM=0.; qpM2=0.; qpM3=0.;
         
         //here change h+2 to h+1 (hr+1->hr, 2hr+3-> 2hr+1)
+        std::cout<<fPOIPtDiffQRe[0][hr][charge]->GetNbinsX()<<std::endl;
+        
         qpRe0 = fPOIPtDiffQRe[0][hr][charge]->GetBinContent(pt+1);
         qpIm0 = fPOIPtDiffQIm[0][hr][charge]->GetBinContent(pt+1);
         qpRe2 = fPOIPtDiffQRe[2][hr][charge]->GetBinContent(pt+1);
@@ -1576,7 +1578,7 @@ void CalculateFlow::CalculateFlowQC()
 
         if(qpM0>0 && QM0>0) {
           dQC2 = (qpRe0*QRe+qpIm0*QIm-qpM)/dQM2;
-          std::cout<<"pt bin: " << FillPtBin<< " filled with : " << dQC2 << std::endl;
+         // std::cout<<"pt bin: " << FillPtBin<< " filled with : " << dQC2 << std::endl;
           fFlowQCCorPro[fCenBin][hr][1][charge]->Fill(FillPtBin,dQC2,WdQM2*fCenWeightEbE);
           dQ2f = kTRUE;
         }
