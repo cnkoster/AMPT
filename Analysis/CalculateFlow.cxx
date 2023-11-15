@@ -1549,8 +1549,7 @@ void CalculateFlow::CalculateFlowQC()
       // store pt-differential flow ****************************************
       for(Int_t pt=0; pt<fNBins; pt++) {
 
-        FillPtBin = fPOIPtDiffQRe[0][0][charge]->GetBinCenter(pt+1);
-        
+        FillPtBin = fPOIPtDiffQRe[1][hr][charge]->GetBinCenter(pt+1);
         
         qpRe0=0.; qpIm0=0.; qpRe2=0.; qpIm2=0.; qp2Re=0.; qp2Im=0.; qpM0=0.; qpM=0.; qpM2=0.; qpM3=0.;
         
@@ -1656,7 +1655,7 @@ void CalculateFlow::CalculateFlowQC()
         // STORE IN HISTOGRAMS
 
         for(Int_t j=0; j<fFlowQCNPro; j++) {
-          for(Int_t pt=1;pt<=13;pt++) {
+          for(Int_t pt=1;pt<=fNBins;pt++) { //was 13
 
             Double_t stats[6]={0.};
             fFlowQCCorPro[h][hr][j][charge]->GetXaxis()->SetRange(pt,pt);
@@ -2156,7 +2155,7 @@ void CalculateFlow::FinalizeFlowGF()
                 std::cout<<"qc2: "<<qc2<<" qc4: "<<qc4<<" qc6: "<<qc6<<" qc8: "<<qc8<<"\n";
             }
             if(qc2>0.) {
-              std::cout<<v2<<std::endl; 
+              
                 fFlowGFIntFinalHist[h][0]->SetBinContent(pt,v2);        //v_n{2}
                 fFlowGFIntFinalHist[h][0]->SetBinError(pt,v2Error);
             }
