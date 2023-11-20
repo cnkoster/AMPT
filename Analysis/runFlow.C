@@ -55,7 +55,7 @@ void runFlow(Bool_t etaFlag = kTRUE, TString centrality="", Double_t gCentrality
   TBranch *bnevent = tree->GetBranch("event");
     bnevent->SetAddress(&event);
     
-  Long64_t nevent = 1000;//tree->GetEntries();
+    Long64_t nevent = tree->GetEntries();
     Int_t nselected = 0;
     Int_t nb = 0;
     Double_t nSpectators = 0;
@@ -77,9 +77,7 @@ void runFlow(Bool_t etaFlag = kTRUE, TString centrality="", Double_t gCentrality
     fQC->SetmaxEtaCut(0.8);
     fQC->SetdoQA(kTRUE);
     
-  
-    
-    
+
     for (Long64_t i=0;i<nevent;i++) {
         if (i%100 == 0) std::cout<<"Event: "<<i<<"\n";
         
@@ -100,8 +98,8 @@ void runFlow(Bool_t etaFlag = kTRUE, TString centrality="", Double_t gCentrality
                                          //"AnalysisResults_Group%i-%i_fullEta_EPMSPM.root",iGroupMin, iGroupMax),"RECREATE");
     fResultsFile->WriteObject(fQC->GetQAList(),"QAList","SingleKey");
     fResultsFile->WriteObject(fQC->GetSpectraList(),"SpectraList","SingleKey");
-    fResultsFile->WriteObject(fQC->GetFlowQCList(),"FLowQCList","SingleKey");
-    fResultsFile->WriteObject(fQC->GetFlowGFList(),"FLowGFList","SingleKey");
+//    fResultsFile->WriteObject(fQC->GetFlowQCList(),"FLowQCList","SingleKey");
+//    fResultsFile->WriteObject(fQC->GetFlowGFList(),"FLowGFList","SingleKey");
     fResultsFile->WriteObject(fQC->GetFlowSPMList(),"FLowSPMList","SingleKey");
     fResultsFile->Close();
 
