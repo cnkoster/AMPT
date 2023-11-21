@@ -521,8 +521,8 @@ void CalculateFlow::UserCreateOutputObjects() {
           //    fFlowQCList->Add(fFlowQCCorCovHist[h][i][k]);
           fFlowQCFinalPtDifHist[h][i][k][charge] = new TH1D(Form("fFlowQCFinalPtDifHist[%d][%d][%d][%d]",h,i,k,charge),Form("fFlowQCFinalPtDifHist[%d][%d][%d][%d]",h,i,k,charge), fNBins, fBins);//,fPtDiffNBins,fCRCPtBins);
           fFlowQCFinalPtDifHist[h][i][k][charge]->Sumw2();
-          if(h==0){
-            fFlowQCList->Add(fFlowQCFinalPtDifHist[h][i][k][charge]);} //we say cen=1 so the histo is filled only for h=6
+         // if(h==0){
+            fFlowQCList->Add(fFlowQCFinalPtDifHist[h][i][k][charge]);//} //we say cen=1 so the histo is filled only for h=6
         }
       }
     }
@@ -1689,7 +1689,6 @@ void CalculateFlow::CalculateFlowQC()
         // reference flow
         // 2- and 4-particle cumulants
         Double_t QC2    = fFlowQCRefCorHist[hr][0][charge]->GetBinContent(h+1);
-        std::cout<<"h= "<<h<<" QC2 = "<<QC2<<std::endl;
         Double_t QC2E = fFlowQCRefCorHist[hr][0][charge]->GetBinError(h+1);
         Double_t QC4    = fFlowQCRefCorHist[hr][1][charge]->GetBinContent(h+1);
         Double_t QC4E = fFlowQCRefCorHist[hr][1][charge]->GetBinError(h+1);
