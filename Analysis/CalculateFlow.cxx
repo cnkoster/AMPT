@@ -1746,6 +1746,7 @@ void CalculateFlow::CalculateFlowQC()
           fFlowQCFinalPtDifHist[h][hr][5][charge]->SetBinError(pt,Dn2E);
 
           if(Cn2) {
+            std::cout<<" is Cn2? L1749 "<<Cn2<<std::endl; 
             Double_t Flow2 = Dn2/sqrt(fabs(Cn2));
             //std::cout<<"for h="<<h<<" hr="<<hr<<" j="<<1<<" | pt: "<<pt<<" Flow2="<<Flow2<<std::endl;
             Double_t Flow2E = 0.;
@@ -1762,7 +1763,7 @@ void CalculateFlow::CalculateFlowQC()
 
             
             if(Flow2E>0.) {
-              std::cout<<"komen we hier -> Ptdiff flow 2? zo ja Flow2 = "<<Flow2<<std::endl;
+              std::cout<<"1766: komen we hier -> Ptdiff flow 2? zo ja Flow2 = "<<Flow2<<std::endl;
               
               fFlowQCFinalPtDifHist[h][hr][0][charge]->SetBinContent(pt,Flow2);
               fFlowQCFinalPtDifHist[h][hr][0][charge]->SetBinError(pt,Flow2E);
