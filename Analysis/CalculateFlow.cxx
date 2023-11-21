@@ -1760,8 +1760,9 @@ void CalculateFlow::CalculateFlowQC()
                                                                  - 4.*two*twoReduced*wCovTwoTwoReduced);
             if(v2PrimeErrorSquared>0.){Flow2E = pow(v2PrimeErrorSquared,0.5);}
 
+            
             if(Flow2E>0.) {
-              std::cout<<"komen we hier -> Ptdiff flow 2?"std::endl;
+              std::cout<<"komen we hier -> Ptdiff flow 2? zo ja Flow2 = "<<Flow2<<std::endl;
               
               fFlowQCFinalPtDifHist[h][hr][0][charge]->SetBinContent(pt,Flow2);
               fFlowQCFinalPtDifHist[h][hr][0][charge]->SetBinError(pt,Flow2E);
