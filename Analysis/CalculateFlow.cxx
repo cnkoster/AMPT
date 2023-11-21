@@ -523,7 +523,7 @@ void CalculateFlow::UserCreateOutputObjects() {
           fFlowQCFinalPtDifHist[h][i][k][charge]->Sumw2();
           
           if(h==GetCRCCenBin(fCentralityEBE)){
-            fFlowQCList->Add(fFlowQCFinalPtDifHist[GetCRCCenBin(fCentralityEBE)][i][k][charge]);//} //we say cen=1 so the histo is filled only for h=6
+            fFlowQCList->Add(fFlowQCFinalPtDifHist[GetCRCCenBin(fCentralityEBE)][i][k][charge]);} //we say cen=1 so the histo is filled only for h=6
         }
       }
     }
