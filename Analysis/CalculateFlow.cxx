@@ -1763,7 +1763,7 @@ void CalculateFlow::CalculateFlowQC()
 
             
             if(Flow2E>0.) {
-              std::cout<<"1766: komen we hier -> Ptdiff flow 2? zo ja Flow2 = "<<Flow2<<std::endl;
+//              std::cout<<"1766: komen we hier -> Ptdiff flow 2? zo ja Flow2 = "<<Flow2<<std::endl;
               
               fFlowQCFinalPtDifHist[h][hr][0][charge]->SetBinContent(pt,Flow2);
               fFlowQCFinalPtDifHist[h][hr][0][charge]->SetBinError(pt,Flow2E);
