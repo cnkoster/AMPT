@@ -1689,6 +1689,7 @@ void CalculateFlow::CalculateFlowQC()
         // reference flow
         // 2- and 4-particle cumulants
         Double_t QC2    = fFlowQCRefCorHist[hr][0][charge]->GetBinContent(h+1);
+        std::cout<<"h= "<<h<<" QC2 = "<<QC2<<std::endl;
         Double_t QC2E = fFlowQCRefCorHist[hr][0][charge]->GetBinError(h+1);
         Double_t QC4    = fFlowQCRefCorHist[hr][1][charge]->GetBinContent(h+1);
         Double_t QC4E = fFlowQCRefCorHist[hr][1][charge]->GetBinError(h+1);
@@ -1750,10 +1751,10 @@ void CalculateFlow::CalculateFlowQC()
             //std::cout<<"for h="<<h<<" hr="<<hr<<" j="<<1<<" | pt: "<<pt<<" Flow2="<<Flow2<<std::endl;
             Double_t Flow2E = 0.;
             // change vocabulary, to be changed
-            Double_t two = QC2; std::cout<<two<<std::endl;
-            Double_t twoError = QC2E; std::cout<<twoError<<std::endl;
-            Double_t twoReduced = qp2; std::cout<<twoReduced<<std::endl;
-            Double_t twoReducedError = qp2E; std::cout<<twoReducedError<<std::endl;
+            Double_t two = QC2; //std::cout<<two<<std::endl;
+            Double_t twoError = QC2E; //std::cout<<twoError<<std::endl;
+            Double_t twoReduced = qp2; //std::cout<<twoReduced<<std::endl;
+            Double_t twoReducedError = qp2E; //std::cout<<twoReducedError<<std::endl;
             Double_t wCovTwoTwoReduced = fFlowQCCorCovHist[h][hr][0][charge]->GetBinContent(pt);
             Double_t v2PrimeErrorSquared = (1./4.)*pow(two,-3.)*(pow(twoReduced,2.)*pow(twoError,2.)
                                                                  + 4.*pow(two,2.)*pow(twoReducedError,2.)
