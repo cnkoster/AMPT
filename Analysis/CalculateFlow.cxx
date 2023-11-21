@@ -51,8 +51,8 @@ CalculateFlow::CalculateFlow(const char* name):fQAList(NULL),fSpectraList(NULL),
   fSpectraList->SetOwner(kTRUE);
   
   InitializeArraysForFlowQC();
-  InitializeArraysForFlowSPM();
-  InitializeArraysForFlowGF();
+  //InitializeArraysForFlowSPM();
+ // InitializeArraysForFlowGF();
   InitializeArraysForQA();
   
   for(Int_t i=0; i<fkGFPtB; i++) {
@@ -992,10 +992,10 @@ void CalculateFlow::Make(Event* anEvent) {
   
   //sw.tick();
   CalculateFlowQC();
-  CalculateFlowGF();
+ // CalculateFlowGF();
   //    CalculateFlowSPM();
   //    CalculateFlowSPM1();
-  CalculateFlowEPM();
+ // CalculateFlowEPM();
   
   // sw.tock();
   // cout << "Time for CalculateFlowCQ() "<< sw.takeTime() << endl;
@@ -1059,9 +1059,9 @@ void CalculateFlow::Terminate(Int_t Nevents)
 {
   FinalizeSpectra(Nevents);
   FinalizeFlowQC();
-  FinalizeFlowGF();
+//  FinalizeFlowGF();
 //  FinalizeFlowSPM();
-  FinalizeFlowEPM();
+//  FinalizeFlowEPM();
   FinalizeQA();
 }
 
