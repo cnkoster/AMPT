@@ -55,7 +55,7 @@ void runFlow(Bool_t etaFlag = kTRUE, TString centrality="", Double_t gCentrality
   TBranch *bnevent = tree->GetBranch("event");
     bnevent->SetAddress(&event);
     
-  Long64_t nevent = 1000; //tree->GetEntries();
+  Long64_t nevent = 10; //tree->GetEntries();
     Int_t nselected = 0;
     Int_t nb = 0;
     Double_t nSpectators = 0;
@@ -76,6 +76,7 @@ void runFlow(Bool_t etaFlag = kTRUE, TString centrality="", Double_t gCentrality
     fQC->SetminNtrackCut(500);
     fQC->SetmaxEtaCut(0.8);
     fQC->SetdoQA(kTRUE);
+    fQC->SetCentralityEBE(gCentrality);
     
 
     for (Long64_t i=0;i<nevent;i++) {
@@ -84,7 +85,6 @@ void runFlow(Bool_t etaFlag = kTRUE, TString centrality="", Double_t gCentrality
         bnevent->GetEntry(i); //this is the branch event
         
         fQC->SetEvent(event);
-        fQC->SetCentralityEBE(gCentrality);
         fQC->UserExec();
         
 

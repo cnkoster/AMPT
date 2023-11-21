@@ -275,7 +275,7 @@ void CalculateFlow::UserCreateOutputObjects() {
   fPhiChargedParticlesDistribution = new TH1D("fPhiChargedParticlesDistribution", "fPhiChargedParticlesDistribution", 200, -0.1, 2*TMath::Pi()+0.1);
   
   
-  fEtaPhiChargedParticlesDistribution = new TH2D("fEtaPhiChargedParticlesDistribution", "fEtaPhiChargedParticlesDistribution",200, -0.1, 2*TMath::Pi()+0.1, 200, -0.8, 0.8);
+//  fEtaPhiChargedParticlesDistribution = new TH2D("fEtaPhiChargedParticlesDistribution", "fEtaPhiChargedParticlesDistribution",200, -0.1, 2*TMath::Pi()+0.1, 200, -0.8, 0.8);
   
   // std::cout<<"Spectra is defined"<<std::endl;
   
@@ -800,7 +800,7 @@ void CalculateFlow::Make(Event* anEvent) {
       fPtChargedParticlesDistribution->Fill(dPt);
       fEtaChargedParticlesDistribution->Fill(dEta);
       fPhiChargedParticlesDistribution->Fill(dPhi);
-      fEtaPhiChargedParticlesDistribution->Fill(dPhi,dEta);
+//      fEtaPhiChargedParticlesDistribution->Fill(dPhi,dEta);
       
       // Pions
       if (Pid == 211 || Pid == -211) {
@@ -1746,15 +1746,14 @@ void CalculateFlow::CalculateFlowQC()
           fFlowQCFinalPtDifHist[h][hr][5][charge]->SetBinError(pt,Dn2E);
 
           if(Cn2) {
-            std::cout<<" is Cn2? L1749 "<<Cn2<<std::endl; 
             Double_t Flow2 = Dn2/sqrt(fabs(Cn2));
             //std::cout<<"for h="<<h<<" hr="<<hr<<" j="<<1<<" | pt: "<<pt<<" Flow2="<<Flow2<<std::endl;
             Double_t Flow2E = 0.;
             // change vocabulary, to be changed
-            Double_t two = QC2;
-            Double_t twoError = QC2E;
-            Double_t twoReduced = qp2;
-            Double_t twoReducedError = qp2E;
+            Double_t two = QC2; std::cout<<two<<std::endl;
+            Double_t twoError = QC2E; std::cout<<twoError<<std::endl;
+            Double_t twoReduced = qp2; std::cout<<twoReduced<<std::endl;
+            Double_t twoReducedError = qp2E; std::cout<<twoReducedError<<std::endl;
             Double_t wCovTwoTwoReduced = fFlowQCCorCovHist[h][hr][0][charge]->GetBinContent(pt);
             Double_t v2PrimeErrorSquared = (1./4.)*pow(two,-3.)*(pow(twoReduced,2.)*pow(twoError,2.)
                                                                  + 4.*pow(two,2.)*pow(twoReducedError,2.)
