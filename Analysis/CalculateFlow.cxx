@@ -894,59 +894,59 @@ void CalculateFlow::Make(Event* anEvent) {
     // Also POI SPM!
     
     
-    for (Int_t k=0; k<fQVecPower; k++) {
-      for (Int_t h=0;h<fFlowNHarmMax;h++) {
-        fPOIPtDiffQRe[k][h][0]->Fill(xval,pow(wPhiEta,k)*TMath::Cos((h+1.)*dPhi));
-        fPOIPtDiffQIm[k][h][0]->Fill(xval,pow(wPhiEta,k)*TMath::Sin((h+1.)*dPhi));
-        fPOIPtDiffMul[k][h][0]->Fill(xval,pow(wPhiEta,k));
-        
-        
-        
-        if(dCharge>0){
-          //if(dPhi>TMath::Pi)
-          fPOIPtDiffQRe[k][h][1]->Fill(xval,pow(wPhiEta,k)*TMath::Cos((h+1.)*dPhi));
-          fPOIPtDiffQIm[k][h][1]->Fill(xval,pow(wPhiEta,k)*TMath::Sin((h+1.)*dPhi));
-          fPOIPtDiffMul[k][h][1]->Fill(xval,pow(wPhiEta,k));
-          
-        }
-        
-        
-        if(dCharge<0){
-          fPOIPtDiffQRe[k][h][2]->Fill(xval,pow(wPhiEta,k)*TMath::Cos((h+1.)*dPhi));
-          fPOIPtDiffQIm[k][h][2]->Fill(xval,pow(wPhiEta,k)*TMath::Sin((h+1.)*dPhi));
-          fPOIPtDiffMul[k][h][2]->Fill(xval,pow(wPhiEta,k));
-        }
-        
-      }
-    }
-    
-//    if(dEta>=0){
-//      for (Int_t h=0;h<3;h++) {
-//        fPOISPMPtDiffQRe_pos[h][0]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
-//        fPOISPMPtDiffQIm_pos[h][0]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
-//        fPOISPMPtDiffMul_pos[h][0]->Fill(xval,pow(wPhiEta,1));
+//    for (Int_t k=0; k<fQVecPower; k++) {
+//      for (Int_t h=0;h<fFlowNHarmMax;h++) {
+//        fPOIPtDiffQRe[k][h][0]->Fill(xval,pow(wPhiEta,k)*TMath::Cos((h+1.)*dPhi));
+//        fPOIPtDiffQIm[k][h][0]->Fill(xval,pow(wPhiEta,k)*TMath::Sin((h+1.)*dPhi));
+//        fPOIPtDiffMul[k][h][0]->Fill(xval,pow(wPhiEta,k));
 //
 //
 //
 //        if(dCharge>0){
 //          //if(dPhi>TMath::Pi)
-//          fPOISPMPtDiffQRe_pos[h][1]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
-//          fPOISPMPtDiffQIm_pos[h][1]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
-//          fPOISPMPtDiffMul_pos[h][1]->Fill(xval,pow(wPhiEta,1));
+//          fPOIPtDiffQRe[k][h][1]->Fill(xval,pow(wPhiEta,k)*TMath::Cos((h+1.)*dPhi));
+//          fPOIPtDiffQIm[k][h][1]->Fill(xval,pow(wPhiEta,k)*TMath::Sin((h+1.)*dPhi));
+//          fPOIPtDiffMul[k][h][1]->Fill(xval,pow(wPhiEta,k));
 //
 //        }
 //
 //
 //        if(dCharge<0){
-//          fPOISPMPtDiffQRe_pos[h][2]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
-//          fPOISPMPtDiffQIm_pos[h][2]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
-//          fPOISPMPtDiffMul_pos[h][2]->Fill(xval,pow(wPhiEta,1));
-//
+//          fPOIPtDiffQRe[k][h][2]->Fill(xval,pow(wPhiEta,k)*TMath::Cos((h+1.)*dPhi));
+//          fPOIPtDiffQIm[k][h][2]->Fill(xval,pow(wPhiEta,k)*TMath::Sin((h+1.)*dPhi));
+//          fPOIPtDiffMul[k][h][2]->Fill(xval,pow(wPhiEta,k));
 //        }
 //
 //      }
-//
 //    }
+    
+    if(dEta>=0){
+      for (Int_t h=0;h<3;h++) {
+        fPOISPMPtDiffQRe_pos[h][0]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
+        fPOISPMPtDiffQIm_pos[h][0]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
+        fPOISPMPtDiffMul_pos[h][0]->Fill(xval,pow(wPhiEta,1));
+
+
+
+        if(dCharge>0){
+          //if(dPhi>TMath::Pi)
+          fPOISPMPtDiffQRe_pos[h][1]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
+          fPOISPMPtDiffQIm_pos[h][1]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
+          fPOISPMPtDiffMul_pos[h][1]->Fill(xval,pow(wPhiEta,1));
+
+        }
+
+
+        if(dCharge<0){
+          fPOISPMPtDiffQRe_pos[h][2]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
+          fPOISPMPtDiffQIm_pos[h][2]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
+          fPOISPMPtDiffMul_pos[h][2]->Fill(xval,pow(wPhiEta,1));
+
+        }
+
+      }
+
+    }
     
 //    if(dEta<0){
 //      for (Int_t h=0;h<3;h++) {
@@ -1356,9 +1356,9 @@ void CalculateFlow::CalculateFlowSPM1()
         Mu_RFP_V0C +=  fRFPSPMPtDiffMul_V0C[0][charge]->GetBinContent(pt+1);
         //  std::cout<<fPOIPtDiffQRe[1][hr][charge]->GetBinCenter(pt+1)<<std::endl;
         
-        QRe += fPOIPtDiffQRe[1][hr][charge]->GetBinContent(pt+1);
-        QIm += fPOIPtDiffQIm[1][hr][charge]->GetBinContent(pt+1);
-        Mu += fPOIPtDiffMul[1][0][charge]->GetBinContent(pt+1);}
+        QRe += fPOIPtDiffQRe[hr][charge]->GetBinContent(pt+1);
+        QIm += fPOIPtDiffQIm[hr][charge]->GetBinContent(pt+1);
+        Mu += fPOIPtDiffMul[0][charge]->GetBinContent(pt+1);}
       
       x_QQ = TMath::Sqrt(TMath::Abs(QIm_RFP_V0A * QIm_RFP_V0C));
       y_QQ = TMath::Sqrt(TMath::Abs(QIm_RFP_V0A * QIm_RFP_V0C));
