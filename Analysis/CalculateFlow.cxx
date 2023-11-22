@@ -1257,9 +1257,9 @@ void CalculateFlow::CalculateFlowSPM()
       
       for(Int_t pt=0; pt<fNBins; pt++) {
         //std::cout<<fPOIPtDiffQRe[1][hr][charge]->GetBinContent(pt+1)<<std::endl;
-        QRe += fPOIPtDiffQRe[1][hr][charge]->GetBinContent(pt+1);
-        QIm += fPOIPtDiffQIm[1][hr][charge]->GetBinContent(pt+1);
-        Mu += fPOIPtDiffMul[1][0][charge]->GetBinContent(pt+1);
+        QRe += fPOIPtDiffQRe_pos[1][hr][charge]->GetBinContent(pt+1);
+        QIm += fPOIPtDiffQIm_pos[1][hr][charge]->GetBinContent(pt+1);
+        Mu += fPOIPtDiffMul_pos[1][0][charge]->GetBinContent(pt+1);
       }
       
       
