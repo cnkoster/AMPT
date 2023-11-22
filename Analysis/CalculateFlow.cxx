@@ -1058,9 +1058,9 @@ void CalculateFlow::ResetEventByEventQuantities()
 void CalculateFlow::Terminate(Int_t Nevents)
 {
   FinalizeSpectra(Nevents);
-  FinalizeFlowQC();
+ // FinalizeFlowQC();
 //  FinalizeFlowGF();
-//  FinalizeFlowSPM();
+  FinalizeFlowSPM();
 //  FinalizeFlowEPM();
   FinalizeQA();
 }
