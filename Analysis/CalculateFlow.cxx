@@ -1257,9 +1257,9 @@ void CalculateFlow::CalculateFlowSPM()
       
       for(Int_t pt=0; pt<fNBins; pt++) {
         //std::cout<<fPOIPtDiffQRe[1][hr][charge]->GetBinContent(pt+1)<<std::endl;
-        QRe += fPOISPMPtDiffQRe_pos[1][hr][charge]->GetBinContent(pt+1);
-        QIm += fPOISPMPtDiffQIm_pos[1][hr][charge]->GetBinContent(pt+1);
-        Mu += fPOISPMPtDiffMul_pos[1][0][charge]->GetBinContent(pt+1);
+        QRe += fPOISPMPtDiffQRe_pos[hr][charge]->GetBinContent(pt+1);
+        QIm += fPOISPMPtDiffQIm_pos[hr][charge]->GetBinContent(pt+1);
+        Mu += fPOISPMPtDiffMul_pos[0][charge]->GetBinContent(pt+1);
       }
       
       
@@ -1356,9 +1356,9 @@ void CalculateFlow::CalculateFlowSPM1()
         Mu_RFP_V0C +=  fRFPSPMPtDiffMul_V0C[0][charge]->GetBinContent(pt+1);
         //  std::cout<<fPOIPtDiffQRe[1][hr][charge]->GetBinCenter(pt+1)<<std::endl;
         
-        QRe += fPOIPtDiffQRe[hr][charge]->GetBinContent(pt+1);
-        QIm += fPOIPtDiffQIm[hr][charge]->GetBinContent(pt+1);
-        Mu += fPOIPtDiffMul[0][charge]->GetBinContent(pt+1);}
+        QRe += fPOIPtDiffQRe[1][hr][charge]->GetBinContent(pt+1);
+        QIm += fPOIPtDiffQIm[1][hr][charge]->GetBinContent(pt+1);
+        Mu += fPOIPtDiffMul[1][0][charge]->GetBinContent(pt+1);}
       
       x_QQ = TMath::Sqrt(TMath::Abs(QIm_RFP_V0A * QIm_RFP_V0C));
       y_QQ = TMath::Sqrt(TMath::Abs(QIm_RFP_V0A * QIm_RFP_V0C));
