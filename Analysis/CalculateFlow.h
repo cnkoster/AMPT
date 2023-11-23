@@ -240,7 +240,7 @@ private:
   TH1D *fRFPSPMPtDiffQIm_V0C[fFlowNHarmMax][fCharge];
   TH1D *fRFPSPMPtDiffMul_V0C[fFlowNHarmMax][fCharge];
   
-  TProfile *fSPMEPresolutionPro[fFlowNHarmMax][fCharge];
+  TH1D *fSPMEPresolutionPro[fFlowNHarmMax][fCharge];
   
   
   //    TH1D *fPOISPMPtDiffQRe_projectile[fFlowNHarmMax][fCharge]; // real part

@@ -198,17 +198,19 @@ void CalculateFlow::InitializeArraysForFlowGF()
 
 void CalculateFlow::InitializeArraysForFlowSPM()
 {
-  for(Int_t charge=0; charge<fCharge;charge++){
+  
     for (Int_t h=0;h<fFlowNHarmMax;h++) {
-      //fFlowNHarmMax
       
       QRe_EP[h] = 0;                  //POI Pt Diff Q Re [fQVecPower][fFlowHarmonic]
       QIm_EP[h] = 0;
       Mul_EP[h] = 0;
+      fSPMEPresolutionPro[h] = NULL;
       
+      for(Int_t charge=0; charge<fCharge;charge++){
+      //fFlowNHarmMax
+    
       fFlowSPMIntPro[h][charge] = NULL;
       fFlowSPMIntFlow2Hist[h][charge] = NULL;
-      fSPMEPresolutionPro[h][charge] = NULL;
       
       fFlowSPM1IntPro[h][charge] = NULL;
       fFlowSPM1IntFlow2Hist[h][charge] = NULL;
@@ -607,6 +609,7 @@ void CalculateFlow::UserCreateOutputObjects() {
       fPOISPMPtDiffMul_neg[h][charge]->Sumw2();
       
       
+      
       fRFPSPMPtDiffQRe_V0A[h][charge] = new TH1D(Form("fRFPSPMPtDiffQRe_V0A[%d][%d]",h,charge),Form("fRFPSPMPtDiffQRe_V0A[%d][%d]",h,charge),fNBins,-10,10);//,fPtDiffNBins,fCRCPtBins);
       fRFPSPMPtDiffQRe_V0A[h][charge]->Sumw2();
       fRFPSPMPtDiffQIm_V0A[h][charge] = new TH1D(Form("fRFPSPMPtDiffQIm_V0A[%d][%d]",h,charge),Form("fRFPSPMPtDiffQIm_V0A[%d][%d]",h,charge),fNBins,-10,10);//,fPtDiffNBins,fCRCPtBins);
@@ -620,10 +623,11 @@ void CalculateFlow::UserCreateOutputObjects() {
       fRFPSPMPtDiffMul_V0C[h][charge] = new TH1D(Form("fRFPSPMPtDiffMul_V0C[%d][%d]",h,charge),Form("fRFPSPMPtDiffMul_V0C[%d][%d]",h,charge),fNBins,-10,10);//,fPtDiffNBins,fCRCPtBins);
       fRFPSPMPtDiffMul_V0C[h][charge]->Sumw2();
       
-      fFlowSPMIntPro[h][charge]= new TProfile(Form("fSPMEPresolutionPro[%d][%d]",h,charge),Form("fSPMEPresolutionPro%d][%d]",h,charge),9,ImPaBins,"s");
+      fFlowSPMIntPro[h][charge]= new TProfile(Form("fFlowSPMIntPro[%d][%d]",h,charge),Form("fFlowSPMIntPro[%d][%d]",h,charge),9,ImPaBins,"s");
       fFlowSPMIntPro[h][charge]->Sumw2();
-      fSPMEPresolutionPro[h][charge] = new TProfile(Form("fFlowSPMIntPro[%d][%d]",h,charge),Form("fFlowSPMIntPro[%d][%d]",h,charge),9,ImPaBins,"s");
-      fSPMEPresolutionPro[h][charge]->Sumw2();
+      fSPMEPresolutionPro[h] = new TH1D(Form("fSPMEPresolutionPro[%d]",h),Form("fSPMEPresolutionPro[%d]",h),100,-1,1);
+      fSPMEPresolutionPro[h]->Sumw2();
+      fFlowSPMList->Add(fSPMEPresolutionPro[h]);
       
       fFlowSPMIntFlow2Hist[h][charge] = new TH1D(Form("fFlowSPMIntFlow2Hist[%d][%d]",h,charge),Form("fFlowSPMIntFlow2Hist[%d][%d]",h,charge),9,ImPaBins);
       fFlowSPMIntFlow2Hist[h][charge]->Sumw2();
@@ -1164,9 +1168,11 @@ void CalculateFlow::CalculateFlowSPM()
   // Calculate Q vectors for the spectators (P&T)
   // Then determine correlations with the POI (u)
   // *******************************************************************
+  for(Int_t charge=0;charge<fCharge;charge++){
+    
   for (Int_t hr=0;hr<fFlowNHarm;hr++) {
     
-    for(Int_t charge=0;charge<fCharge;charge++){
+    
       // ********************************************************************
       // pT-integrated: {2} *************************************************
       // ********************************************************************
@@ -1216,12 +1222,11 @@ void CalculateFlow::CalculateFlowSPM()
       //            std::cout<<Denom_pty<<std::endl;
       
       fFlowSPMIntPro[hr][charge]->Fill(fImpactParameter, Denom_pty,1.); //1 for weights
-      fSPMEPresolutionPro[hr][charge]->Fill(fImpactParameter, EventPlane);
-      
       
       
       
     } //end of for(Int_t charge=0;charge<fCharge;charge++)
+    fSPMEPresolutionPro[hr]->Fill(EventPlane);
   }//end of nHarm
 }
 
@@ -2414,7 +2419,7 @@ void CalculateFlow::FinalizeFlowSPM()
         Corr_QQ_y = GetWeightedCorrelations(fFlowSPMIntPro[h][charge], pt);
         CorrErr_QQ_y = GetWeightedCorrelationsError(fFlowSPMIntPro[h][charge], pt);
         
-        EP_res = GetWeightedCorrelations(fSPMEPresolutionPro[h][charge],pt);
+      //  EP_res = GetWeightedCorrelations(fSPMEPresolutionPro[h][charge],pt);
         
         fFlowSPMIntFlow2Hist[h][charge]->SetBinContent(pt, Corr_QQ_y);
         fFlowSPMIntFlow2Hist[h][charge]->SetBinError(pt, CorrErr_QQ_y);
