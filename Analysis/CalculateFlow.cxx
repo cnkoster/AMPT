@@ -204,7 +204,6 @@ void CalculateFlow::InitializeArraysForFlowSPM()
       QRe_EP[h] = 0;                  //POI Pt Diff Q Re [fQVecPower][fFlowHarmonic]
       QIm_EP[h] = 0;
       Mul_EP[h] = 0;
-      fSPMEPresolutionPro[h] = NULL;
       
       for(Int_t charge=0; charge<fCharge;charge++){
       //fFlowNHarmMax
@@ -591,6 +590,11 @@ void CalculateFlow::UserCreateOutputObjects() {
   
   
   for (Int_t h=0;h<fFlowNHarm;h++) {
+    
+    fSPMEPresolutionPro[h] = new TH1D(Form("fSPMEPresolutionPro[%d]",h),Form("fSPMEPresolutionPro[%d]",h),100,-1,1);
+    fSPMEPresolutionPro[h]->Sumw2();
+    fFlowSPMList->Add(fSPMEPresolutionPro[h]);
+    
     for(Int_t charge=0; charge<fCharge; charge++){
       
       fPOISPMPtDiffQRe_pos[h][charge] = new TH1D(Form("fPOISPMPtDiffQRe_pos[%d][%d]",h,charge),Form("fPOISPMPtDiffQRe_pos[%d][%d]",h,charge), fNBins, fBins);//,fPtDiffNBins,fCRCPtBins);
@@ -625,9 +629,7 @@ void CalculateFlow::UserCreateOutputObjects() {
       
       fFlowSPMIntPro[h][charge]= new TProfile(Form("fFlowSPMIntPro[%d][%d]",h,charge),Form("fFlowSPMIntPro[%d][%d]",h,charge),9,ImPaBins,"s");
       fFlowSPMIntPro[h][charge]->Sumw2();
-      fSPMEPresolutionPro[h] = new TH1D(Form("fSPMEPresolutionPro[%d]",h),Form("fSPMEPresolutionPro[%d]",h),100,-1,1);
-      fSPMEPresolutionPro[h]->Sumw2();
-      fFlowSPMList->Add(fSPMEPresolutionPro[h]);
+
       
       fFlowSPMIntFlow2Hist[h][charge] = new TH1D(Form("fFlowSPMIntFlow2Hist[%d][%d]",h,charge),Form("fFlowSPMIntFlow2Hist[%d][%d]",h,charge),9,ImPaBins);
       fFlowSPMIntFlow2Hist[h][charge]->Sumw2();
