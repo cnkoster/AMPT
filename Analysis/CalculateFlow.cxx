@@ -593,7 +593,7 @@ void CalculateFlow::UserCreateOutputObjects() {
     
     fSPMEPresolutionPro[h] = new TH1D(Form("fSPMEPresolutionPro[%d]",h),Form("fSPMEPresolutionPro[%d]",h),100,-1,1);
     fSPMEPresolutionPro[h]->Sumw2();
-    fFlowSPMList->Add(fSPMEPresolutionPro[h]);
+    fQAList->Add(fSPMEPresolutionPro[h]);
     
     for(Int_t charge=0; charge<fCharge; charge++){
       
