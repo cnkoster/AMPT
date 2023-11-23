@@ -749,6 +749,9 @@ void CalculateFlow::Make(Event* anEvent) {
       Mul_EP[h] += pow(wPhiEta,1);
     }
     
+
+
+    
     if (dCharge == 0) continue;
     cw = (dCharge > 0. ? 0 : 1);
   
@@ -989,13 +992,10 @@ void CalculateFlow::ResetEventByEventQuantities()
   //FlowSPM & EPM
   for (Int_t h=0;h<fFlowNHarm;h++) {
     
-    if(QRe_V0A[h]) QRe_V0A[h]=0;
-    if(QIm_V0A[h]) QIm_V0A[h]=0;
-    if(Mul_V0A[h]) Mul_V0A[h]=0;
-    
-    if(QRe_V0C[h]) QRe_V0C[h]=0;
-    if(QIm_V0C[h]) QIm_V0C[h]=0;
-    if(Mul_V0C[h]) Mul_V0C[h]=0;
+    if(QRe_EP) QRe_EP[h]=0;
+    if(QIm_EP[h]) QIm_EP[h]=0;
+    if(Mul_EP[h]) Mul_EP[h]=0;
+
     
     for (Int_t charge=0; charge<fCharge; charge++){
     

@@ -293,10 +293,8 @@ private:
   Int_t fNumberOfParticipants=0;
   Double_t fImpactParameter=-999;
   
-  Double_t QRe_EP[0],QIm_EP[0],Mul_EP[0];
-  Double_t QRe_EP[1],QIm_EP[1],Mul_EP[1];
-  Double_t QRe_EP[2],QIm_EP[2],Mul_EP[2];
-  Double_t QRe_EP[3],QIm_EP[3],Mul_EP[3];
-  
+  Double_t QRe_EP[fFlowNHarmMax];
+  Double_t QIm_EP[fFlowNHarmMax];
+  Double_t Mul_EP[fFlowNHarmMax];
 };
 #endif
