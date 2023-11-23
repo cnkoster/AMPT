@@ -202,13 +202,9 @@ void CalculateFlow::InitializeArraysForFlowSPM()
     for (Int_t h=0;h<fFlowNHarmMax;h++) {
       //fFlowNHarmMax
       
-      fRFPSPMPtDiffQRe_V0A[h][charge] = NULL;                  //POI Pt Diff Q Re [fQVecPower][fFlowHarmonic]
-      fRFPSPMPtDiffQIm_V0A[h][charge] = NULL;
-      fRFPSPMPtDiffMul_V0A[h][charge] = NULL;
-      
-      fRFPSPMPtDiffQRe_V0C[h][charge] = NULL;                  //POI Pt Diff Q Re [fQVecPower][fFlowHarmonic]
-      fRFPSPMPtDiffQIm_V0C[h][charge] = NULL;
-      fRFPSPMPtDiffMul_V0C[h][charge] = NULL;
+      QRe_EP[h] = NULL;                  //POI Pt Diff Q Re [fQVecPower][fFlowHarmonic]
+      QIm_EP[h] = NULL;
+      Mul_EP[h] = NULL;
       
       fFlowSPMIntPro[h][charge] = NULL;
       fFlowSPMIntFlow2Hist[h][charge] = NULL;
@@ -992,9 +988,9 @@ void CalculateFlow::ResetEventByEventQuantities()
   //FlowSPM & EPM
   for (Int_t h=0;h<fFlowNHarm;h++) {
     
-    if(QRe_EP) QRe_EP[h]=0;
-    if(QIm_EP[h]) QIm_EP[h]=0;
-    if(Mul_EP[h]) Mul_EP[h]=0;
+    if(QRe_EP[h]!=0) QRe_EP[h]=0;
+    if(QIm_EP[h]!=0) QIm_EP[h]=0;
+    if(Mul_EP[h]!=0) Mul_EP[h]=0;
 
     
     for (Int_t charge=0; charge<fCharge; charge++){
@@ -1158,7 +1154,7 @@ void CalculateFlow::CalculateFlowSPM()
   Float_t Denom_pty;
   Float_t x_QQ, y_QQ, x_uQ, y_uQ;
   
-  Float_t EvevntPlane;
+  Float_t EventPlane;
   
   Float_t cosEvPl, sinEvPl;
   Float_t cosPhi, sinPhi;
@@ -1185,8 +1181,8 @@ void CalculateFlow::CalculateFlowSPM()
 
       // std::cout<< " EP_res " << EP_res << std::endl;
       
-      cosEvPl = TMath::Cos(EventPlaneV0A);
-      sinEvPl = TMath::Sin(EventPlaneV0C);
+      cosEvPl = TMath::Cos(EventPlane);
+      sinEvPl = TMath::Sin(EventPlane);
       
       for(Int_t pt=0; pt<fNBins; pt++) {
         //std::cout<<fPOIPtDiffQRe[1][hr][charge]->GetBinContent(pt+1)<<std::endl;
@@ -1196,7 +1192,7 @@ void CalculateFlow::CalculateFlowSPM()
       }
       
       
-      x_QQ = QRe*cosEvPlV0A + QIm*sinEvPlV0A;
+      x_QQ = QRe*cosEvPl + QIm*sinEvPl;
       //            std::cout<< " ------------------ " << std::endl;
       //
       //            std::cout<< QRe << "  " << QIm << "  " << Mu << std::endl;
@@ -1220,7 +1216,7 @@ void CalculateFlow::CalculateFlowSPM()
       //            std::cout<<Denom_pty<<std::endl;
       
       fFlowSPMIntPro[hr][charge]->Fill(fImpactParameter, Denom_pty,1.); //1 for weights
-      fSPMEPresolutionPro[hr][charge]->Fill(fImpactParameter, EP_res);
+      fSPMEPresolutionPro[hr][charge]->Fill(fImpactParameter, EventPlane);
       
       
       
