@@ -1169,11 +1169,11 @@ void CalculateFlow::CalculateFlowSPM()
   // Calculate Q vectors for the spectators (P&T)
   // Then determine correlations with the POI (u)
   // *******************************************************************
-  for(Int_t charge=0;charge<fCharge;charge++){
+  
     
   for (Int_t hr=0;hr<fFlowNHarm;hr++) {
     
-    
+    for(Int_t charge=0;charge<fCharge;charge++){
       // ********************************************************************
       // pT-integrated: {2} *************************************************
       // ********************************************************************
