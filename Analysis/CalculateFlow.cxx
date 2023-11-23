@@ -403,7 +403,7 @@ void CalculateFlow::UserCreateOutputObjects() {
   fCRCPtBins = new Double_t[37-8];
   Double_t PtBins[] = {0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.,1.25,1.5,1.75,2.,2.25,2.5,2.75,3.,3.25,3.5,3.75,4.,4.5,5.,5.5,6.,7.,8.,9.,10.};//,12.,14.,17.,20.,25.,30.,40.,50.};
   Double_t EtaBins[] = {-0.8,-0.7, -0.6, -0.5, -0.4, -0.3, -0.2, -0.1, 0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8};
-  Double_t ImPaBins[] = {0.0, 3.72, 5.23, 7.31, 8.88, 10.20, 11.38, 12.47, 13.50, 14.51, 15.0};
+  Double_t ImPaBins[] = {3.72, 5.23, 7.31, 8.88, 10.20, 11.38, 12.47, 13.50, 14.51, 15.0};
   
   
   if(EtaDiff){
@@ -445,26 +445,26 @@ void CalculateFlow::UserCreateOutputObjects() {
   for(Int_t i=0; i<fFlowNHarm; i++) {
     for(Int_t j=0; j<fkFlowQCnIntCorPro; j++) {
       for(Int_t charge=0; charge<fCharge; charge++){
-        fFlowQCIntCorPro[i][j][charge] = new TProfile(Form("fFlowQCIntCorPro[%d][%d][%d]",i,j,charge),Form("fFlowQCIntCorPro[%d][%d][%d]",i,j,charge),10,ImPaBins,"s"); //here we changed the bins to nParticipants
+        fFlowQCIntCorPro[i][j][charge] = new TProfile(Form("fFlowQCIntCorPro[%d][%d][%d]",i,j,charge),Form("fFlowQCIntCorPro[%d][%d][%d]",i,j,charge),9,ImPaBins,"s"); //here we changed the bins to nParticipants
         fFlowQCIntCorPro[i][j][charge]->Sumw2();
         //fFlowQCList->Add(fFlowQCIntCorPro[i][j]);
-        fFlowQCIntCorHist[i][j][charge] = new TH1D(Form("fFlowQCIntCorHist[%d][%d][%d]",i,j,charge),Form("fFlowQCIntCorHist[%d][%d][%d]",i,j,charge),10,ImPaBins);
+        fFlowQCIntCorHist[i][j][charge] = new TH1D(Form("fFlowQCIntCorHist[%d][%d][%d]",i,j,charge),Form("fFlowQCIntCorHist[%d][%d][%d]",i,j,charge),9,ImPaBins);
         fFlowQCIntCorHist[i][j][charge]->Sumw2();
         //   fFlowQCList->Add(fFlowQCIntCorHist[i][j][charge]);
         
-        fFlowQCIntFlow2Hist[i][j][charge] = new TH1D(Form("fFlowQCIntFlow2Hist[%d][%d][%d]",i,j,charge),Form("fFlowQCIntFlow2Hist[%d][%d][%d]",i,j,charge),10,ImPaBins);
+        fFlowQCIntFlow2Hist[i][j][charge] = new TH1D(Form("fFlowQCIntFlow2Hist[%d][%d][%d]",i,j,charge),Form("fFlowQCIntFlow2Hist[%d][%d][%d]",i,j,charge),9,ImPaBins);
         fFlowQCIntFlow2Hist[i][j][charge]->Sumw2();
         
         
         fFlowQCIntFlow4Hist[i][j][charge] = new
-        TH1D(Form("fFlowQCIntFlow4Hist[%d][%d][%d]",i,j,charge),Form("fFlowQCIntFlow4Hist[%d][%d][%d]",i,j,charge),10,ImPaBins);
+        TH1D(Form("fFlowQCIntFlow4Hist[%d][%d][%d]",i,j,charge),Form("fFlowQCIntFlow4Hist[%d][%d][%d]",i,j,charge),9,ImPaBins);
         fFlowQCIntFlow4Hist[i][j][charge]->Sumw2();
         
         if(j==0){
           fFlowQCList->Add(fFlowQCIntFlow2Hist[i][j][charge]);}
           //        fFlowQCList->Add(fFlowQCIntFlow4Hist[i][j][charge]);}
           
-          fFlowQCIntCumHist[i][j][charge] = new TH1D(Form("fFlowQCIntCumHist[%d][%d][%d]",i,j,charge),Form("fFlowQCIntCumHist[%d][%d][%d]",i,j,charge),10,ImPaBins);
+          fFlowQCIntCumHist[i][j][charge] = new TH1D(Form("fFlowQCIntCumHist[%d][%d][%d]",i,j,charge),Form("fFlowQCIntCumHist[%d][%d][%d]",i,j,charge),9,ImPaBins);
           fFlowQCIntCumHist[i][j][charge]->Sumw2();
           //   fFlowQCList->Add(fFlowQCIntCumHist[i][j][charge]);
         }
@@ -476,17 +476,17 @@ void CalculateFlow::UserCreateOutputObjects() {
   for(Int_t i=0; i<fFlowNHarm; i++) {
     for(Int_t j=0; j<fFlowQCNRef; j++) {
       for(Int_t charge=0; charge<fCharge; charge++){
-        fFlowQCRefCorPro[i][j][charge] = new TProfile(Form("fFlowQCRefCorPro[%d][%d][%d]",i,j,charge),Form("fFlowQCRefCorPro[%d][%d][%d]",i,j,charge),10,ImPaBins,"s");
+        fFlowQCRefCorPro[i][j][charge] = new TProfile(Form("fFlowQCRefCorPro[%d][%d][%d]",i,j,charge),Form("fFlowQCRefCorPro[%d][%d][%d]",i,j,charge),9,ImPaBins,"s");
         fFlowQCRefCorPro[i][j][charge]->Sumw2();
         //fFlowQCList->Add(fFlowQCRefCorPro[i][j][charge]);
-        fFlowQCRefCorHist[i][j][charge] = new TH1D(Form("fFlowQCRefCorHist[%d][%d][%d]",i,j,charge),Form("fFlowQCRefCorHist[%d][%d][%d]",i,j,charge),10,ImPaBins);
+        fFlowQCRefCorHist[i][j][charge] = new TH1D(Form("fFlowQCRefCorHist[%d][%d][%d]",i,j,charge),Form("fFlowQCRefCorHist[%d][%d][%d]",i,j,charge),9,ImPaBins);
         fFlowQCRefCorHist[i][j][charge]->Sumw2();
         // fFlowQCList->Add(fFlowQCRefCorHist[i][j][charge]);
       }
     }
     for(Int_t j=0; j<4; j++) {
       for(Int_t charge=0; charge<fCharge; charge++){
-        fFlowQCRefCorFinal[i][j][charge] = new TH1D(Form("fFlowQCRefCorFinal[%d][%d][%d]",i,j,charge),Form("fFlowQCRefCorFinal[%d][%d][%d]",i,j,charge),10,ImPaBins);
+        fFlowQCRefCorFinal[i][j][charge] = new TH1D(Form("fFlowQCRefCorFinal[%d][%d][%d]",i,j,charge),Form("fFlowQCRefCorFinal[%d][%d][%d]",i,j,charge),9,ImPaBins);
         fFlowQCRefCorFinal[i][j][charge]->Sumw2();
         //  fFlowQCList->Add(fFlowQCRefCorFinal[i][j][charge]);
       }
@@ -528,38 +528,38 @@ void CalculateFlow::UserCreateOutputObjects() {
   // for CalculateFlowGF
   for (Int_t h=0; h<fkFlowGFNHarm; h++) {
       for(Int_t i=0; i<fkFlowGFNOrde; i++) {
-          fFlowGFIntCorPro[h][i] = new TProfile(Form("fFlowGFIntCorPro[%d][%d]",h,i),Form("fFlowGFIntCorPro[%d][%d]",h,i),10,ImPaBins,"s");//fFlowGFCenBin,0.,100.,"s");
+          fFlowGFIntCorPro[h][i] = new TProfile(Form("fFlowGFIntCorPro[%d][%d]",h,i),Form("fFlowGFIntCorPro[%d][%d]",h,i),9,ImPaBins,"s");//fFlowGFCenBin,0.,100.,"s");
           fFlowGFIntCorPro[h][i]->Sumw2();
           //      fFlowGFList->Add(fFlowGFIntCorPro[h][i]);
-          fFlowGFIntCorHist[h][i] = new TH1D(Form("fFlowGFIntCorHist[%d][%d]",h,i),Form("fFlowGFIntCorHist[%d][%d]",h,i),10,ImPaBins);//fFlowGFCenBin,0.,100.);
+          fFlowGFIntCorHist[h][i] = new TH1D(Form("fFlowGFIntCorHist[%d][%d]",h,i),Form("fFlowGFIntCorHist[%d][%d]",h,i),9,ImPaBins);//fFlowGFCenBin,0.,100.);
           fFlowGFIntCorHist[h][i]->Sumw2();
           //     fFlowGFList->Add(fFlowGFIntCorHist[h][i]);
-          fFlowGFIntCumHist[h][i] = new TH1D(Form("fFlowGFIntCumHist[%d][%d]",h,i),Form("fFlowGFIntCumHist[%d][%d]",h,i),10,ImPaBins);//fFlowGFCenBin,0.,100.);
+          fFlowGFIntCumHist[h][i] = new TH1D(Form("fFlowGFIntCumHist[%d][%d]",h,i),Form("fFlowGFIntCumHist[%d][%d]",h,i),9,ImPaBins);//fFlowGFCenBin,0.,100.);
           fFlowGFIntCumHist[h][i]->Sumw2();
           //         fFlowGFList->Add(fFlowGFIntCumHist[h][i]);
-          fFlowGFIntFinalHist[h][i] = new TH1D(Form("fFlowGFIntFinalHist[%d][%d]",h,i),Form("fFlowGFIntFinalHist[%d][%d]",h,i),10,ImPaBins);//fFlowGFCenBin,0.,100.);
+          fFlowGFIntFinalHist[h][i] = new TH1D(Form("fFlowGFIntFinalHist[%d][%d]",h,i),Form("fFlowGFIntFinalHist[%d][%d]",h,i),9,ImPaBins);//fFlowGFCenBin,0.,100.);
           fFlowGFIntFinalHist[h][i]->Sumw2();
           fFlowGFList->Add(fFlowGFIntFinalHist[h][i]);
           for(Int_t k=0; k<fkFlowGFNOrde; k++) {
-              fFlowGFIntCovPro[h][i][k] = new TProfile(Form("fFlowGFIntCovPro[%d][%d][%d]",h,i,k),Form("fFlowGFIntCovPro[%d][%d][%d]",h,i,k),10,ImPaBins,"s");//fFlowGFCenBin,0.,100.,"s");
+              fFlowGFIntCovPro[h][i][k] = new TProfile(Form("fFlowGFIntCovPro[%d][%d][%d]",h,i,k),Form("fFlowGFIntCovPro[%d][%d][%d]",h,i,k),9,ImPaBins,"s");//fFlowGFCenBin,0.,100.,"s");
               fFlowGFIntCovPro[h][i][k]->Sumw2();
               //           fFlowGFList->Add(fFlowGFIntCovPro[h][i][k]);
-              fFlowGFIntCovHist[h][i][k] = new TH1D(Form("fFlowGFIntCovHist[%d][%d][%d]",h,i,k),Form("fFlowGFIntCovHist[%d][%d][%d]",h,i,k),10,ImPaBins);//fFlowGFCenBin,0.,100.);
+              fFlowGFIntCovHist[h][i][k] = new TH1D(Form("fFlowGFIntCovHist[%d][%d][%d]",h,i,k),Form("fFlowGFIntCovHist[%d][%d][%d]",h,i,k),9,ImPaBins);//fFlowGFCenBin,0.,100.);
               fFlowGFIntCovHist[h][i][k]->Sumw2();
               //          fFlowGFList->Add(fFlowGFIntCovHist[h][i][k]);
           }
           for(Int_t s=0; s<fkGFPtB; s++) {
-              fFlowGFIntCorProPtB[s][h][i] = new TProfile(Form("fFlowGFIntCorProPtB[%d][%d][%d]",s,h,i),Form("fFlowGFIntCorProPtB[%d][%d][%d]",s,h,i),10,ImPaBins,"s");//fFlowGFCenBin,0.,100.,"s");
+              fFlowGFIntCorProPtB[s][h][i] = new TProfile(Form("fFlowGFIntCorProPtB[%d][%d][%d]",s,h,i),Form("fFlowGFIntCorProPtB[%d][%d][%d]",s,h,i),9,ImPaBins,"s");//fFlowGFCenBin,0.,100.,"s");
               fFlowGFIntCorProPtB[s][h][i]->Sumw2();
               //            fFlowGFList->Add(fFlowGFIntCorProPtB[s][h][i]);
-              fFlowGFIntCorHistPtB[s][h][i] = new TH1D(Form("fFlowGFIntCorHistPtB[%d][%d][%d]",s,h,i),Form("fFlowGFIntCorHistPtB[%d][%d][%d]",s,h,i),10,ImPaBins);//fFlowGFCenBin,0.,100.);
+              fFlowGFIntCorHistPtB[s][h][i] = new TH1D(Form("fFlowGFIntCorHistPtB[%d][%d][%d]",s,h,i),Form("fFlowGFIntCorHistPtB[%d][%d][%d]",s,h,i),9,ImPaBins);//fFlowGFCenBin,0.,100.);
               fFlowGFIntCorHistPtB[s][h][i]->Sumw2();
               //            fFlowGFList->Add(fFlowGFIntCorHistPtB[s][h][i]);
               for(Int_t k=0; k<fkFlowGFNOrde; k++) {
-                  fFlowGFIntCovProPtB[s][h][i][k] = new TProfile(Form("fFlowGFIntCovProPtB[%d][%d][%d][%d]",s,h,i,k),Form("fFlowGFIntCovProPtB[%d][%d][%d][%d]",s,h,i,k),10,ImPaBins,"s");//fFlowGFCenBin,0.,100.,"s");
+                  fFlowGFIntCovProPtB[s][h][i][k] = new TProfile(Form("fFlowGFIntCovProPtB[%d][%d][%d][%d]",s,h,i,k),Form("fFlowGFIntCovProPtB[%d][%d][%d][%d]",s,h,i,k),9,ImPaBins,"s");//fFlowGFCenBin,0.,100.,"s");
                   fFlowGFIntCovProPtB[s][h][i][k]->Sumw2();
                   //  fFlowGFList->Add(fFlowGFIntCovProPtB[s][h][i][k]);
-                  fFlowGFIntCovHistPtB[s][h][i][k] = new TH1D(Form("fFlowGFIntCovHistPtB[%d][%d][%d][%d]",s,h,i,k),Form("fFlowGFIntCovHistPtB[%d][%d][%d][%d]",s,h,i,k),10,ImPaBins);//fFlowGFCenBin,0.,100.);
+                  fFlowGFIntCovHistPtB[s][h][i][k] = new TH1D(Form("fFlowGFIntCovHistPtB[%d][%d][%d][%d]",s,h,i,k),Form("fFlowGFIntCovHistPtB[%d][%d][%d][%d]",s,h,i,k),9,ImPaBins);//fFlowGFCenBin,0.,100.);
                   fFlowGFIntCovHistPtB[s][h][i][k]->Sumw2();
                   //fFlowGFList->Add(fFlowGFIntCovHistPtB[s][h][i][k]);
               }
@@ -569,13 +569,13 @@ void CalculateFlow::UserCreateOutputObjects() {
   
   for (Int_t h=0; h<fkFlowGFNHarm; h++) {
       for(Int_t i=0; i<fkFlowGFNHarm; i++) {
-          fFlowGFMixedCorPro[h][i] = new TProfile(Form("fFlowGFMixedCorPro[%d][%d]",h,i),Form("fFlowGFMixedCorPro[%d][%d]",h,i),10,ImPaBins);//fFlowGFCenBin,0.,100.,"s");
+          fFlowGFMixedCorPro[h][i] = new TProfile(Form("fFlowGFMixedCorPro[%d][%d]",h,i),Form("fFlowGFMixedCorPro[%d][%d]",h,i),9,ImPaBins);//fFlowGFCenBin,0.,100.,"s");
           fFlowGFMixedCorPro[h][i]->Sumw2();
           //  fFlowGFList->Add(fFlowGFMixedCorPro[h][i]);
-          fFlowGFMixedCorHist[h][i] = new TH1D(Form("fFlowGFMixedCorHist[%d][%d]",h,i),Form("fFlowGFMixedCorHist[%d][%d]",h,i),10,ImPaBins);//fFlowGFCenBin,0.,100.);
+          fFlowGFMixedCorHist[h][i] = new TH1D(Form("fFlowGFMixedCorHist[%d][%d]",h,i),Form("fFlowGFMixedCorHist[%d][%d]",h,i),9,ImPaBins);//fFlowGFCenBin,0.,100.);
           fFlowGFMixedCorHist[h][i]->Sumw2();
           //   fFlowGFList->Add(fFlowGFMixedCorHist[h][i]);
-          fFlowGFMixedFinalHist[h][i] = new TH1D(Form("fFlowGFMixedFinalHist[%d][%d]",h,i),Form("fFlowGFMixedFinalHist[%d][%d]",h,i),10,ImPaBins);//fFlowGFCenBin,0.,100.);
+          fFlowGFMixedFinalHist[h][i] = new TH1D(Form("fFlowGFMixedFinalHist[%d][%d]",h,i),Form("fFlowGFMixedFinalHist[%d][%d]",h,i),9,ImPaBins);//fFlowGFCenBin,0.,100.);
           fFlowGFMixedFinalHist[h][i]->Sumw2();
           //   fFlowGFList->Add(fFlowGFMixedFinalHist[h][i]);
       }
@@ -620,19 +620,19 @@ void CalculateFlow::UserCreateOutputObjects() {
       fRFPSPMPtDiffMul_V0C[h][charge] = new TH1D(Form("fRFPSPMPtDiffMul_V0C[%d][%d]",h,charge),Form("fRFPSPMPtDiffMul_V0C[%d][%d]",h,charge),fNBins,-10,10);//,fPtDiffNBins,fCRCPtBins);
       fRFPSPMPtDiffMul_V0C[h][charge]->Sumw2();
       
-      fFlowSPMIntPro[h][charge]= new TProfile(Form("fSPMEPresolutionPro[%d][%d]",h,charge),Form("fSPMEPresolutionPro%d][%d]",h,charge),10,ImPaBins,"s");
+      fFlowSPMIntPro[h][charge]= new TProfile(Form("fSPMEPresolutionPro[%d][%d]",h,charge),Form("fSPMEPresolutionPro%d][%d]",h,charge),9,ImPaBins,"s");
       fFlowSPMIntPro[h][charge]->Sumw2();
-      fSPMEPresolutionPro[h][charge] = new TProfile(Form("fFlowSPMIntPro[%d][%d]",h,charge),Form("fFlowSPMIntPro[%d][%d]",h,charge),10,ImPaBins,"s");
+      fSPMEPresolutionPro[h][charge] = new TProfile(Form("fFlowSPMIntPro[%d][%d]",h,charge),Form("fFlowSPMIntPro[%d][%d]",h,charge),9,ImPaBins,"s");
       fSPMEPresolutionPro[h][charge]->Sumw2();
       
-      fFlowSPMIntFlow2Hist[h][charge] = new TH1D(Form("fFlowSPMIntFlow2Hist[%d][%d]",h,charge),Form("fFlowSPMIntFlow2Hist[%d][%d]",h,charge),10,ImPaBins);
+      fFlowSPMIntFlow2Hist[h][charge] = new TH1D(Form("fFlowSPMIntFlow2Hist[%d][%d]",h,charge),Form("fFlowSPMIntFlow2Hist[%d][%d]",h,charge),9,ImPaBins);
       fFlowSPMIntFlow2Hist[h][charge]->Sumw2();
       fFlowSPMList->Add(fFlowSPMIntFlow2Hist[h][charge]);
       
-      fFlowSPM1IntPro[h][charge]= new TProfile(Form("fSPM1EPresolutionPro[%d][%d]",h,charge),Form("fSPM1EPresolutionPro%d][%d]",h,charge),10,ImPaBins,"s");
+      fFlowSPM1IntPro[h][charge]= new TProfile(Form("fSPM1EPresolutionPro[%d][%d]",h,charge),Form("fSPM1EPresolutionPro%d][%d]",h,charge),9,ImPaBins,"s");
       fFlowSPM1IntPro[h][charge]->Sumw2();
       
-      fFlowSPM1IntFlow2Hist[h][charge] = new TH1D(Form("fFlowSPM1IntFlow2Hist[%d][%d]",h,charge),Form("fFlowSPM1IntFlow2Hist[%d][%d]",h,charge),10,ImPaBins);
+      fFlowSPM1IntFlow2Hist[h][charge] = new TH1D(Form("fFlowSPM1IntFlow2Hist[%d][%d]",h,charge),Form("fFlowSPM1IntFlow2Hist[%d][%d]",h,charge),9,ImPaBins);
       fFlowSPM1IntFlow2Hist[h][charge]->Sumw2();
       //            fFlowSPMList->Add(fFlowSPM1IntFlow2Hist[h][charge]);
       
@@ -644,24 +644,24 @@ void CalculateFlow::UserCreateOutputObjects() {
     for(Int_t charge=0; charge<fCharge; charge++){
       // Event Plane Method (SPECTATORS +EPangle=0)
       
-      fFlowEPMIntPro_pos[h][charge]= new TProfile(Form("fFlowEPMIntPro_pos[%d][%d]",h,charge),Form("fFlowEPMIntPro_pos[%d][%d]",h,charge),10,ImPaBins,"s");
+      fFlowEPMIntPro_pos[h][charge]= new TProfile(Form("fFlowEPMIntPro_pos[%d][%d]",h,charge),Form("fFlowEPMIntPro_pos[%d][%d]",h,charge),9,ImPaBins,"s");
       fFlowEPMIntPro_pos[h][charge]->Sumw2();
       
-      fFlowEPMIntPro_neg[h][charge]= new TProfile(Form("fFlowEPMIntPro_neg[%d][%d]",h,charge),Form("fFlowEPMIntPro_neg[%d][%d]",h,charge),10,ImPaBins,"s");
+      fFlowEPMIntPro_neg[h][charge]= new TProfile(Form("fFlowEPMIntPro_neg[%d][%d]",h,charge),Form("fFlowEPMIntPro_neg[%d][%d]",h,charge),9,ImPaBins,"s");
       fFlowEPMIntPro_neg[h][charge]->Sumw2();
       
-      fFlowEPMIntPro[h][charge]= new TProfile(Form("fFlowEPMIntPro[%d][%d]",h,charge),Form("fFlowEPMIntPro[%d][%d]",h,charge),10,ImPaBins,"s");
+      fFlowEPMIntPro[h][charge]= new TProfile(Form("fFlowEPMIntPro[%d][%d]",h,charge),Form("fFlowEPMIntPro[%d][%d]",h,charge),9,ImPaBins,"s");
       fFlowEPMIntPro[h][charge]->Sumw2();
       
-      fFlowEPMIntFlow2Hist_pos[h][charge] = new TH1D(Form("fFlowEPMIntFlow2Hist_pos[%d][%d]",h,charge),Form("fFlowEPMIntFlow2Hist_pos[%d][%d]",h,charge),10,ImPaBins); //,fPtDiffNBins,fCRCPtBins);
+      fFlowEPMIntFlow2Hist_pos[h][charge] = new TH1D(Form("fFlowEPMIntFlow2Hist_pos[%d][%d]",h,charge),Form("fFlowEPMIntFlow2Hist_pos[%d][%d]",h,charge),9,ImPaBins); //,fPtDiffNBins,fCRCPtBins);
       fFlowEPMIntFlow2Hist_pos[h][charge]->Sumw2();
 //      fFlowSPMList->Add(fFlowEPMIntFlow2Hist_pos[h][charge]);
       
-      fFlowEPMIntFlow2Hist_neg[h][charge] = new TH1D(Form("fFlowEPMIntFlow2Hist_neg[%d][%d]",h,charge),Form("fFlowEPMIntFlow2Hist_neg[%d][%d]",h,charge),10,ImPaBins); //,fPtDiffNBins,fCRCPtBins);
+      fFlowEPMIntFlow2Hist_neg[h][charge] = new TH1D(Form("fFlowEPMIntFlow2Hist_neg[%d][%d]",h,charge),Form("fFlowEPMIntFlow2Hist_neg[%d][%d]",h,charge),9,ImPaBins); //,fPtDiffNBins,fCRCPtBins);
       fFlowEPMIntFlow2Hist_neg[h][charge]->Sumw2();
   //    fFlowSPMList->Add(fFlowEPMIntFlow2Hist_neg[h][charge]);
       
-      fFlowEPMIntFlow2Hist[h][charge] = new TH1D(Form("fFlowEPMIntFlow2Hist[%d][%d]",h,charge),Form("fFlowEPMIntFlow2Hist[%d][%d]",h,charge),10,ImPaBins); //,fPtDiffNBins,fCRCPtBins);
+      fFlowEPMIntFlow2Hist[h][charge] = new TH1D(Form("fFlowEPMIntFlow2Hist[%d][%d]",h,charge),Form("fFlowEPMIntFlow2Hist[%d][%d]",h,charge),9,ImPaBins); //,fPtDiffNBins,fCRCPtBins);
       fFlowEPMIntFlow2Hist[h][charge]->Sumw2();
 //      fFlowSPMList->Add(fFlowEPMIntFlow2Hist[h][charge]);
       
