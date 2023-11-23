@@ -202,9 +202,9 @@ void CalculateFlow::InitializeArraysForFlowSPM()
     for (Int_t h=0;h<fFlowNHarmMax;h++) {
       //fFlowNHarmMax
       
-      QRe_EP[h] = NULL;                  //POI Pt Diff Q Re [fQVecPower][fFlowHarmonic]
-      QIm_EP[h] = NULL;
-      Mul_EP[h] = NULL;
+      QRe_EP[h] = 0;                  //POI Pt Diff Q Re [fQVecPower][fFlowHarmonic]
+      QIm_EP[h] = 0;
+      Mul_EP[h] = 0;
       
       fFlowSPMIntPro[h][charge] = NULL;
       fFlowSPMIntFlow2Hist[h][charge] = NULL;
