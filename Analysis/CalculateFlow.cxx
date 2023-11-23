@@ -725,6 +725,8 @@ void CalculateFlow::Make(Event* anEvent) {
   Double_t fNumOfNeg = 0;
   Double_t xval;
   
+
+  
   if (nPrim < minNtracks) return;
   sw.tick();
   for(Int_t i=0;i<nPrim;i++) {
@@ -741,57 +743,20 @@ void CalculateFlow::Make(Event* anEvent) {
     if (dPt > maxPtCut) continue;
     if (dPt < minPtCut) continue;
     
+    for (Int_t h=0;h<3;h++) {
+      QRe_EP[h] += pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi);
+      QIm_EP[h] += pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi);
+      Mul_EP[h] += pow(wPhiEta,1);
+    }
+    
     if (dCharge == 0) continue;
     cw = (dCharge > 0. ? 0 : 1);
-    
-    if(dEta>5.1 || dEta<-3.7) continue; // eta outside V0 detectors range not needed
-    
+  
     
     if(EtaDiff) xval = dEta;
     if(!EtaDiff) xval = dPt;
     
-    
-            if(dEta > 2.8){ // (2.8,5.1)
-                for (Int_t h=0;h<fFlowNHarm;h++) {
-                 //   std::cout<< " komen we hier? " <<std::endl;
-    
-                    fRFPSPMPtDiffQRe_V0A[h][0]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
-                    fRFPSPMPtDiffQIm_V0A[h][0]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
-                    fRFPSPMPtDiffMul_V0A[h][0]->Fill(xval,pow(wPhiEta,1));
-    
-                    if(dCharge>0){
-                        fRFPSPMPtDiffQRe_V0A[h][1]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
-                        fRFPSPMPtDiffQIm_V0A[h][1]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
-                        fRFPSPMPtDiffMul_V0A[h][1]->Fill(xval,pow(wPhiEta,1));}
-    
-                    if(dCharge<0){
-                        fRFPSPMPtDiffQRe_V0A[h][2]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
-                        fRFPSPMPtDiffQIm_V0A[h][2]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
-                        fRFPSPMPtDiffMul_V0A[h][2]->Fill(xval,pow(wPhiEta,1));}
-                }
-            }
-    
-            if(dEta < -1.7){ // (-3.7,-1.7)
-                for (Int_t h=0;h<fFlowNHarm;h++) {
-                    fRFPSPMPtDiffQRe_V0C[h][0]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
-                    fRFPSPMPtDiffQIm_V0C[h][0]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
-                    fRFPSPMPtDiffMul_V0C[h][0]->Fill(xval,pow(wPhiEta,1));
-    
-                    if(dCharge>0){
-                        fRFPSPMPtDiffQRe_V0C[h][1]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
-                        fRFPSPMPtDiffQIm_V0C[h][1]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
-                        fRFPSPMPtDiffMul_V0C[h][1]->Fill(xval,pow(wPhiEta,1));}
-    
-                    if(dCharge<0){
-                        fRFPSPMPtDiffQRe_V0C[h][2]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
-                        fRFPSPMPtDiffQIm_V0C[h][2]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
-                        fRFPSPMPtDiffMul_V0C[h][2]->Fill(xval,pow(wPhiEta,1));}
-                }
-            }
-    
-    
     if (TMath::Abs(dEta) > maxEtaCut) continue;
-    
     
     nChargedParticles++; //inside |eta|<0.8
     
@@ -801,7 +766,7 @@ void CalculateFlow::Make(Event* anEvent) {
       fPtChargedParticlesDistribution->Fill(dPt);
       fEtaChargedParticlesDistribution->Fill(dEta);
       fPhiChargedParticlesDistribution->Fill(dPhi);
-//      fEtaPhiChargedParticlesDistribution->Fill(dPhi,dEta);
+      //      fEtaPhiChargedParticlesDistribution->Fill(dPhi,dEta);
       
       // Pions
       if (Pid == 211 || Pid == -211) {
@@ -859,6 +824,7 @@ void CalculateFlow::Make(Event* anEvent) {
       }
     }
     
+    
     // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
     // if (dEta > 0) continue; //Determine v1 at negative eta only!
     // if (dEta < 0) continue; //Determine v1 at positive eta only!
@@ -866,119 +832,113 @@ void CalculateFlow::Make(Event* anEvent) {
     
     // ====== for calculateFlowGF (generic framework) =====
     // Generic Framework: Calculate Re[Q_{m*n,k}] and Im[Q_{m*n,k}] for this event (m = 1,2,...,12, k = 0,1,...,8):
-//    for(Int_t m=0;m<21;m++) {
-//      for(Int_t k=0;k<9;k++) {
-//  (*fReQGF)(m,k) += pow(wPhiEta*wPhi*wPt*wEta*wTrack,k)*TMath::Cos(m*dPhi);
-//  (*fImQGF)(m,k) += pow(wPhiEta*wPhi*wPt*wEta*wTrack,k)*TMath::Sin(m*dPhi);
-//      }
-//    }
-//
-//    for(Int_t ptb=0; ptb<fkGFPtB; ptb++) {
-//      if(ptb==0 && dPt>0.5) continue;
-//      if(ptb==1 && (dPt<0.5 || dPt>1.)) continue;
-//      if(ptb==2 && (dPt<1. || dPt>2.)) continue;
-//      if(ptb==3 && dPt<2.) continue;
-//      if(ptb==4 && (dPt<1. || dPt>2.5)) continue;
-//      if(ptb==5 && dPt<2.5) continue;
-//      if(ptb==6 && (dPt<1. || dPt>3.)) continue;
-//      if(ptb==7 && dPt<3.) continue;
-//      for(Int_t m=0;m<21;m++) {
-//  for(Int_t k=0;k<9;k++) {
-//    (*fReQGFPt[ptb])(m,k) += pow(wPhiEta*wPhi*wPt*wEta*wTrack,k)*TMath::Cos(m*dPhi);
-//    (*fImQGFPt[ptb])(m,k) += pow(wPhiEta*wPhi*wPt*wEta*wTrack,k)*TMath::Sin(m*dPhi);
-//  }
-//      }
-//    }
-//
+    //    for(Int_t m=0;m<21;m++) {
+    //      for(Int_t k=0;k<9;k++) {
+    //  (*fReQGF)(m,k) += pow(wPhiEta*wPhi*wPt*wEta*wTrack,k)*TMath::Cos(m*dPhi);
+    //  (*fImQGF)(m,k) += pow(wPhiEta*wPhi*wPt*wEta*wTrack,k)*TMath::Sin(m*dPhi);
+    //      }
+    //    }
+    //
+    //    for(Int_t ptb=0; ptb<fkGFPtB; ptb++) {
+    //      if(ptb==0 && dPt>0.5) continue;
+    //      if(ptb==1 && (dPt<0.5 || dPt>1.)) continue;
+    //      if(ptb==2 && (dPt<1. || dPt>2.)) continue;
+    //      if(ptb==3 && dPt<2.) continue;
+    //      if(ptb==4 && (dPt<1. || dPt>2.5)) continue;
+    //      if(ptb==5 && dPt<2.5) continue;
+    //      if(ptb==6 && (dPt<1. || dPt>3.)) continue;
+    //      if(ptb==7 && dPt<3.) continue;
+    //      for(Int_t m=0;m<21;m++) {
+    //  for(Int_t k=0;k<9;k++) {
+    //    (*fReQGFPt[ptb])(m,k) += pow(wPhiEta*wPhi*wPt*wEta*wTrack,k)*TMath::Cos(m*dPhi);
+    //    (*fImQGFPt[ptb])(m,k) += pow(wPhiEta*wPhi*wPt*wEta*wTrack,k)*TMath::Sin(m*dPhi);
+    //  }
+    //      }
+    //    }
+    //
     // ====== for calculateFlowQC =========
     // Also POI SPM!
     
     
-//    for (Int_t k=0; k<fQVecPower; k++) {
-//      for (Int_t h=0;h<fFlowNHarmMax;h++) {
-//        fPOIPtDiffQRe[k][h][0]->Fill(xval,pow(wPhiEta,k)*TMath::Cos((h+1.)*dPhi));
-//        fPOIPtDiffQIm[k][h][0]->Fill(xval,pow(wPhiEta,k)*TMath::Sin((h+1.)*dPhi));
-//        fPOIPtDiffMul[k][h][0]->Fill(xval,pow(wPhiEta,k));
-//
-//
-//
-//        if(dCharge>0){
-//          //if(dPhi>TMath::Pi)
-//          fPOIPtDiffQRe[k][h][1]->Fill(xval,pow(wPhiEta,k)*TMath::Cos((h+1.)*dPhi));
-//          fPOIPtDiffQIm[k][h][1]->Fill(xval,pow(wPhiEta,k)*TMath::Sin((h+1.)*dPhi));
-//          fPOIPtDiffMul[k][h][1]->Fill(xval,pow(wPhiEta,k));
-//
-//        }
-//
-//
-//        if(dCharge<0){
-//          fPOIPtDiffQRe[k][h][2]->Fill(xval,pow(wPhiEta,k)*TMath::Cos((h+1.)*dPhi));
-//          fPOIPtDiffQIm[k][h][2]->Fill(xval,pow(wPhiEta,k)*TMath::Sin((h+1.)*dPhi));
-//          fPOIPtDiffMul[k][h][2]->Fill(xval,pow(wPhiEta,k));
-//        }
-//
-//      }
-//    }
+    //    for (Int_t k=0; k<fQVecPower; k++) {
+    //      for (Int_t h=0;h<fFlowNHarmMax;h++) {
+    //        fPOIPtDiffQRe[k][h][0]->Fill(xval,pow(wPhiEta,k)*TMath::Cos((h+1.)*dPhi));
+    //        fPOIPtDiffQIm[k][h][0]->Fill(xval,pow(wPhiEta,k)*TMath::Sin((h+1.)*dPhi));
+    //        fPOIPtDiffMul[k][h][0]->Fill(xval,pow(wPhiEta,k));
+    //
+    //
+    //
+    //        if(dCharge>0){
+    //          //if(dPhi>TMath::Pi)
+    //          fPOIPtDiffQRe[k][h][1]->Fill(xval,pow(wPhiEta,k)*TMath::Cos((h+1.)*dPhi));
+    //          fPOIPtDiffQIm[k][h][1]->Fill(xval,pow(wPhiEta,k)*TMath::Sin((h+1.)*dPhi));
+    //          fPOIPtDiffMul[k][h][1]->Fill(xval,pow(wPhiEta,k));
+    //
+    //        }
+    //
+    //
+    //        if(dCharge<0){
+    //          fPOIPtDiffQRe[k][h][2]->Fill(xval,pow(wPhiEta,k)*TMath::Cos((h+1.)*dPhi));
+    //          fPOIPtDiffQIm[k][h][2]->Fill(xval,pow(wPhiEta,k)*TMath::Sin((h+1.)*dPhi));
+    //          fPOIPtDiffMul[k][h][2]->Fill(xval,pow(wPhiEta,k));
+    //        }
+    //
+    //      }
+    //    }
     
     if(dEta>=0){
       for (Int_t h=0;h<3;h++) {
         fPOISPMPtDiffQRe_pos[h][0]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
         fPOISPMPtDiffQIm_pos[h][0]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
         fPOISPMPtDiffMul_pos[h][0]->Fill(xval,pow(wPhiEta,1));
-
-
-
+        
+        
+        
         if(dCharge>0){
           //if(dPhi>TMath::Pi)
           fPOISPMPtDiffQRe_pos[h][1]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
           fPOISPMPtDiffQIm_pos[h][1]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
           fPOISPMPtDiffMul_pos[h][1]->Fill(xval,pow(wPhiEta,1));
-
+          
         }
-
-
+        
+        
         if(dCharge<0){
           fPOISPMPtDiffQRe_pos[h][2]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
           fPOISPMPtDiffQIm_pos[h][2]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
-          fPOISPMPtDiffMul_pos[h][2]->Fill(xval,pow(wPhiEta,1));
-
-        }
-
+          fPOISPMPtDiffMul_pos[h][2]->Fill(xval,pow(wPhiEta,1));}
+        
       }
-
     }
     
-//    if(dEta<0){
-//      for (Int_t h=0;h<3;h++) {
-//        fPOISPMPtDiffQRe_neg[h][0]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
-//        fPOISPMPtDiffQIm_neg[h][0]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
-//        fPOISPMPtDiffMul_neg[h][0]->Fill(xval,pow(wPhiEta,1));
-//
-//
-//
-//        if(dCharge>0){
-//          //if(dPhi>TMath::Pi)
-//          fPOISPMPtDiffQRe_neg[h][1]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
-//          fPOISPMPtDiffQIm_neg[h][1]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
-//          fPOISPMPtDiffMul_neg[h][1]->Fill(xval,pow(wPhiEta,1));
-//
-//        }
-//
-//
-//        if(dCharge<0){
-//          fPOISPMPtDiffQRe_neg[h][2]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
-//          fPOISPMPtDiffQIm_neg[h][2]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
-//          fPOISPMPtDiffMul_neg[h][2]->Fill(xval,pow(wPhiEta,1));
-//
-//        }
-//
-//      }
-//    }
-    
-    
+    //    if(dEta<0){
+    //      for (Int_t h=0;h<3;h++) {
+    //        fPOISPMPtDiffQRe_neg[h][0]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
+    //        fPOISPMPtDiffQIm_neg[h][0]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
+    //        fPOISPMPtDiffMul_neg[h][0]->Fill(xval,pow(wPhiEta,1));
+    //
+    //
+    //
+    //        if(dCharge>0){
+    //          //if(dPhi>TMath::Pi)
+    //          fPOISPMPtDiffQRe_neg[h][1]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
+    //          fPOISPMPtDiffQIm_neg[h][1]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
+    //          fPOISPMPtDiffMul_neg[h][1]->Fill(xval,pow(wPhiEta,1));
+    //
+    //        }
+    //
+    //
+    //        if(dCharge<0){
+    //          fPOISPMPtDiffQRe_neg[h][2]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
+    //          fPOISPMPtDiffQIm_neg[h][2]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
+    //          fPOISPMPtDiffMul_neg[h][2]->Fill(xval,pow(wPhiEta,1));
+    //
+    //        }
+    //
+    //      }
+    //    }
     
   }
-  
   
   if (doQA) {
     fMultChargedParticlesDistribution->Fill(nChargedParticles);
@@ -1001,6 +961,7 @@ void CalculateFlow::Make(Event* anEvent) {
   // cout << "Time for CalculateFlowCQ() "<< sw.takeTime() << endl;
   ResetEventByEventQuantities();
 }
+
 
 //=====================================================================================================
 
@@ -1027,16 +988,17 @@ void CalculateFlow::ResetEventByEventQuantities()
   
   //FlowSPM & EPM
   for (Int_t h=0;h<fFlowNHarm;h++) {
+    
+    if(QRe_V0A[h]) QRe_V0A[h]=0;
+    if(QIm_V0A[h]) QIm_V0A[h]=0;
+    if(Mul_V0A[h]) Mul_V0A[h]=0;
+    
+    if(QRe_V0C[h]) QRe_V0C[h]=0;
+    if(QIm_V0C[h]) QIm_V0C[h]=0;
+    if(Mul_V0C[h]) Mul_V0C[h]=0;
+    
     for (Int_t charge=0; charge<fCharge; charge++){
-      
-      if(fRFPSPMPtDiffQRe_V0A[h][charge]) fRFPSPMPtDiffQRe_V0A[h][charge]->Reset();
-      if(fRFPSPMPtDiffQIm_V0A[h][charge]) fRFPSPMPtDiffQIm_V0A[h][charge]->Reset();
-      if(fRFPSPMPtDiffMul_V0A[h][charge]) fRFPSPMPtDiffMul_V0A[h][charge]->Reset();
-      
-      if(fRFPSPMPtDiffQRe_V0C[h][charge]) fRFPSPMPtDiffQRe_V0C[h][charge]->Reset();
-      if(fRFPSPMPtDiffQIm_V0C[h][charge]) fRFPSPMPtDiffQIm_V0C[h][charge]->Reset();
-      if(fRFPSPMPtDiffMul_V0C[h][charge]) fRFPSPMPtDiffMul_V0C[h][charge]->Reset();
-      
+    
       if(fPOISPMPtDiffQRe_pos[h][charge]) fPOISPMPtDiffQRe_pos[h][charge]->Reset();
       if(fPOISPMPtDiffQIm_pos[h][charge]) fPOISPMPtDiffQIm_pos[h][charge]->Reset();
       if(fPOISPMPtDiffMul_pos[h][charge]) fPOISPMPtDiffMul_pos[h][charge]->Reset();
@@ -1191,17 +1153,14 @@ void CalculateFlow::CalculateFlowGF()
 void CalculateFlow::CalculateFlowSPM()
 {
   
-  
-  Float_t QRe_RFP_V0A, QIm_RFP_V0A, Mu_RFP_V0A;
-  Float_t QRe_RFP_V0C, QIm_RFP_V0C, Mu_RFP_V0C;
+
   Float_t QRe, QIm, Mu;
   Float_t Denom_pty;
   Float_t x_QQ, y_QQ, x_uQ, y_uQ;
   
-  Float_t EvevntPlane, EventPlaneV0A, EventPlaneV0C;
+  Float_t EvevntPlane;
   
-  Float_t cosEvPlV0A, sinEvPlV0A;
-  Float_t cosEvPlV0C, sinEvPlV0C;
+  Float_t cosEvPl, sinEvPl;
   Float_t cosPhi, sinPhi;
   Float_t EP_res;
   
@@ -1215,45 +1174,19 @@ void CalculateFlow::CalculateFlowSPM()
       // ********************************************************************
       // pT-integrated: {2} *************************************************
       // ********************************************************************
-      
-      
-      QRe_RFP_V0A=0.; QIm_RFP_V0A=0.;
-      Mu_RFP_V0A = 0.;
-      
-      QRe_RFP_V0C=0.; QIm_RFP_V0C=0.;
-      Mu_RFP_V0C = 0.;
-      
+
       QRe=0.; QIm=0.;
       Mu = 0.;
       
       
       Denom_pty=0.;
       
-      
-      for(Int_t pt=0; pt<fNBins; pt++) {
-        
-        QRe_RFP_V0A += fRFPSPMPtDiffQRe_V0A[hr][charge]->GetBinContent(pt+1); // Cos((hr+1.)*dPhi) --> Re(u)
-        QIm_RFP_V0A += fRFPSPMPtDiffQIm_V0A[hr][charge]->GetBinContent(pt+1); // Sin((hr+1.)*dPhi) --> Im(u)
-        Mu_RFP_V0A +=  fRFPSPMPtDiffMul_V0A[0][charge]->GetBinContent(pt+1);
-        
-        QRe_RFP_V0C += fRFPSPMPtDiffQRe_V0C[hr][charge]->GetBinContent(pt+1); // Cos((hr+1.)*dPhi) --> Re(u)
-        QIm_RFP_V0C += fRFPSPMPtDiffQIm_V0C[hr][charge]->GetBinContent(pt+1); // Sin((hr+1.)*dPhi) --> Im(u)
-        Mu_RFP_V0C +=  fRFPSPMPtDiffMul_V0C[0][charge]->GetBinContent(pt+1);
-        
-      }
-      
-      EventPlaneV0A = TMath::ATan2(QIm_RFP_V0A, QRe_RFP_V0A);
-      EventPlaneV0C = TMath::ATan2(QIm_RFP_V0C, QRe_RFP_V0C);
-      
-      EP_res = TMath::Cos(EventPlaneV0A - EventPlaneV0C);
-      
+      EventPlane = TMath::ATan2(QIm_EP[hr], QRe_EP[hr]);
+
       // std::cout<< " EP_res " << EP_res << std::endl;
       
-      cosEvPlV0A = TMath::Cos(EventPlaneV0A);
-      sinEvPlV0A = TMath::Sin(EventPlaneV0A);
-      
-      cosEvPlV0C = TMath::Cos(EventPlaneV0C);
-      sinEvPlV0C = TMath::Sin(EventPlaneV0C);
+      cosEvPl = TMath::Cos(EventPlaneV0A);
+      sinEvPl = TMath::Sin(EventPlaneV0C);
       
       for(Int_t pt=0; pt<fNBins; pt++) {
         //std::cout<<fPOIPtDiffQRe[1][hr][charge]->GetBinContent(pt+1)<<std::endl;
