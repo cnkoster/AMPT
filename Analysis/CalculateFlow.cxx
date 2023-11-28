@@ -864,31 +864,31 @@ void CalculateFlow::Make(Event* anEvent) {
     // Also POI SPM!
     
     
-    //    for (Int_t k=0; k<fQVecPower; k++) {
-    //      for (Int_t h=0;h<fFlowNHarmMax;h++) {
-    //        fPOIPtDiffQRe[k][h][0]->Fill(xval,pow(wPhiEta,k)*TMath::Cos((h+1.)*dPhi));
-    //        fPOIPtDiffQIm[k][h][0]->Fill(xval,pow(wPhiEta,k)*TMath::Sin((h+1.)*dPhi));
-    //        fPOIPtDiffMul[k][h][0]->Fill(xval,pow(wPhiEta,k));
-    //
-    //
-    //
-    //        if(dCharge>0){
-    //          //if(dPhi>TMath::Pi)
-    //          fPOIPtDiffQRe[k][h][1]->Fill(xval,pow(wPhiEta,k)*TMath::Cos((h+1.)*dPhi));
-    //          fPOIPtDiffQIm[k][h][1]->Fill(xval,pow(wPhiEta,k)*TMath::Sin((h+1.)*dPhi));
-    //          fPOIPtDiffMul[k][h][1]->Fill(xval,pow(wPhiEta,k));
-    //
-    //        }
-    //
-    //
-    //        if(dCharge<0){
-    //          fPOIPtDiffQRe[k][h][2]->Fill(xval,pow(wPhiEta,k)*TMath::Cos((h+1.)*dPhi));
-    //          fPOIPtDiffQIm[k][h][2]->Fill(xval,pow(wPhiEta,k)*TMath::Sin((h+1.)*dPhi));
-    //          fPOIPtDiffMul[k][h][2]->Fill(xval,pow(wPhiEta,k));
-    //        }
-    //
-    //      }
-    //    }
+        for (Int_t k=0; k<fQVecPower; k++) {
+          for (Int_t h=0;h<fFlowNHarmMax;h++) {
+            fPOIPtDiffQRe[k][h][0]->Fill(xval,pow(wPhiEta,k)*TMath::Cos((h+1.)*dPhi));
+            fPOIPtDiffQIm[k][h][0]->Fill(xval,pow(wPhiEta,k)*TMath::Sin((h+1.)*dPhi));
+            fPOIPtDiffMul[k][h][0]->Fill(xval,pow(wPhiEta,k));
+    
+    
+    
+            if(dCharge>0){
+              //if(dPhi>TMath::Pi)
+              fPOIPtDiffQRe[k][h][1]->Fill(xval,pow(wPhiEta,k)*TMath::Cos((h+1.)*dPhi));
+              fPOIPtDiffQIm[k][h][1]->Fill(xval,pow(wPhiEta,k)*TMath::Sin((h+1.)*dPhi));
+              fPOIPtDiffMul[k][h][1]->Fill(xval,pow(wPhiEta,k));
+    
+            }
+    
+    
+            if(dCharge<0){
+              fPOIPtDiffQRe[k][h][2]->Fill(xval,pow(wPhiEta,k)*TMath::Cos((h+1.)*dPhi));
+              fPOIPtDiffQIm[k][h][2]->Fill(xval,pow(wPhiEta,k)*TMath::Sin((h+1.)*dPhi));
+              fPOIPtDiffMul[k][h][2]->Fill(xval,pow(wPhiEta,k));
+            }
+    
+          }
+        }
     
     if(dEta>=0){
       for (Int_t h=0;h<3;h++) {
@@ -915,32 +915,32 @@ void CalculateFlow::Make(Event* anEvent) {
       }
     }
     
-    //    if(dEta<0){
-    //      for (Int_t h=0;h<3;h++) {
-    //        fPOISPMPtDiffQRe_neg[h][0]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
-    //        fPOISPMPtDiffQIm_neg[h][0]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
-    //        fPOISPMPtDiffMul_neg[h][0]->Fill(xval,pow(wPhiEta,1));
-    //
-    //
-    //
-    //        if(dCharge>0){
-    //          //if(dPhi>TMath::Pi)
-    //          fPOISPMPtDiffQRe_neg[h][1]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
-    //          fPOISPMPtDiffQIm_neg[h][1]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
-    //          fPOISPMPtDiffMul_neg[h][1]->Fill(xval,pow(wPhiEta,1));
-    //
-    //        }
-    //
-    //
-    //        if(dCharge<0){
-    //          fPOISPMPtDiffQRe_neg[h][2]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
-    //          fPOISPMPtDiffQIm_neg[h][2]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
-    //          fPOISPMPtDiffMul_neg[h][2]->Fill(xval,pow(wPhiEta,1));
-    //
-    //        }
-    //
-    //      }
-    //    }
+        if(dEta<0){
+          for (Int_t h=0;h<3;h++) {
+            fPOISPMPtDiffQRe_neg[h][0]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
+            fPOISPMPtDiffQIm_neg[h][0]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
+            fPOISPMPtDiffMul_neg[h][0]->Fill(xval,pow(wPhiEta,1));
+    
+    
+    
+            if(dCharge>0){
+              //if(dPhi>TMath::Pi)
+              fPOISPMPtDiffQRe_neg[h][1]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
+              fPOISPMPtDiffQIm_neg[h][1]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
+              fPOISPMPtDiffMul_neg[h][1]->Fill(xval,pow(wPhiEta,1));
+    
+            }
+    
+    
+            if(dCharge<0){
+              fPOISPMPtDiffQRe_neg[h][2]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
+              fPOISPMPtDiffQIm_neg[h][2]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
+              fPOISPMPtDiffMul_neg[h][2]->Fill(xval,pow(wPhiEta,1));
+    
+            }
+    
+          }
+        }
     
   }
   
@@ -2540,7 +2540,6 @@ void CalculateFlow::FinalizeSpectra(Int_t Nevents) {
     fNegProtonsSpectra->SetBinContent(pt, NegProtonContent*Normalization);
     fNegProtonsSpectra->SetBinError(pt, NegProtonError*Normalization);
     
-  std:cout<<"here we go"<<std::endl; 
   }
 }
 
