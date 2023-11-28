@@ -100,7 +100,7 @@ void runFlow(Bool_t etaFlag = kTRUE, TString centrality="", Double_t gCentrality
     // Save list holding histogram with weights:
     TFile *fResultsFile = new TFile(Form(//"AnalysisResults_Group%i-%i_%sDiff_All.root",iGroupMin, iGroupMax, diff.Data()),"RECREATE");
                                          //"AnalysisResults_Group%i-%i_%sDiff_Full_Cent%s.root",iGroupMin, iGroupMax, diff.Data(), centrality.Data()),"RECREATE");
-                                         "AnalysisResults_Group%i-%i_etaDiff_SPM.root",iGroupMin, iGroupMax),"RECREATE");
+                                         "AnalysisResults_Group%i-%i_etaDiff_SPMEPM_3050.root",iGroupMin, iGroupMax),"RECREATE");
     fResultsFile->WriteObject(fQC->GetQAList(),"QAList","SingleKey");
     fResultsFile->WriteObject(fQC->GetSpectraList(),"SpectraList","SingleKey");
     //fResultsFile->WriteObject(fQC->GetFlowQCList(),"FLowQCList","SingleKey");

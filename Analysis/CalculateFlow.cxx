@@ -959,7 +959,7 @@ void CalculateFlow::Make(Event* anEvent) {
  // CalculateFlowGF();
   CalculateFlowSPM();
   //    CalculateFlowSPM1();
- // CalculateFlowEPM();
+  CalculateFlowEPM();
   
   // sw.tock();
   // cout << "Time for CalculateFlowCQ() "<< sw.takeTime() << endl;
@@ -1024,7 +1024,7 @@ void CalculateFlow::Terminate(Int_t Nevents)
  // FinalizeFlowQC();
 //  FinalizeFlowGF();
   FinalizeFlowSPM();
-//  FinalizeFlowEPM();
+  FinalizeFlowEPM();
   FinalizeQA();
 }
 
