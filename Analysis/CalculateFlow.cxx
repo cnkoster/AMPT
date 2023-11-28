@@ -660,15 +660,15 @@ void CalculateFlow::UserCreateOutputObjects() {
       
       fFlowEPMIntFlow2Hist_pos[h][charge] = new TH1D(Form("fFlowEPMIntFlow2Hist_pos[%d][%d]",h,charge),Form("fFlowEPMIntFlow2Hist_pos[%d][%d]",h,charge),9,ImPaBins); //,fPtDiffNBins,fCRCPtBins);
       fFlowEPMIntFlow2Hist_pos[h][charge]->Sumw2();
-      fFlowSPMList->Add(fFlowEPMIntFlow2Hist_pos[h][charge]);
+//      fFlowSPMList->Add(fFlowEPMIntFlow2Hist_pos[h][charge]);
       
       fFlowEPMIntFlow2Hist_neg[h][charge] = new TH1D(Form("fFlowEPMIntFlow2Hist_neg[%d][%d]",h,charge),Form("fFlowEPMIntFlow2Hist_neg[%d][%d]",h,charge),9,ImPaBins); //,fPtDiffNBins,fCRCPtBins);
       fFlowEPMIntFlow2Hist_neg[h][charge]->Sumw2();
-      fFlowSPMList->Add(fFlowEPMIntFlow2Hist_neg[h][charge]);
+//      fFlowSPMList->Add(fFlowEPMIntFlow2Hist_neg[h][charge]);
       
       fFlowEPMIntFlow2Hist[h][charge] = new TH1D(Form("fFlowEPMIntFlow2Hist[%d][%d]",h,charge),Form("fFlowEPMIntFlow2Hist[%d][%d]",h,charge),9,ImPaBins); //,fPtDiffNBins,fCRCPtBins);
       fFlowEPMIntFlow2Hist[h][charge]->Sumw2();
-      fFlowSPMList->Add(fFlowEPMIntFlow2Hist[h][charge]);
+//      fFlowSPMList->Add(fFlowEPMIntFlow2Hist[h][charge]);
       
       fFlowEPMCorPro[h][charge]= new TProfile(Form("fFlowEPMCorPro[%d][%d]",h,charge),Form("fFlowEPMCorPro[%d][%d]",h,charge), fNBins, fBins, "s");//, fNBins, fBins,"s");
       fFlowEPMCorPro[h][charge]->Sumw2();
@@ -957,7 +957,7 @@ void CalculateFlow::Make(Event* anEvent) {
   //sw.tick();
   //CalculateFlowQC();
  // CalculateFlowGF();
-  CalculateFlowSPM();
+//  CalculateFlowSPM();
   //    CalculateFlowSPM1();
   CalculateFlowEPM();
   
@@ -1023,7 +1023,7 @@ void CalculateFlow::Terminate(Int_t Nevents)
   FinalizeSpectra(Nevents);
  // FinalizeFlowQC();
 //  FinalizeFlowGF();
-  FinalizeFlowSPM();
+//  FinalizeFlowSPM();
   FinalizeFlowEPM();
   FinalizeQA();
 }
