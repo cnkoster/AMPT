@@ -100,7 +100,6 @@ void runFlow(Bool_t etaFlag = kTRUE, TString centrality="", Double_t gCentrality
     TFile *fResultsFile = new TFile(Form("AnalysisResults_Group0-6000_etaDiff_SPMEPM_3050.root"),"RECREATE");
                                          //"AnalysisResults_Group%i-%i_%sDiff_All.root",iGroupMin, iGroupMax, diff.Data()),"RECREATE");
                                          //"AnalysisResults_Group%i-%i_%sDiff_Full_Cent%s.root",iGroupMin, iGroupMax, diff.Data(), centrality.Data()),"RECREATE");
-  std::cout<<"hier?"<<std::endl;
   
     fResultsFile->WriteObject(fQC->GetQAList(),"QAList","SingleKey");
     fResultsFile->WriteObject(fQC->GetSpectraList(),"SpectraList","SingleKey");
@@ -108,5 +107,7 @@ void runFlow(Bool_t etaFlag = kTRUE, TString centrality="", Double_t gCentrality
 //fResultsFile->WriteObject(fQC->GetFlowGFList(),"FLowGFList","SingleKey");
     fResultsFile->WriteObject(fQC->GetFlowSPMList(),"FLowSPMList","SingleKey");
     fResultsFile->Close();
+  
+  std::cout<<"hier??"<<std::endl; 
 
 }
