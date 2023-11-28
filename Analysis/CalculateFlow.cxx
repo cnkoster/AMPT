@@ -2539,6 +2539,8 @@ void CalculateFlow::FinalizeSpectra(Int_t Nevents) {
     fPosProtonsSpectra->SetBinError(pt, PosProtonError*Normalization);
     fNegProtonsSpectra->SetBinContent(pt, NegProtonContent*Normalization);
     fNegProtonsSpectra->SetBinError(pt, NegProtonError*Normalization);
+    
+  std:cout<<"here we go"<<std::endl; 
   }
 }
 
