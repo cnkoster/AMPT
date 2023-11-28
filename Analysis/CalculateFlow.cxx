@@ -348,7 +348,7 @@ void CalculateFlow::UserCreateOutputObjects() {
   fQAList->Add(fPtChargedParticlesDistribution);
   fQAList->Add(fEtaChargedParticlesDistribution);
   fQAList->Add(fPhiChargedParticlesDistribution);
-  fQAList->Add(fEtaPhiChargedParticlesDistribution);
+  //fQAList->Add(fEtaPhiChargedParticlesDistribution);
   //std::cout<<"Spectra is added"<<std::endl;
   fQAList->Add(fPionsPtSpectra);
   fQAList->Add(fPionsEtaSpectra);
