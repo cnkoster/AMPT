@@ -50,8 +50,8 @@ CalculateFlow::CalculateFlow(const char* name):fQAList(NULL),fSpectraList(NULL),
   fSpectraList->SetName("fSpectraList");
   fSpectraList->SetOwner(kTRUE);
   
-  InitializeArraysForFlowQC();
-  //InitializeArraysForFlowSPM();
+//  InitializeArraysForFlowQC();
+  InitializeArraysForFlowSPM();
  // InitializeArraysForFlowGF();
   InitializeArraysForQA();
   
@@ -399,11 +399,11 @@ void CalculateFlow::UserCreateOutputObjects() {
   // choose for eta diff or pt diff:
   
   fPtDiffNBins = 36-8; //for pt 20 for eta
-  fEtaDiffNBins = 16;
+  fEtaDiffNBins = 5;
   
   fCRCPtBins = new Double_t[37-8];
   Double_t PtBins[] = {0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.,1.25,1.5,1.75,2.,2.25,2.5,2.75,3.,3.25,3.5,3.75,4.,4.5,5.,5.5,6.,7.,8.,9.,10.};//,12.,14.,17.,20.,25.,30.,40.,50.};
-  Double_t EtaBins[] = {-0.8,-0.7, -0.6, -0.5, -0.4, -0.3, -0.2, -0.1, 0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8};
+  Double_t EtaBins[] = {-0.8,-0.48,-0.16,0.16,0.48,0.8};
   Double_t ImPaBins[] = {3.72, 5.23, 7.31, 8.88, 10.20, 11.38, 12.47, 13.50, 14.51, 15.0};
   
   
@@ -411,7 +411,7 @@ void CalculateFlow::UserCreateOutputObjects() {
     std::cout<< "We have eta bins" <<std::endl;
     fNBins = fEtaDiffNBins;
     fBins = new Double_t[fNBins+1];
-    for(Int_t r=0; r<17; r++) {
+    for(Int_t r=0; r<9; r++) {
       fBins[r] = EtaBins[r];
     }
   }
