@@ -59,7 +59,7 @@ void runFlow(Bool_t etaFlag = kTRUE, TString centrality="", Double_t gCentrality
   TBranch *bnevent = tree->GetBranch("event");
     bnevent->SetAddress(&event);
     
-  Long64_t nevent = 100;//tree->GetEntries();
+  Long64_t nevent = tree->GetEntries();
     Int_t nselected = 0;
     Int_t nb = 0;
     Double_t nSpectators = 0;
@@ -97,7 +97,7 @@ void runFlow(Bool_t etaFlag = kTRUE, TString centrality="", Double_t gCentrality
     fQC->Terminate(nevent);
     
     // Save list holding histogram with weights:
-    TFile *fResultsFile = new TFile(Form("AnalysisResults_Group0-6000_etaDiff_SPMEPM_3050.root"),"RECREATE");
+    TFile *fResultsFile = new TFile(Form("AnalysisResults_Group0-6000_etaDiff_EPM_3050.root"),"RECREATE");
                                          //"AnalysisResults_Group%i-%i_%sDiff_All.root",iGroupMin, iGroupMax, diff.Data()),"RECREATE");
                                          //"AnalysisResults_Group%i-%i_%sDiff_Full_Cent%s.root",iGroupMin, iGroupMax, diff.Data(), centrality.Data()),"RECREATE");
   std::cout<<"1"<<std::endl;
