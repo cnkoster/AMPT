@@ -50,7 +50,7 @@ void runFlow(Bool_t etaFlag = kTRUE, TString centrality="", Double_t gCentrality
   TTree *tree = (TTree*)f->Get("EventTree");
   
   // tree->AddFile(Form("5.02TeV/Centrality%s/tree_PaperPreProduction_Group%d.root",centrality.Data(),i));
-  
+  std::cout<< "here??" <<std::endl; 
   // create a pointer to an event object. This will be used
   // to read the branch values.
   Event *event = new Event();
