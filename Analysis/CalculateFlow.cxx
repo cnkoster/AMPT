@@ -1431,7 +1431,7 @@ void CalculateFlow::CalculateFlowRP()
           if(qpM>0) {
             meanPtdiff = qpRe/qpM;
             fFlowRPCorPro[h][p][charge]->Fill(FillPtBin, meanPtdiff, 1.);            // ADD: fPOIRPDiffDiffQRe[h]
-            std::cout<< "particle: " << p << " h="<<h<< " charge="<<charge<<" v="<<meanPtDiff<<std::endl;
+            std::cout<< "particle: " << p << " h="<<h<< " charge="<<charge<<" v="<<meanPtdiff<<std::endl;
           }
           
         }//end pt
