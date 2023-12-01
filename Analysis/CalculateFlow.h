@@ -95,7 +95,7 @@ private:
   Double_t *fBins;
   Bool_t doQA = kFALSE;
   Double_t trkWgt = 1;
-  Int_t fNParticles = 4; // Incl, Pions, Protons, Kaons
+  const static Int_t fNParticles = 4; // Incl, Pions, Protons, Kaons
   
   // QA Histograms
   TList *fQAList;
