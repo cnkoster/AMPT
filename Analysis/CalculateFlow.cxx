@@ -991,18 +991,18 @@ void CalculateFlow::Make(Event* anEvent) {
       
       // Pions
       if (Pid == 211 || Pid == -211) {
-        if(dEta>=0){
-          for (Int_t h=0;h<4;h++) {
-            if(dCharge>0){
-              fPOIDiffQRe_pos[h][1][1]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
-              fPOIDiffQIm_pos[h][1][1]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
-              fPOIDiffMul_pos[h][1][1]->Fill(xval,pow(wPhiEta,1));}
-            if(dCharge<0){
-              fPOIDiffQRe_pos[h][1][2]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
-              fPOIDiffQIm_pos[h][1][2]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
-              fPOIDiffMul_pos[h][1][2]->Fill(xval,pow(wPhiEta,1));}
-          }
+        std::cout<<Pid<<std::endl;
+        for (Int_t h=0;h<4;h++) {
+          if(Pid == 211){
+            fPOIDiffQRe_pos[h][1][1]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
+            fPOIDiffQIm_pos[h][1][1]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
+            fPOIDiffMul_pos[h][1][1]->Fill(xval,pow(wPhiEta,1));}
+          if(Pid == -211){
+            fPOIDiffQRe_pos[h][1][2]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
+            fPOIDiffQIm_pos[h][1][2]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
+            fPOIDiffMul_pos[h][1][2]->Fill(xval,pow(wPhiEta,1));}
         }
+      }
         
         if(dEta<0){
           for (Int_t h=0;h<4;h++) {
@@ -1313,7 +1313,7 @@ void CalculateFlow::CalculateFlowEP()
   // *******************************************************************
   
     
-  for (Int_t hr=0;hr<fFlowNHarm;hr++) {
+  for (Int_t hr=0;hr<4;hr++) {
     for(Int_t p=0; p<fNParticles;p++){
       for(Int_t charge=0;charge<fCharge;charge++){
         // ********************************************************************
@@ -1388,7 +1388,7 @@ void CalculateFlow::CalculateFlowRP()
   // Calculate Q vectors for the spectators (P&T)
   // Then determine correlations with the POI (u)
   // *******************************************************************
-  for (Int_t h=0;h<fFlowNHarm;h++) {
+  for (Int_t h=0;h<4;h++) {
     
     for(Int_t p=0; p<fNParticles;p++){
       for(Int_t charge=0;charge<fCharge;charge++){
@@ -2455,18 +2455,11 @@ void CalculateFlow::FinalizeFlowEP()
   
   Float_t EP_res;
   
-  //    for(Int_t charge=0; charge<fCharge; charge++){
-  //        for(Int_t pt=1;pt<=fEPEPresolutionPro[0][charge]->GetNbinsX();pt++) {
-  //
-  //        }
-  //    }
-  
   
   for(Int_t charge=0; charge<fCharge; charge++){
     for (Int_t p=0;p<fNParticles; p++){
-      for (Int_t h=0;h<fFlowNHarm;h++) {
+      for (Int_t h=0;h<4;h++) {
         for(Int_t pt=1;pt<=fFlowEPIntPro[h][p][charge]->GetNbinsX();pt++) {
-          
           
           Float_t Corr_QQ_y = 0; Double_t CorrErr_QQ_y = 0;
           
@@ -2510,7 +2503,7 @@ void CalculateFlow::FinalizeFlowRP()
   Float_t v_p =0.;
   Float_t v_t=0.;
   
-  for (Int_t h=0;h<fFlowNHarm;h++) {
+  for (Int_t h=0;h<4;h++) {
     for (Int_t p=0;p<fNParticles; p++){
       for(Int_t charge=0; charge<fCharge; charge++){
         
