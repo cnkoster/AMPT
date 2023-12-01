@@ -232,7 +232,7 @@ private:
   
   TList *fFlowEPList;
 
-  TH1D *fEPEPresolutionPro[fFlowNHarmMax][fNParticles];
+  TH1D *fEPEPresolutionPro[fFlowNHarmMax];
   TProfile *fFlowEPIntPro[fFlowNHarmMax][fNParticles][fCharge];
   TH1D *fFlowEPIntCorHist[fFlowNHarmMax][fNParticles][fCharge];
   TH1D *fFlowEPIntFlow2Hist[fFlowNHarmMax][fNParticles][fCharge];

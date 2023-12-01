@@ -218,8 +218,8 @@ void CalculateFlow::InitializeArraysForFlowEP()
         fFlowEPIntPro[h][p][c] = NULL;
         fFlowEPIntFlow2Hist[h][p][c] = NULL;
         
-        fFlowEP1IntPro[h][p][c] = NULL;
-        fFlowEP1IntFlow2Hist[h][p][c] = NULL;
+//        fFlowEP1IntPro[h][p][c] = NULL;
+//        fFlowEP1IntFlow2Hist[h][p][c] = NULL;
         
         fPOIDiffQRe[h][p][c] = NULL;
         fPOIDiffQIm[h][p][c] = NULL;
@@ -262,7 +262,7 @@ void CalculateFlow::InitializeArraysForFlowRP()
         
         fPOIDiffQRe_neg[h][p][c] = NULL;
         fPOIDiffQIm_neg[h][p][c] = NULL;
-        fPOIDiffMul_neg[h][p][c] = NULL
+        fPOIDiffMul_neg[h][p][c] = NULL;
       }
     }
   }
@@ -620,7 +620,7 @@ void CalculateFlow::UserCreateOutputObjects() {
     fEPEPresolutionPro[h]->Sumw2();
 //    fFlowEPList->Add(fEPEPresolutionPro[h]);
     for(Int_t p=0; p<fNParticles;p++){
-      for(Int_t charge=0; charge<fCharge; charge++){
+      for(Int_t c=0; c<fCharge; c++){
         
         fPOIDiffQRe[h][p][c] = new TH1D(Form("fPOIDiffQRe[%d][%s][%s]",h,fParticleVec[p].c_str(),fChargeVec[c].c_str()),Form("fPOIDiffQRe[%d][%s][%s]",h,fParticleVec[p].c_str(),fChargeVec[c].c_str()), fNBins, fBins);//,fPtDiffNBins,fCRCPtBins);
         fPOIDiffQRe[h][p][c]->Sumw2();
