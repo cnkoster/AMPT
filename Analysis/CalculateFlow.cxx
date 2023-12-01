@@ -991,7 +991,6 @@ void CalculateFlow::Make(Event* anEvent) {
       
       // Pions
       if (Pid == 211 || Pid == -211) {
-        std::cout<<Pid<<std::endl;
         if(dEta>=0){
           if(dCharge>0){
             fPOIDiffQRe_pos[h][1][1]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
