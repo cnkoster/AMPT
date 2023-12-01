@@ -224,9 +224,9 @@ void CalculateFlow::InitializeArraysForFlowEPRP()
         fFlowRPIntFlow2Hist_neg[h][p][c] = NULL;
         fFlowRPDiffFlow2Hist[h][p][c] = NULL;
         
-        fPOIDiffQRe[h][p][c] = NULL;
-        fPOIDiffQIm[h][p][c] = NULL;
-        fPOIDiffMul[h][p][c] = NULL;
+//        fPOIDiffQRe[h][p][c] = NULL;
+//        fPOIDiffQIm[h][p][c] = NULL;
+//        fPOIDiffMul[h][p][c] = NULL;
         
         fPOIDiffQRe_pos[h][p][c] = NULL;
         fPOIDiffQIm_pos[h][p][c] = NULL;
@@ -1152,8 +1152,6 @@ void CalculateFlow::ResetEventByEventQuantities()
         if(fPOIDiffQRe[h][p][charge]) fPOIDiffQRe[h][p][charge]->Reset();
         if(fPOIDiffQIm[h][p][charge]) fPOIDiffQIm[h][p][charge]->Reset();
         if(fPOIDiffMul[h][p][charge]) fPOIDiffMul[h][p][charge]->Reset();
-        
-        
       }
     }
   }
