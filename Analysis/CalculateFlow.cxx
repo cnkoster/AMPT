@@ -1429,7 +1429,7 @@ void CalculateFlow::CalculateFlowRP()
         // store pt-differential flow ******************************************************************************************************************************************
         for(Int_t pt=0; pt<fNBins; pt++) {
           
-          FillPtBin = fPOIPtDiffQRe[1][h][p][charge]->GetBinCenter(pt+1);
+          FillPtBin = fPOIPtDiffQRe[h][p][charge]->GetBinCenter(pt+1);
           qpRe=0.; qpIm=0.; qpM=0.;
           qpRe = fPOIDiffQRe[h][p][charge]->GetBinContent(pt+1);
           qpIm = fPOIDiffQIm[h][p][charge]->GetBinContent(pt+1);
@@ -2461,7 +2461,7 @@ void CalculateFlow::FinalizeFlowEP()
   
   for(Int_t charge=0; charge<fCharge; charge++){
     for (Int_t h=0;h<fFlowNHarm;h++) {
-      for(Int_t pt=1;pt<=fFlowEPIntPro[h][charge]->GetNbinsX();pt++) {
+      for(Int_t pt=1;pt<=fFlowEPIntPro[h][p][charge]->GetNbinsX();pt++) {
         
         
         Float_t Corr_QQ_y = 0; Double_t CorrErr_QQ_y = 0;
@@ -2472,8 +2472,8 @@ void CalculateFlow::FinalizeFlowEP()
         
       //  EP_res = GetWeightedCorrelations(fEPEPresolutionPro[h][charge],pt);
         
-        fFlowEPIntFlow2Hist[h][P][charge]->SetBinContent(pt, Corr_QQ_y);
-        fFlowEPIntFlow2Hist[h][P][charge]->SetBinError(pt, CorrErr_QQ_y);
+        fFlowEPIntFlow2Hist[h][p][charge]->SetBinContent(pt, Corr_QQ_y);
+        fFlowEPIntFlow2Hist[h][p][charge]->SetBinError(pt, CorrErr_QQ_y);
       }
     }
   }// end of for(Int_t charge=0; charge<fCharge; charge++)
