@@ -683,8 +683,8 @@ void CalculateFlow::UserCreateOutputObjects() {
         fFlowRPIntFlow2Hist_pos[h][p][c]->Sumw2();
         //      fFlowEPList->Add(fFlowRPIntFlow2Hist_pos[h][particle][charge]);
         
-        fFlowRPIntFlow2Hist_neg[h][p][c]] = new TH1D(Form("fFlowRPIntFlow2Hist_neg[%d][%s][%s]",h,fParticleVec[p].c_str(),fChargeVec[c].c_str()),Form("fFlowRPIntFlow2Hist_neg[%d][%s][%s]",h,fParticleVec[p].c_str(),fChargeVec[c].c_str()),9,ImPaBins); //,fPtDiffNBins,fCRCPtBins);
-        fFlowRPIntFlow2Hist_neg[h][p][c]]->Sumw2();
+        fFlowRPIntFlow2Hist_neg[h][p][c] = new TH1D(Form("fFlowRPIntFlow2Hist_neg[%d][%s][%s]",h,fParticleVec[p].c_str(),fChargeVec[c].c_str()),Form("fFlowRPIntFlow2Hist_neg[%d][%s][%s]",h,fParticleVec[p].c_str(),fChargeVec[c].c_str()),9,ImPaBins); //,fPtDiffNBins,fCRCPtBins);
+        fFlowRPIntFlow2Hist_neg[h][p][c]->Sumw2();
         //      fFlowEPList->Add(fFlowRPIntFlow2Hist_neg[h][p][c]);
         
         fFlowRPIntFlow2Hist[h][p][c] = new TH1D(Form("fFlowRPIntFlow2Hist[%d][%s][%s]",h,fParticleVec[p].c_str(),fChargeVec[c].c_str()),Form("fFlowRPIntFlow2Hist[%d][%s][%s]",h,fParticleVec[p].c_str(),fChargeVec[c].c_str()),9,ImPaBins); //,fPtDiffNBins,fCRCPtBins);
@@ -912,97 +912,96 @@ void CalculateFlow::Make(Event* anEvent) {
     
    // All hadrons +/-
     
-    for (Int_t k=0; k<fQVecPower; k++) {
-      for (Int_t h=0;h<fFlowNHarmMax;h++) {
-        fPOIDiffQRe[h][0][0]->Fill(xval,pow(wPhiEta,k)*TMath::Cos((h+1.)*dPhi));
-        fPOIDiffQIm[h][0][0]->Fill(xval,pow(wPhiEta,k)*TMath::Sin((h+1.)*dPhi));
-        fPOIDiffMul[h][0][0]->Fill(xval,pow(wPhiEta,k));
-        if(dCharge>0){
-          //if(dPhi>TMath::Pi)
-          fPOIDiffQRe[h][0][1]->Fill(xval,pow(wPhiEta,k)*TMath::Cos((h+1.)*dPhi));
-          fPOIDiffQIm[h][0][1]->Fill(xval,pow(wPhiEta,k)*TMath::Sin((h+1.)*dPhi));
-          fPOIDiffMul[h][0][1]->Fill(xval,pow(wPhiEta,k));
-
-        }
-        if(dCharge<0){
-          fPOIDiffQRe[h][0][2]->Fill(xval,pow(wPhiEta,k)*TMath::Cos((h+1.)*dPhi));
-          fPOIDiffQIm[h][0][2]->Fill(xval,pow(wPhiEta,k)*TMath::Sin((h+1.)*dPhi));
-          fPOIDiffMul[h][0][2]->Fill(xval,pow(wPhiEta,k));
-        }
-
+    for (Int_t h=0;h<fFlowNHarmMax;h++) {
+      
+      fPOIDiffQRe[h][0][0]->Fill(xval,pow(wPhiEta,k)*TMath::Cos((h+1.)*dPhi));
+      fPOIDiffQIm[h][0][0]->Fill(xval,pow(wPhiEta,k)*TMath::Sin((h+1.)*dPhi));
+      fPOIDiffMul[h][0][0]->Fill(xval,pow(wPhiEta,k));
+      if(dCharge>0){
+        //if(dPhi>TMath::Pi)
+        fPOIDiffQRe[h][0][1]->Fill(xval,pow(wPhiEta,k)*TMath::Cos((h+1.)*dPhi));
+        fPOIDiffQIm[h][0][1]->Fill(xval,pow(wPhiEta,k)*TMath::Sin((h+1.)*dPhi));
+        fPOIDiffMul[h][0][1]->Fill(xval,pow(wPhiEta,k));
+        
       }
-    }
-    
-    if(dEta>=0){
-      for (Int_t h=0;h<3;h++) {
-        fPOIDiffQRe_pos[h][0][0]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
-        fPOIDiffQIm_pos[h][0][0]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
-        fPOIDiffMul_pos[h][0][0]->Fill(xval,pow(wPhiEta,1));
-        
-        
-        
-        if(dCharge>0){
-          //if(dPhi>TMath::Pi)
-          fPOIDiffQRe_pos[h][0][1]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
-          fPOIDiffQIm_pos[h][0][1]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
-          fPOIDiffMul_pos[h][0][1]->Fill(xval,pow(wPhiEta,1));
+      if(dCharge<0){
+        fPOIDiffQRe[h][0][2]->Fill(xval,pow(wPhiEta,k)*TMath::Cos((h+1.)*dPhi));
+        fPOIDiffQIm[h][0][2]->Fill(xval,pow(wPhiEta,k)*TMath::Sin((h+1.)*dPhi));
+        fPOIDiffMul[h][0][2]->Fill(xval,pow(wPhiEta,k));
+      }
+      
+      
+      
+      if(dEta>=0){
+        for (Int_t h=0;h<3;h++) {
+          fPOIDiffQRe_pos[h][0][0]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
+          fPOIDiffQIm_pos[h][0][0]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
+          fPOIDiffMul_pos[h][0][0]->Fill(xval,pow(wPhiEta,1));
+          
+          
+          
+          if(dCharge>0){
+            //if(dPhi>TMath::Pi)
+            fPOIDiffQRe_pos[h][0][1]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
+            fPOIDiffQIm_pos[h][0][1]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
+            fPOIDiffMul_pos[h][0][1]->Fill(xval,pow(wPhiEta,1));
+            
+          }
+          
+          
+          if(dCharge<0){
+            fPOIDiffQRe_pos[h][0][2]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
+            fPOIDiffQIm_pos[h][0][2]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
+            fPOIDiffMul_pos[h][0][2]->Fill(xval,pow(wPhiEta,1));}
           
         }
-        
-        
-        if(dCharge<0){
-          fPOIDiffQRe_pos[h][0][2]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
-          fPOIDiffQIm_pos[h][0][2]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
-          fPOIDiffMul_pos[h][0][2]->Fill(xval,pow(wPhiEta,1));}
-        
       }
-    }
-    
+      
       if(dEta<0){
         for (Int_t h=0;h<3;h++) {
           fPOIDiffQRe_neg[h][0][0]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
           fPOIDiffQIm_neg[h][0][0]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
           fPOIDiffMul_neg[h][0][0]->Fill(xval,pow(wPhiEta,1));
-  
-  
-  
+          
+          
+          
           if(dCharge>0){
             //if(dPhi>TMath::Pi)
             fPOIDiffQRe_neg[h][0][1]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
             fPOIDiffQIm_neg[h][0][1]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
             fPOIDiffMul_neg[h][0][1]->Fill(xval,pow(wPhiEta,1));
-  
+            
           }
-  
-  
+          
+          
           if(dCharge<0){
             fPOIDiffQRe_neg[h][0][2]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
             fPOIDiffQIm_neg[h][0][2]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
             fPOIDiffMul_neg[h][0][2]->Fill(xval,pow(wPhiEta,1));
-  
+            
           }
-  
+          
         }
       }
-    
-    
-    //+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-
-    //PID
-    
-    // Pions
-    if (Pid == 211 || Pid == -211) {
-      if(dEta>=0){
-        for (Int_t h=0;h<3;h++) {
-          if(dCharge>0){
-            fPOIDiffQRe_pos[h][1][1]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
-            fPOIDiffQIm_pos[h][1][1]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
-            fPOIDiffMul_pos[h][1][1]->Fill(xval,pow(wPhiEta,1));}
-          if(dCharge<0){
-            fPOIDiffQRe_pos[h][1][2]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
-            fPOIDiffQIm_pos[h][1][2]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
-            fPOIDiffMul_pos[h][1][2]->Fill(xval,pow(wPhiEta,1));}
+      
+      
+      //+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-
+      //PID
+      
+      // Pions
+      if (Pid == 211 || Pid == -211) {
+        if(dEta>=0){
+          for (Int_t h=0;h<3;h++) {
+            if(dCharge>0){
+              fPOIDiffQRe_pos[h][1][1]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
+              fPOIDiffQIm_pos[h][1][1]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
+              fPOIDiffMul_pos[h][1][1]->Fill(xval,pow(wPhiEta,1));}
+            if(dCharge<0){
+              fPOIDiffQRe_pos[h][1][2]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
+              fPOIDiffQIm_pos[h][1][2]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
+              fPOIDiffMul_pos[h][1][2]->Fill(xval,pow(wPhiEta,1));}
+          }
         }
-      }
         
         if(dEta<0){
           for (Int_t h=0;h<3;h++) {
@@ -1017,23 +1016,23 @@ void CalculateFlow::Make(Event* anEvent) {
               fPOIDiffMul_neg[h][1][2]->Fill(xval,pow(wPhiEta,1));}
           }
         }
-    }//end of Pid ±221
-    
-    // Kaons
-    if (Pid == 321 || Pid == -321) {
-      if(dEta>=0){
-        for (Int_t h=0;h<3;h++) {
-          if(dCharge>0){
-            fPOIDiffQRe_pos[h][2][1]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
-            fPOIDiffQIm_pos[h][2][1]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
-            fPOIDiffMul_pos[h][2][1]->Fill(xval,pow(wPhiEta,1));}
-          if(dCharge<0){
-            fPOIDiffQRe_pos[h][2][2]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
-            fPOIDiffQIm_pos[h][2][2]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
-            fPOIDiffMul_pos[h][2][2]->Fill(xval,pow(wPhiEta,1));}
-        }
-      }
+      }//end of Pid ±221
       
+      // Kaons
+      if (Pid == 321 || Pid == -321) {
+        if(dEta>=0){
+          for (Int_t h=0;h<3;h++) {
+            if(dCharge>0){
+              fPOIDiffQRe_pos[h][2][1]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
+              fPOIDiffQIm_pos[h][2][1]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
+              fPOIDiffMul_pos[h][2][1]->Fill(xval,pow(wPhiEta,1));}
+            if(dCharge<0){
+              fPOIDiffQRe_pos[h][2][2]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
+              fPOIDiffQIm_pos[h][2][2]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
+              fPOIDiffMul_pos[h][2][2]->Fill(xval,pow(wPhiEta,1));}
+          }
+        }
+        
         if(dEta<0){
           for (Int_t h=0;h<3;h++) {
             if(dCharge>0){
@@ -1046,37 +1045,38 @@ void CalculateFlow::Make(Event* anEvent) {
               fPOIDiffMul_neg[h][2][2]->Fill(xval,pow(wPhiEta,1));}
           }
         }
-    } //end of Pid ±321
-    
-    // Protons
-    if (Pid == 2212 || Pid == -2212) {
-      if(dEta>=0){
-        for (Int_t h=0;h<3;h++) {
-          if(dCharge>0){
-            //if(dPhi>TMath::Pi)
-            fPOIDiffQRe_pos[h][3][1]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
-            fPOIDiffQIm_pos[h][3][1]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
-            fPOIDiffMul_pos[h][3][1]->Fill(xval,pow(wPhiEta,1));}         }
+      } //end of Pid ±321
+      
+      // Protons
+      if (Pid == 2212 || Pid == -2212) {
+        if(dEta>=0){
+          for (Int_t h=0;h<3;h++) {
+            if(dCharge>0){
+              //if(dPhi>TMath::Pi)
+              fPOIDiffQRe_pos[h][3][1]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
+              fPOIDiffQIm_pos[h][3][1]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
+              fPOIDiffMul_pos[h][3][1]->Fill(xval,pow(wPhiEta,1));}         }
           if(dCharge<0){
             fPOIDiffQRe_pos[h][3][2]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
             fPOIDiffQIm_pos[h][3][2]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
             fPOIDiffMul_pos[h][3][2]->Fill(xval,pow(wPhiEta,1));}
         }
       }
-        if(dEta<0){
-          for (Int_t h=0;h<3;h++) {
-            if(dCharge>0){
-              //if(dPhi>TMath::Pi)
-              fPOIDiffQRe_neg[h][3][1]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
-              fPOIDiffQIm_neg[h][3][1]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
-              fPOIDiffMul_neg[h][3][1]->Fill(xval,pow(wPhiEta,1));}
-            if(dCharge<0){
-              fPOIDiffQRe_neg[h][3][2]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
-              fPOIDiffQIm_neg[h][3][2]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
-              fPOIDiffMul_neg[h][3][2]->Fill(xval,pow(wPhiEta,1));}
-    
-          }
-        }//end of Pid ±2212
+      if(dEta<0){
+        for (Int_t h=0;h<3;h++) {
+          if(dCharge>0){
+            //if(dPhi>TMath::Pi)
+            fPOIDiffQRe_neg[h][3][1]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
+            fPOIDiffQIm_neg[h][3][1]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
+            fPOIDiffMul_neg[h][3][1]->Fill(xval,pow(wPhiEta,1));}
+          if(dCharge<0){
+            fPOIDiffQRe_neg[h][3][2]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
+            fPOIDiffQIm_neg[h][3][2]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
+            fPOIDiffMul_neg[h][3][2]->Fill(xval,pow(wPhiEta,1));}
+          
+        }
+      }//end of Pid ±2212
+    }
     }
     //+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-
     
