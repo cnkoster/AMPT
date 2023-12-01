@@ -766,7 +766,7 @@ void CalculateFlow::Make(Event* anEvent) {
     if (dPt > maxPtCut) continue;
     if (dPt < minPtCut) continue;
     
-    for (Int_t h=0;h<fFlowNHarmMax;h++) {
+    for (Int_t h=0;h<4;h++) {
       QRe_EP[h] += pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi);
       QIm_EP[h] += pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi);
       Mul_EP[h] += pow(wPhiEta,1);
@@ -913,7 +913,7 @@ void CalculateFlow::Make(Event* anEvent) {
     // ====== for calculateFlowEP/RP =========
     
    // All hadrons +/-
-    for (Int_t h=0;h<fFlowNHarmMax;h++) {
+    for (Int_t h=0;h<4;h++) {
       fPOIDiffQRe[h][0][0]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
       fPOIDiffQIm[h][0][0]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
       fPOIDiffMul[h][0][0]->Fill(xval,pow(wPhiEta,1));
@@ -934,7 +934,7 @@ void CalculateFlow::Make(Event* anEvent) {
       
       
       if(dEta>=0){
-        for (Int_t h=0;h<fFlowNHarmMax;h++) {
+        for (Int_t h=0;h<4;h++) {
           fPOIDiffQRe_pos[h][0][0]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
           fPOIDiffQIm_pos[h][0][0]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
           fPOIDiffMul_pos[h][0][0]->Fill(xval,pow(wPhiEta,1));
@@ -959,7 +959,7 @@ void CalculateFlow::Make(Event* anEvent) {
       }
       
       if(dEta<0){
-        for (Int_t h=0;h<fFlowNHarmMax;h++) {
+        for (Int_t h=0;h<4;h++) {
           fPOIDiffQRe_neg[h][0][0]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
           fPOIDiffQIm_neg[h][0][0]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
           fPOIDiffMul_neg[h][0][0]->Fill(xval,pow(wPhiEta,1));
@@ -992,7 +992,7 @@ void CalculateFlow::Make(Event* anEvent) {
       // Pions
       if (Pid == 211 || Pid == -211) {
         if(dEta>=0){
-          for (Int_t h=0;h<fFlowNHarmMax;h++) {
+          for (Int_t h=0;h<4;h++) {
             if(dCharge>0){
               fPOIDiffQRe_pos[h][1][1]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
               fPOIDiffQIm_pos[h][1][1]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
@@ -1005,7 +1005,7 @@ void CalculateFlow::Make(Event* anEvent) {
         }
         
         if(dEta<0){
-          for (Int_t h=0;h<fFlowNHarmMax;h++) {
+          for (Int_t h=0;h<4;h++) {
             if(dCharge>0){
               //if(dPhi>TMath::Pi)
               fPOIDiffQRe_neg[h][1][1]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
@@ -1022,7 +1022,7 @@ void CalculateFlow::Make(Event* anEvent) {
       // Kaons
       if (Pid == 321 || Pid == -321) {
         if(dEta>=0){
-          for (Int_t h=0;h<fFlowNHarmMax;h++) {
+          for (Int_t h=0;h<4;h++) {
             if(dCharge>0){
               fPOIDiffQRe_pos[h][2][1]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
               fPOIDiffQIm_pos[h][2][1]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
@@ -1035,7 +1035,7 @@ void CalculateFlow::Make(Event* anEvent) {
         }
         
         if(dEta<0){
-          for (Int_t h=0;h<fFlowNHarmMax;h++) {
+          for (Int_t h=0;h<4;h++) {
             if(dCharge>0){
               fPOIDiffQRe_neg[h][2][1]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
               fPOIDiffQIm_neg[h][2][1]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
@@ -1051,7 +1051,7 @@ void CalculateFlow::Make(Event* anEvent) {
       // Protons
       if (Pid == 2212 || Pid == -2212) {
         if(dEta>=0){
-          for (Int_t h=0;h<fFlowNHarmMax;h++) {
+          for (Int_t h=0;h<4;h++) {
             if(dCharge>0){
               //if(dPhi>TMath::Pi)
               fPOIDiffQRe_pos[h][3][1]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
@@ -1064,7 +1064,7 @@ void CalculateFlow::Make(Event* anEvent) {
         }
       }
       if(dEta<0){
-        for (Int_t h=0;h<fFlowNHarmMax;h++) {
+        for (Int_t h=0;h<4;h++) {
           if(dCharge>0){
             //if(dPhi>TMath::Pi)
             fPOIDiffQRe_neg[h][3][1]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
