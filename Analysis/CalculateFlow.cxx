@@ -1378,8 +1378,8 @@ void CalculateFlow::CalculateFlowRP()
   // Then determine correlations with the POI (u)
   // *******************************************************************
   for (Int_t h=0;h<4;h++) {
-    
     for(Int_t p=0; p<fNParticles;p++){
+      std::cout<<" p is : "<<p<<std::endl;
       for(Int_t charge=0;charge<fCharge;charge++){
         // ********************************************************************
         // pT-integrated ******************************************************
