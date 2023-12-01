@@ -242,7 +242,7 @@ void CalculateFlow::InitializeArraysForFlowEP()
 void CalculateFlow::InitializeArraysForFlowRP()
 {
   for(Int_t c=0; c<fCharge;c++){
-    for(Int_t p=1; p<fNParticles; p++){
+    for(Int_t p=0; p<fNParticles; p++){
       for (Int_t h=0;h<fFlowNHarmMax;h++) {
         
         fFlowRPIntPro_pos[h][p][c] = NULL;
