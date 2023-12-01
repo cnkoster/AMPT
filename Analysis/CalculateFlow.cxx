@@ -1384,7 +1384,7 @@ void CalculateFlow::CalculateFlowRP()
         // ********************************************************************
         // pT-integrated ******************************************************
         // ********************************************************************
-        
+        std::cout<<" p in charge is : "<<p<<std::endl;
         QRe=0.; QIm=0.;
         Mu = 0.;
         
@@ -1419,6 +1419,7 @@ void CalculateFlow::CalculateFlowRP()
         
         
         // store pt-differential flow ******************************************************************************************************************************************
+        std::cout<<" p in ptdiff is : "<<p<<std::endl;
         for(Int_t pt=0; pt<fNBins; pt++) {
           
           FillPtBin = fPOIPtDiffQRe[h][p][charge]->GetBinCenter(pt+1);
