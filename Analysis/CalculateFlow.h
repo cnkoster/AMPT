@@ -188,7 +188,6 @@ private:
   Int_t fEtaDiffNBins;
   Int_t fNBins;
   
-  
   TH1D *fPOIPtDiffQRe[fQVecPower][fFlowNHarmMax][fCharge]; // real part
   TH1D *fPOIPtDiffQIm[fQVecPower][fFlowNHarmMax][fCharge]; // imaginary part
   TH1D *fPOIPtDiffMul[fQVecPower][fFlowNHarmMax][fCharge]; // imaginary part

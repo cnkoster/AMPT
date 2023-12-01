@@ -913,10 +913,10 @@ void CalculateFlow::Make(Event* anEvent) {
    // All hadrons +/-
     
     for (Int_t h=0;h<fFlowNHarmMax;h++) {
-      
-      fPOIDiffQRe[h][0][0]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
+     // fPOIDiffQRe[h][0][0]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
       fPOIDiffQIm[h][0][0]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
       fPOIDiffMul[h][0][0]->Fill(xval,pow(wPhiEta,1));
+      
       if(dCharge>0){
         //if(dPhi>TMath::Pi)
         fPOIDiffQRe[h][0][1]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
