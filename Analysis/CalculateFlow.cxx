@@ -991,6 +991,19 @@ void CalculateFlow::Make(Event* anEvent) {
       
       // Pions
       if (Pid == 211 || Pid == -211) {
+        for (Int_t h=0;h<4;h++) {
+          if(dCharge>0){
+            //if(dPhi>TMath::Pi)
+            fPOIDiffQRe[h][1][1]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
+            fPOIDiffQIm[h][1][1]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
+            fPOIDiffMul[h][1][1]->Fill(xval,pow(wPhiEta,1));
+            
+          }
+          if(dCharge<0){
+            fPOIDiffQRe[h][1][2]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
+            fPOIDiffQIm[h][1][2]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
+            fPOIDiffMul[h][1][2]->Fill(xval,pow(wPhiEta,1));
+          }
         if(dEta>=0){
           if(dCharge>0){
             fPOIDiffQRe_pos[h][1][1]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
@@ -1017,6 +1030,18 @@ void CalculateFlow::Make(Event* anEvent) {
       
       // Kaons
       if (Pid == 321 || Pid == -321) {
+        if(dCharge>0){
+          //if(dPhi>TMath::Pi)
+          fPOIDiffQRe[h][2][1]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
+          fPOIDiffQIm[h][2][1]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
+          fPOIDiffMul[h][2][1]->Fill(xval,pow(wPhiEta,1));
+          
+        }
+        if(dCharge<0){
+          fPOIDiffQRe[h][2][2]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
+          fPOIDiffQIm[h][2][2]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
+          fPOIDiffMul[h][2][2]->Fill(xval,pow(wPhiEta,1));
+        }
         if(dEta>=0){
             if(dCharge>0){
               fPOIDiffQRe_pos[h][2][1]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
@@ -1042,6 +1067,18 @@ void CalculateFlow::Make(Event* anEvent) {
       
       // Protons
       if (Pid == 2212 || Pid == -2212) {
+        if(dCharge>0){
+          //if(dPhi>TMath::Pi)
+          fPOIDiffQRe[h][3][1]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
+          fPOIDiffQIm[h][3][1]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
+          fPOIDiffMul[h][3][1]->Fill(xval,pow(wPhiEta,1));
+          
+        }
+        if(dCharge<0){
+          fPOIDiffQRe[h][3][2]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
+          fPOIDiffQIm[h][3][2]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
+          fPOIDiffMul[h][3][2]->Fill(xval,pow(wPhiEta,1));
+        }
         if(dEta>=0){
             if(dCharge>0){
               //if(dPhi>TMath::Pi)
@@ -1379,12 +1416,12 @@ void CalculateFlow::CalculateFlowRP()
   // *******************************************************************
   for (Int_t h=0;h<4;h++) {
     for(Int_t p=0; p<fNParticles;p++){
-      std::cout<<" p is : "<<p<<std::endl;
+//      std::cout<<" p is : "<<p<<std::endl;
       for(Int_t charge=0;charge<fCharge;charge++){
         // ********************************************************************
         // pT-integrated ******************************************************
         // ********************************************************************
-        std::cout<<" p in charge is : "<<p<<std::endl;
+//        std::cout<<" p in charge is : "<<p<<std::endl;
         QRe=0.; QIm=0.;
         Mu = 0.;
         
@@ -1419,7 +1456,7 @@ void CalculateFlow::CalculateFlowRP()
         
         
         // store pt-differential flow ******************************************************************************************************************************************
-        std::cout<<" p in ptdiff is : "<<p<<std::endl;
+        
         for(Int_t pt=0; pt<fNBins; pt++) {
           
           FillPtBin = fPOIPtDiffQRe[h][p][charge]->GetBinCenter(pt+1);
@@ -1428,11 +1465,11 @@ void CalculateFlow::CalculateFlowRP()
           qpIm = fPOIDiffQIm[h][p][charge]->GetBinContent(pt+1);
           qpM = fPOIDiffMul[h][p][charge]->GetBinContent(pt+1);
           
-          
+          std::cout<<" p in ptdiff is : "<<p<< " and qpM is: "<< qpM<<std::endl;
           if(qpM>0) {
             meanPtdiff = qpRe/qpM;
             fFlowRPCorPro[h][p][charge]->Fill(FillPtBin, meanPtdiff, 1.);            // ADD: fPOIRPDiffDiffQRe[h]
-            std::cout<< "particle: " << p << " h="<<h<< " charge="<<charge<<" v="<<meanPtdiff<<std::endl;
+//            std::cout<< "particle: " << p << " h="<<h<< " charge="<<charge<<" v="<<meanPtdiff<<std::endl;
           }
           
         }//end pt
