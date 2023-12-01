@@ -213,7 +213,6 @@ void CalculateFlow::InitializeArraysForFlowEPRP()
     
     for(Int_t p=0; p<fNParticles;p++){
       for(Int_t c=0; c<fCharge;c++){
-        //fFlowNHarmMax
         
         fFlowEPIntPro[h][p][c] = NULL;
         fFlowEPIntFlow2Hist[h][p][c] = NULL;
@@ -256,21 +255,22 @@ void CalculateFlow::InitializeArraysForFlowRP()
         fFlowRPIntFlow2Hist_neg[h][p][c] = NULL;
         fFlowRPDiffFlow2Hist[h][p][c] = NULL;
         
-//        fPOIDiffQRe[h][p][c] = NULL;
-//        fPOIDiffQIm[h][p][c] = NULL;
-//        fPOIDiffMul[h][p][c] = NULL;
-//
-//        fPOIDiffQRe_pos[h][p][c] = NULL;
-//        fPOIDiffQIm_pos[h][p][c] = NULL;
-//        fPOIDiffMul_pos[h][p][c] = NULL;
-//
-//        fPOIDiffQRe_neg[h][p][c] = NULL;
-//        fPOIDiffQIm_neg[h][p][c] = NULL;
-//        fPOIDiffMul_neg[h][p][c] = NULL;
+        fPOIDiffQRe[h][p][c] = NULL;
+        fPOIDiffQIm[h][p][c] = NULL;
+        fPOIDiffMul[h][p][c] = NULL;
+
+        fPOIDiffQRe_pos[h][p][c] = NULL;
+        fPOIDiffQIm_pos[h][p][c] = NULL;
+        fPOIDiffMul_pos[h][p][c] = NULL;
+
+        fPOIDiffQRe_neg[h][p][c] = NULL;
+        fPOIDiffQIm_neg[h][p][c] = NULL;
+        fPOIDiffMul_neg[h][p][c] = NULL;
       }
     }
   }
 }
+
 //=====================================================================================================
 void CalculateFlow::UserCreateOutputObjects() {
   
@@ -1132,7 +1132,7 @@ void CalculateFlow::ResetEventByEventQuantities()
   }
   
   //FlowEP & RP
-  for (Int_t h=0;h<fFlowNHarm;h++) {
+  for (Int_t h=0;h<fFlowNHarmMax;h++) {
     
     if(QRe_EP[h]!=0) QRe_EP[h]=0;
     if(QIm_EP[h]!=0) QIm_EP[h]=0;
