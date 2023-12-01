@@ -1302,6 +1302,8 @@ void CalculateFlow::CalculateFlowEP()
   Float_t cosPhi, sinPhi;
   Float_t EP_res;
   
+  Float_t qpRe, qpIm, qpM, meanPtdiff;
+  
   //********************************************************************
   // Calculate Q vectors for the spectators (P&T)
   // Then determine correlations with the POI (u)
@@ -1345,7 +1347,7 @@ void CalculateFlow::CalculateFlowEP()
         // store pt-differential flow ******************************************************************************************************************************************
         for(Int_t pt=0; pt<fNBins; pt++) {
           
-          FillPtBin = fPOIDiffQRe[1][hr][p][charge]->GetBinCenter(pt+1);
+          FillPtBin = fPOIDiffQRe[hr][p][charge]->GetBinCenter(pt+1);
           qpRe=0.; qpIm=0.; qpM=0.;
           qpRe = fPOIDiffQRe[hr][p][charge]->GetBinContent(pt+1);
           qpIm = fPOIDiffQIm[hr][p][charge]->GetBinContent(pt+1);
