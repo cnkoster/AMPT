@@ -54,10 +54,10 @@ CalculateFlow::CalculateFlow(const char* name):fQAList(NULL),fSpectraList(NULL),
   fSpectraList->SetName("fSpectraList");
   fSpectraList->SetOwner(kTRUE);
   
-//  InitializeArraysForFlowQC();
+  InitializeArraysForFlowQC();
 // InitializeArraysForFlowGF();
-  InitializeArraysForFlowEP();
-  InitializeArraysForFlowRP();
+  InitializeArraysForFlowEPRP();
+//  InitializeArraysForFlowRP();
 
   InitializeArraysForQA();
   
@@ -202,7 +202,7 @@ void CalculateFlow::InitializeArraysForFlowGF()
 
 //=====================================================================================================
 
-void CalculateFlow::InitializeArraysForFlowEP()
+void CalculateFlow::InitializeArraysForFlowEPRP()
 {
   
   for (Int_t h=0;h<fFlowNHarmMax;h++) {
@@ -218,8 +218,12 @@ void CalculateFlow::InitializeArraysForFlowEP()
         fFlowEPIntPro[h][p][c] = NULL;
         fFlowEPIntFlow2Hist[h][p][c] = NULL;
         
-//        fFlowEP1IntPro[h][p][c] = NULL;
-//        fFlowEP1IntFlow2Hist[h][p][c] = NULL;
+        fFlowRPIntPro_pos[h][p][c] = NULL;
+        fFlowRPIntPro_neg[h][p][c] = NULL;
+        
+        fFlowRPIntFlow2Hist_pos[h][p][c] = NULL;
+        fFlowRPIntFlow2Hist_neg[h][p][c] = NULL;
+        fFlowRPDiffFlow2Hist[h][p][c] = NULL;
         
         fPOIDiffQRe[h][p][c] = NULL;
         fPOIDiffQIm[h][p][c] = NULL;
@@ -913,7 +917,7 @@ void CalculateFlow::Make(Event* anEvent) {
    // All hadrons +/-
     
     for (Int_t h=0;h<fFlowNHarmMax;h++) {
-     // fPOIDiffQRe[h][0][0]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
+      fPOIDiffQRe[h][0][0]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
       fPOIDiffQIm[h][0][0]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
       fPOIDiffMul[h][0][0]->Fill(xval,pow(wPhiEta,1));
       

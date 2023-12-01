@@ -35,7 +35,7 @@ public:
   
   virtual void Make(Event* fEvent);
   void InitializeArraysForFlowQC();
-  void InitializeArraysForFlowEP();
+  void InitializeArraysForFlowEPRP();
   void InitializeArraysForFlowRP();
   void InitializeArraysForFlowGF();
   void InitializeArraysForQA();
