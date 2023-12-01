@@ -252,17 +252,17 @@ void CalculateFlow::InitializeArraysForFlowRP()
         fFlowRPIntFlow2Hist_neg[h][p][c] = NULL;
         fFlowRPDiffFlow2Hist[h][p][c] = NULL;
         
-        fPOIDiffQRe[h][p][c] = NULL;
-        fPOIDiffQIm[h][p][c] = NULL;
-        fPOIDiffMul[h][p][c] = NULL;
-        
-        fPOIDiffQRe_pos[h][p][c] = NULL;
-        fPOIDiffQIm_pos[h][p][c] = NULL;
-        fPOIDiffMul_pos[h][p][c] = NULL;
-        
-        fPOIDiffQRe_neg[h][p][c] = NULL;
-        fPOIDiffQIm_neg[h][p][c] = NULL;
-        fPOIDiffMul_neg[h][p][c] = NULL;
+//        fPOIDiffQRe[h][p][c] = NULL;
+//        fPOIDiffQIm[h][p][c] = NULL;
+//        fPOIDiffMul[h][p][c] = NULL;
+//
+//        fPOIDiffQRe_pos[h][p][c] = NULL;
+//        fPOIDiffQIm_pos[h][p][c] = NULL;
+//        fPOIDiffMul_pos[h][p][c] = NULL;
+//
+//        fPOIDiffQRe_neg[h][p][c] = NULL;
+//        fPOIDiffQIm_neg[h][p][c] = NULL;
+//        fPOIDiffMul_neg[h][p][c] = NULL;
       }
     }
   }
