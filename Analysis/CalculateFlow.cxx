@@ -1347,9 +1347,9 @@ void CalculateFlow::CalculateFlowEP()
           
           FillPtBin = fPOIDiffQRe[1][hr][p][charge]->GetBinCenter(pt+1);
           qpRe=0.; qpIm=0.; qpM=0.;
-          qpRe = fPOIDiffQRe[1][hr][p][charge]->GetBinContent(pt+1);
-          qpIm = fPOIDiffQIm[1][hr][p][charge]->GetBinContent(pt+1);
-          qpM = fPOIDiffMul[1][hr][p][charge]->GetBinContent(pt+1);
+          qpRe = fPOIDiffQRe[hr][p][charge]->GetBinContent(pt+1);
+          qpIm = fPOIDiffQIm[hr][p][charge]->GetBinContent(pt+1);
+          qpM = fPOIDiffMul[hr][p][charge]->GetBinContent(pt+1);
           
           
           if(qpM>0) {
@@ -1429,9 +1429,9 @@ void CalculateFlow::CalculateFlowRP()
           
           FillPtBin = fPOIPtDiffQRe[1][h][p][charge]->GetBinCenter(pt+1);
           qpRe=0.; qpIm=0.; qpM=0.;
-          qpRe = fPOIDiffQRe[1][h][p][charge]->GetBinContent(pt+1);
-          qpIm = fPOIDiffQIm[1][h][p][charge]->GetBinContent(pt+1);
-          qpM = fPOIDiffMul[1][h][p][charge]->GetBinContent(pt+1);
+          qpRe = fPOIDiffQRe[h][p][charge]->GetBinContent(pt+1);
+          qpIm = fPOIDiffQIm[h][p][charge]->GetBinContent(pt+1);
+          qpM = fPOIDiffMul[h][p][charge]->GetBinContent(pt+1);
           
           
           if(qpM>0) {
