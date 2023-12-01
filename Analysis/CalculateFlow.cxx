@@ -621,8 +621,9 @@ void CalculateFlow::UserCreateOutputObjects() {
   
   for (Int_t h=0;h<fFlowNHarm;h++) {
     fEPEPresolutionPro[h] = new TH1D(Form("fEPEPresolutionPro[%d]",h),Form("fEPEPresolutionPro[%d]",h),1000,-TMath::Pi()-0.2,TMath::Pi()+0.2);
-    fEPEPresolutionPro[h]->Sumw2();
-//    fFlowEPList->Add(fEPEPresolutionPro[h]);
+    //fEPEPresolutionPro[h]->Sumw2();
+    fFlowEPList->Add(fEPEPresolutionPro[h]);
+    
     for(Int_t p=0; p<fNParticles;p++){
       for(Int_t c=0; c<fCharge; c++){
         
@@ -765,14 +766,11 @@ void CalculateFlow::Make(Event* anEvent) {
     if (dPt > maxPtCut) continue;
     if (dPt < minPtCut) continue;
     
-    for (Int_t h=0;h<3;h++) {
+    for (Int_t h=0;h<fFlowNHarmMax;h++) {
       QRe_EP[h] += pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi);
       QIm_EP[h] += pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi);
       Mul_EP[h] += pow(wPhiEta,1);
     }
-    
-
-
     
     if (dCharge == 0) continue;
     cw = (dCharge > 0. ? 0 : 1);
@@ -915,7 +913,6 @@ void CalculateFlow::Make(Event* anEvent) {
     // ====== for calculateFlowEP/RP =========
     
    // All hadrons +/-
-    
     for (Int_t h=0;h<fFlowNHarmMax;h++) {
       fPOIDiffQRe[h][0][0]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
       fPOIDiffQIm[h][0][0]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));

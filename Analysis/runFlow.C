@@ -86,9 +86,9 @@ void runFlow(Bool_t etaFlag = kTRUE, TString centrality="", Double_t gCentrality
     
     bnevent->GetEntry(i); //this is the branch event
     
-    std::cout<<"1"<<std::endl;
+
     fQC->SetEvent(event);
-    std::cout<<"2"<<std::endl; 
+   
     fQC->UserExec();
     
     
