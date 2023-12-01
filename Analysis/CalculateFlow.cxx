@@ -2468,8 +2468,8 @@ void CalculateFlow::FinalizeFlowEP()
           Float_t Corr_QQ_y = 0; Double_t CorrErr_QQ_y = 0;
           
           
-          Corr_QQ_y = GetWeightedCorrelations(fFlowEPIntPro[h][P][charge], pt);
-          CorrErr_QQ_y = GetWeightedCorrelationsError(fFlowEPIntPro[h][P][charge], pt);
+          Corr_QQ_y = GetWeightedCorrelations(fFlowEPIntPro[h][p][charge], pt);
+          CorrErr_QQ_y = GetWeightedCorrelationsError(fFlowEPIntPro[h][p][charge], pt);
           
           //  EP_res = GetWeightedCorrelations(fEPEPresolutionPro[h][charge],pt);
           
