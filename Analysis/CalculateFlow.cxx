@@ -1291,7 +1291,7 @@ void CalculateFlow::CalculateFlowGF()
 void CalculateFlow::CalculateFlowEP()
 {
   
-
+  Double_t FillPtBin = 0;
   Float_t QRe, QIm, Mu;
   Float_t Denom_pty;
   Float_t x_QQ, y_QQ, x_uQ, y_uQ;
