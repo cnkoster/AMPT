@@ -1464,7 +1464,7 @@ void CalculateFlow::CalculateFlowRP()
           qpIm = fPOIDiffQIm[h][p][charge]->GetBinContent(pt+1);
           qpM = fPOIDiffMul[h][p][charge]->GetBinContent(pt+1);
           
-          std::cout<<" p in ptdiff is : "<<p<< " and qpM is: "<< qpM<<std::endl;
+//          std::cout<<" p in ptdiff is : "<<p<< " and qpM is: "<< qpM<<std::endl;
           if(qpM>0) {
             meanPtdiff = qpRe/qpM;
             fFlowRPCorPro[h][p][charge]->Fill(FillPtBin, meanPtdiff, 1.);            // ADD: fPOIRPDiffDiffQRe[h]
