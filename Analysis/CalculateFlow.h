@@ -270,7 +270,7 @@ private:
   Double_t QIm_EP[fFlowNHarmMax];
   Double_t Mul_EP[fFlowNHarmMax];
   
-  string fChargeVec[3] = {"incl","+", "-"};
-  string fParticleVec[4] = {"h","Pion", "Kaon","Proton"};
+ // string fChargeVec[3] = {"incl","+", "-"};
+  //string fParticleVec[4] = {"h","Pion", "Kaon","Proton"};
 };
 #endif
