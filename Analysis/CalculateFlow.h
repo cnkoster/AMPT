@@ -35,20 +35,19 @@ public:
   
   virtual void Make(Event* fEvent);
   void InitializeArraysForFlowQC();
-  void InitializeArraysForFlowSPM();
-  void InitializeArraysForFlowEPM();
+  void InitializeArraysForFlowEPRP();
+  void InitializeArraysForFlowRP();
   void InitializeArraysForFlowGF();
   void InitializeArraysForQA();
   virtual void ResetEventByEventQuantities();
   
   virtual void CalculateFlowQC();
-  virtual void CalculateFlowSPM();
-  virtual void CalculateFlowSPM1();
-  virtual void CalculateFlowEPM();
+  virtual void CalculateFlowEP();
+  virtual void CalculateFlowRP();
   virtual void CalculateFlowGF();
   virtual void FinalizeFlowQC();
-  virtual void FinalizeFlowSPM();
-  virtual void FinalizeFlowEPM();
+  virtual void FinalizeFlowEP();
+  virtual void FinalizeFlowRP();
   virtual void FinalizeFlowGF();
   virtual void FinalizeQA();
   
@@ -60,15 +59,18 @@ public:
   void SetCentralityEBE(Double_t const c) {this->fCentralityEBE = c;};
   Double_t GetCentralityEBE() const {return this->fCentralityEBE;};
   void SetEvent(Event* e) {this->fEvent = e;};
+  
   TList* GetFlowQCList() {return this->fFlowQCList;};
-  TList* GetFlowSPMList() {return this->fFlowSPMList;};
+  TList* GetFlowEPList() {return this->fFlowEPList;};
+  TList* GetFlowRPList() {return this->fFlowRPList;};
   TList* GetFlowGFList() {return this->fFlowGFList;};
+  
   TList* GetQAList() {return this->fQAList;};
   TList* GetSpectraList() {return this->fSpectraList;} // Particle spectra
+  
   Event* GetEvent() {return this->fEvent;};
   virtual std::complex<double> ucN(const Int_t n, const TArrayI& h, Int_t ptb);
   virtual std::complex<double> ucN2(const Int_t n, TArrayI& h, TArrayI& cnt, Int_t ptb);
-  
   
   void SetmaxPtCut(Double_t maxPt) {this->maxPtCut = maxPt;};
   void SetminPtCut(Double_t minPt) {this->minPtCut = minPt;};
@@ -76,10 +78,6 @@ public:
   void SetmaxEtaCut(Double_t maxEta) {this->maxEtaCut = maxEta;};
   void SetEtaDiff(Bool_t etaflag) {this->EtaDiff = etaflag;};
   void SetdoQA(Bool_t bflag) {this->doQA = bflag;};
-  
-  //CMW
-  //    void SetEtaGapNeg(Double_t negEtaGap) {this->fEtaGapNeg = negEtaGap;};
-  //    void SetEtaGapPos(Double_t posEtaGap) {this->fEtaGapPos = posEtaGap;};
   
 private:
   Event* fEvent;
@@ -97,6 +95,7 @@ private:
   Double_t *fBins;
   Bool_t doQA = kFALSE;
   Double_t trkWgt = 1;
+  const static Int_t fNParticles = 4; // Incl, Pions, Protons, Kaons
   
   // QA Histograms
   TList *fQAList;
@@ -189,7 +188,6 @@ private:
   Int_t fEtaDiffNBins;
   Int_t fNBins;
   
-  
   TH1D *fPOIPtDiffQRe[fQVecPower][fFlowNHarmMax][fCharge]; // real part
   TH1D *fPOIPtDiffQIm[fQVecPower][fFlowNHarmMax][fCharge]; // imaginary part
   TH1D *fPOIPtDiffMul[fQVecPower][fFlowNHarmMax][fCharge]; // imaginary part
@@ -217,68 +215,42 @@ private:
   TH1D *fFlowQCRefCorHist[fFlowNHarm][fFlowQCNRef][fCharge]; //
   TH1D *fFlowQCRefCorFinal[fFlowNHarm][4][fCharge]; //
   
-  //Flow SPM Part
+  //Flow EP & RP Part
   
-  TList *fFlowSPMList;
-  TH1D *fPOISPMPtDiffQRe[fFlowNHarmMax][fCharge]; // real part
-  TH1D *fPOISPMPtDiffQIm[fFlowNHarmMax][fCharge]; // imaginary part
-  TH1D *fPOISPMPtDiffMul[fFlowNHarmMax][fCharge];
+  TH1D *fPOIDiffQRe[fFlowNHarmMax][fNParticles][fCharge]; // real part
+  TH1D *fPOIDiffQIm[fFlowNHarmMax][fNParticles][fCharge]; // imaginary part
+  TH1D *fPOIDiffMul[fFlowNHarmMax][fNParticles][fCharge];
   
-  TH1D *fPOISPMPtDiffQRe_neg[fFlowNHarmMax][fCharge]; // real part
-  TH1D *fPOISPMPtDiffQIm_neg[fFlowNHarmMax][fCharge]; // imaginary part
-  TH1D *fPOISPMPtDiffMul_neg[fFlowNHarmMax][fCharge];
+  TH1D *fPOIDiffQRe_neg[fFlowNHarmMax][fNParticles][fCharge]; // real part
+  TH1D *fPOIDiffQIm_neg[fFlowNHarmMax][fNParticles][fCharge]; // imaginary part
+  TH1D *fPOIDiffMul_neg[fFlowNHarmMax][fNParticles][fCharge];
   
-  TH1D *fPOISPMPtDiffQRe_pos[fFlowNHarmMax][fCharge]; // real part
-  TH1D *fPOISPMPtDiffQIm_pos[fFlowNHarmMax][fCharge]; // imaginary part
-  TH1D *fPOISPMPtDiffMul_pos[fFlowNHarmMax][fCharge];
+  TH1D *fPOIDiffQRe_pos[fFlowNHarmMax][fNParticles][fCharge]; // real part
+  TH1D *fPOIDiffQIm_pos[fFlowNHarmMax][fNParticles][fCharge]; // imaginary part
+  TH1D *fPOIDiffMul_pos[fFlowNHarmMax][fNParticles][fCharge];
   
-  TH1D *fRFPSPMPtDiffQRe_V0A[fFlowNHarmMax][fCharge];
-  TH1D *fRFPSPMPtDiffQIm_V0A[fFlowNHarmMax][fCharge];
-  TH1D *fRFPSPMPtDiffMul_V0A[fFlowNHarmMax][fCharge];
+  TList *fFlowEPList;
+
+  TH1D *fEPEPresolutionPro[fFlowNHarmMax];
+  TProfile *fFlowEPIntPro[fFlowNHarmMax][fNParticles][fCharge];
+  TH1D *fFlowEPIntCorHist[fFlowNHarmMax][fNParticles][fCharge];
+  TH1D *fFlowEPIntFlow2Hist[fFlowNHarmMax][fNParticles][fCharge];
   
-  TH1D *fRFPSPMPtDiffQRe_V0C[fFlowNHarmMax][fCharge];
-  TH1D *fRFPSPMPtDiffQIm_V0C[fFlowNHarmMax][fCharge];
-  TH1D *fRFPSPMPtDiffMul_V0C[fFlowNHarmMax][fCharge];
+  TProfile *fFlowEPCorPro[fFlowNHarmMax][fNParticles][fCharge];
+  TH1D *fFlowEPDiffFlow2Hist[fFlowNHarmMax][fNParticles][fCharge];
   
-  TH1D *fSPMEPresolutionPro[fFlowNHarmMax];
+  TList *fFlowRPList;
+
+  TProfile *fFlowRPIntPro_pos[fFlowNHarmMax][fNParticles][fCharge];
+  TProfile *fFlowRPIntPro_neg[fFlowNHarmMax][fNParticles][fCharge];
+  TProfile *fFlowRPIntPro[fFlowNHarmMax][fNParticles][fCharge];
   
+  TH1D *fFlowRPIntFlow2Hist_pos[fFlowNHarmMax][fNParticles][fCharge];
+  TH1D *fFlowRPIntFlow2Hist_neg[fFlowNHarmMax][fNParticles][fCharge];
+  TH1D *fFlowRPIntFlow2Hist[fFlowNHarmMax][fNParticles][fCharge];
   
-  //    TH1D *fPOISPMPtDiffQRe_projectile[fFlowNHarmMax][fCharge]; // real part
-  //    TH1D *fPOISPMPtDiffQIm_projectile[fFlowNHarmMax][fCharge]; // imaginary part
-  //    TH1D *fPOISPMPtDiffMul_projectile[fFlowNHarmMax][fCharge];
-  //
-  //    TH1D *fPOISPMPtDiffQRe_target[fFlowNHarmMax][fCharge]; // real part
-  //    TH1D *fPOISPMPtDiffQIm_target[fFlowNHarmMax][fCharge]; // imaginary part
-  //    TH1D *fPOISPMPtDiffMul_target[fFlowNHarmMax][fCharge];
-  //
-  //
-  //    TProfile *fFlowSPMIntPro_Qu_x_projectile[fFlowNHarmMax][fCharge];
-  //    TProfile *fFlowSPMIntPro_Qu_y_projectile[fFlowNHarmMax][fCharge];
-  //    TProfile *fFlowSPMIntPro_Qu_x_target[fFlowNHarmMax][fCharge];
-  //    TProfile *fFlowSPMIntPro_Qu_y_target[fFlowNHarmMax][fCharge];
-  //    TProfile *fFlowSPMIntPro_Qpt_x[fFlowNHarmMax][fCharge];
-  TProfile *fFlowSPMIntPro[fFlowNHarmMax][fCharge];
-  TH1D *fFlowSPMIntCorHist[fFlowNHarmMax][fCharge];
-  TH1D *fFlowSPMIntFlow2Hist[fFlowNHarmMax][fCharge];
-  
-  TProfile *fFlowSPM1IntPro[fFlowNHarmMax][fCharge];
-  TH1D *fFlowSPM1IntCorHist[fFlowNHarmMax][fCharge];
-  TH1D *fFlowSPM1IntFlow2Hist[fFlowNHarmMax][fCharge];
-  
-  TH1D *fPOIEPMPtDiffQRe[fFlowNHarmMax][fCharge]; // real part
-  TH1D *fPOIEPMPtDiffQIm[fFlowNHarmMax][fCharge]; // imaginary part
-  TH1D *fPOIEPMPtDiffMul[fFlowNHarmMax][fCharge];
-  
-  TProfile *fFlowEPMIntPro_pos[fFlowNHarmMax][fCharge];
-  TProfile *fFlowEPMIntPro_neg[fFlowNHarmMax][fCharge];
-  TProfile *fFlowEPMIntPro[fFlowNHarmMax][fCharge];
-  
-  TH1D *fFlowEPMIntFlow2Hist_pos[fFlowNHarmMax][fCharge];
-  TH1D *fFlowEPMIntFlow2Hist_neg[fFlowNHarmMax][fCharge];
-  TH1D *fFlowEPMIntFlow2Hist[fFlowNHarmMax][fCharge];
-  
-  TProfile *fFlowEPMCorPro[fFlowNHarmMax][fCharge];
-  TH1D *fFlowEPMPtFlow2Hist[fFlowNHarmMax][fCharge];
+  TProfile *fFlowRPCorPro[fFlowNHarmMax][fNParticles][fCharge];
+  TH1D *fFlowRPDiffFlow2Hist[fFlowNHarmMax][fNParticles][fCharge];
   
   
   // Cuts:
@@ -296,5 +268,6 @@ private:
   Double_t QRe_EP[fFlowNHarmMax];
   Double_t QIm_EP[fFlowNHarmMax];
   Double_t Mul_EP[fFlowNHarmMax];
+  
 };
 #endif
