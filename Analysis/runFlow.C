@@ -30,15 +30,12 @@
 
 void runFlow(Bool_t etaFlag = kTRUE, TString centrality="", Double_t gCentrality=1., Int_t iGroupMin=0, Int_t iGroupMax=2000, Double_t gSpectatorMin=0, Double_t gSpectatorMax=500) {
   
-  TFile *f= new TFile(Form(
-                           //"/dcache/alice/nkoster/PhD/AMPT_out/Run2_Energy_PbPb/nEvents100/TreeOutput/TreeOutput_Group%i-%i.root",iGroupMin, iGroupMax));
-                           "/data/alice/nkoster/TreeOutput_Group0-6000_Cent30_50.root"));
-  //"/dcache/alice/nkoster/PhD/AMPT_out/Run2_Energy_PbPb/Cent%s/TreeOutput_Group%i-%i_Cent%s.root",centrality.Data(),iGroupMin, iGroupMax+1000, centrality.Data()));
+  std::cout<< "here??" <<std::endl;
   
-  
+  TFile *f= new TFile(Form("/data/alice/nkoster/TreeOutput_Group0-6000_Cent30_50.root"));
   //"/dcache/alice/nkoster/PhD/AMPT_out/Run2_Energy_PbPb/nEvents100/TreeOutput/TreeOutput_Group%i-%i.root",iGroupMin, iGroupMax));
-  
-  
+  //"/dcache/alice/nkoster/PhD/AMPT_out/Run2_Energy_PbPb/Cent%s/TreeOutput_Group%i-%i_Cent%s.root",centrality.Data(),iGroupMin, iGroupMax+1000, centrality.Data()));
+  //"/dcache/alice/nkoster/PhD/AMPT_out/Run2_Energy_PbPb/nEvents100/TreeOutput/TreeOutput_Group%i-%i.root",iGroupMin, iGroupMax));
   //"/dcache/alice/nkoster/PhD/AMPT_out/Run2_Energy_PbPb/Cent%s/TreeOutput_Group%i-%i_Cent%s.root",centrality.Data(),iGroupMin, iGroupMax, centrality.Data()));
   
   if (!f) {
@@ -50,7 +47,7 @@ void runFlow(Bool_t etaFlag = kTRUE, TString centrality="", Double_t gCentrality
   TTree *tree = (TTree*)f->Get("EventTree");
   
   // tree->AddFile(Form("5.02TeV/Centrality%s/tree_PaperPreProduction_Group%d.root",centrality.Data(),i));
-  std::cout<< "here??" <<std::endl; 
+  
   // create a pointer to an event object. This will be used
   // to read the branch values.
   Event *event = new Event();
@@ -104,8 +101,8 @@ void runFlow(Bool_t etaFlag = kTRUE, TString centrality="", Double_t gCentrality
   fResultsFile->WriteObject(fQC->GetSpectraList(),"SpectraList","SingleKey");
   //fResultsFile->WriteObject(fQC->GetFlowQCList(),"FLowQCList","SingleKey");
   //fResultsFile->WriteObject(fQC->GetFlowGFList(),"FLowGFList","SingleKey");
-  fResultsFile->WriteObject(fQC->GetFlowEPList(),"FLowEPList","SingleKey");
-  fResultsFile->WriteObject(fQC->GetFlowRPList(),"FLowRPList","SingleKey");
+  fResultsFile->WriteObject(fQC->GetFlowEPList(),"FlowEPList","SingleKey");
+  fResultsFile->WriteObject(fQC->GetFlowRPList(),"FlowRPList","SingleKey");
   fResultsFile->Close();
   
   

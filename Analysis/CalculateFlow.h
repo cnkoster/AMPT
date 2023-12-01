@@ -65,6 +65,7 @@ public:
   TList* GetFlowEPList() {return this->fFlowEPList;};
   TList* GetFlowRPList() {return this->fFlowRPList;};
   TList* GetFlowGFList() {return this->fFlowGFList;};
+  
   TList* GetQAList() {return this->fQAList;};
   TList* GetSpectraList() {return this->fSpectraList;} // Particle spectra
   
@@ -270,7 +271,5 @@ private:
   Double_t QIm_EP[fFlowNHarmMax];
   Double_t Mul_EP[fFlowNHarmMax];
   
- // string fChargeVec[3] = {"incl","+", "-"};
-  //string fParticleVec[4] = {"h","Pion", "Kaon","Proton"};
 };
 #endif

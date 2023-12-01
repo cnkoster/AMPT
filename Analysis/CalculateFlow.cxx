@@ -25,7 +25,7 @@ CalculateFlow::CalculateFlow ()
 
 //=====================================================================================================
 
-CalculateFlow::CalculateFlow(const char* name):fQAList(NULL),fSpectraList(NULL),fFlowQCList(NULL), fFlowEPList(NULL), fFlowRPList(NULL), fFlowGFList(NULL), fFlowQCCenBin(10), fReQGF(NULL),fImQGF(NULL)
+CalculateFlow::CalculateFlow(const char* name):fQAList(NULL),fSpectraList(NULL),fFlowQCList(NULL), fFlowEPList(NULL), fFlowRPList(NULL), fFlowGFList(NULL), fFlowQCCenBin(10), fReQGF(NULL), fImQGF(NULL)
 {
   std::cout<<"CalculateFlow constructor"<<'\n';
   
