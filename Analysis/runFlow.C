@@ -97,19 +97,15 @@ void runFlow(Bool_t etaFlag = kTRUE, TString centrality="", Double_t gCentrality
     fQC->Terminate(nevent);
     
     // Save list holding histogram with weights:
-    TFile *fResultsFile = new TFile(Form("AnalysisResults_Group0-6000_etaDiff_EPM_3050.root"),"RECREATE");
+    TFile *fResultsFile = new TFile(Form("AnalysisResults_Group0-6000_etaDiff_PID_EPM_3050.root"),"RECREATE");
                                          //"AnalysisResults_Group%i-%i_%sDiff_All.root",iGroupMin, iGroupMax, diff.Data()),"RECREATE");
                                          //"AnalysisResults_Group%i-%i_%sDiff_Full_Cent%s.root",iGroupMin, iGroupMax, diff.Data(), centrality.Data()),"RECREATE");
-  std::cout<<"1"<<std::endl;
     fResultsFile->WriteObject(fQC->GetQAList(),"QAList","SingleKey");
-  std::cout<<"2"<<std::endl;
     fResultsFile->WriteObject(fQC->GetSpectraList(),"SpectraList","SingleKey");
-  std::cout<<"3"<<std::endl;
     //fResultsFile->WriteObject(fQC->GetFlowQCList(),"FLowQCList","SingleKey");
 //fResultsFile->WriteObject(fQC->GetFlowGFList(),"FLowGFList","SingleKey");
     fResultsFile->WriteObject(fQC->GetFlowSPMList(),"FLowEPMList","SingleKey");
-  std::cout<<"4"<<std::endl;
     fResultsFile->Close();
-  std::cout<<"5"<<std::endl;
+
   
 }
