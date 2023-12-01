@@ -1345,11 +1345,11 @@ void CalculateFlow::CalculateFlowEP()
         // store pt-differential flow ******************************************************************************************************************************************
         for(Int_t pt=0; pt<fNBins; pt++) {
           
-          FillPtBin = fPOIPtDiffQRe[1][hr][p][charge]->GetBinCenter(pt+1);
+          FillPtBin = fPOIDiffQRe[1][hr][p][charge]->GetBinCenter(pt+1);
           qpRe=0.; qpIm=0.; qpM=0.;
-          qpRe = fPOIPtDiffQRe[1][hr][p][charge]->GetBinContent(pt+1);
-          qpIm = fPOIPtDiffQIm[1][hr][p][charge]->GetBinContent(pt+1);
-          qpM = fPOIPtDiffMul[1][hr][p][charge]->GetBinContent(pt+1);
+          qpRe = fPOIDiffQRe[1][hr][p][charge]->GetBinContent(pt+1);
+          qpIm = fPOIDiffQIm[1][hr][p][charge]->GetBinContent(pt+1);
+          qpM = fPOIDiffMul[1][hr][p][charge]->GetBinContent(pt+1);
           
           
           if(qpM>0) {
@@ -1429,9 +1429,9 @@ void CalculateFlow::CalculateFlowRP()
           
           FillPtBin = fPOIPtDiffQRe[1][h][p][charge]->GetBinCenter(pt+1);
           qpRe=0.; qpIm=0.; qpM=0.;
-          qpRe = fPOIPtDiffQRe[1][h][p][charge]->GetBinContent(pt+1);
-          qpIm = fPOIPtDiffQIm[1][h][p][charge]->GetBinContent(pt+1);
-          qpM = fPOIPtDiffMul[1][h][p][charge]->GetBinContent(pt+1);
+          qpRe = fPOIDiffQRe[1][h][p][charge]->GetBinContent(pt+1);
+          qpIm = fPOIDiffQIm[1][h][p][charge]->GetBinContent(pt+1);
+          qpM = fPOIDiffMul[1][h][p][charge]->GetBinContent(pt+1);
           
           
           if(qpM>0) {
