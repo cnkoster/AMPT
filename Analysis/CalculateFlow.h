@@ -43,7 +43,6 @@ public:
   
   virtual void CalculateFlowQC();
   virtual void CalculateFlowEP();
-  virtual void CalculateFlowEP1();
   virtual void CalculateFlowRP();
   virtual void CalculateFlowGF();
   virtual void FinalizeFlowQC();

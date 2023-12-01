@@ -1145,6 +1145,10 @@ void CalculateFlow::ResetEventByEventQuantities()
         if(fPOIDiffQIm_neg[h][p][charge]) fPOIDiffQIm_neg[h][p][charge]->Reset();
         if(fPOIDiffMul_neg[h][p][charge]) fPOIDiffMul_neg[h][p][charge]->Reset();
         
+        if(fPOIDiffQRe[h][p][charge]) fPOIDiffQRe[h][p][charge]->Reset();
+        if(fPOIDiffQIm[h][p][charge]) fPOIDiffQIm[h][p][charge]->Reset();
+        if(fPOIDiffMul[h][p][charge]) fPOIDiffMul[h][p][charge]->Reset();
+        
         
       }
     }
