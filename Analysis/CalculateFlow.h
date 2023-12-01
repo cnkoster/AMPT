@@ -237,6 +237,9 @@ private:
   TH1D *fFlowEPIntCorHist[fFlowNHarmMax][fNParticles][fCharge];
   TH1D *fFlowEPIntFlow2Hist[fFlowNHarmMax][fNParticles][fCharge];
   
+  TProfile *fFlowEPCorPro[fFlowNHarmMax][fNParticles][fCharge];
+  TH1D *fFlowEPDiffFlow2Hist[fFlowNHarmMax][fNParticles][fCharge];
+  
   TList *fFlowRPList;
 
   TProfile *fFlowRPIntPro_pos[fFlowNHarmMax][fNParticles][fCharge];
