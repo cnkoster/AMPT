@@ -2460,34 +2460,38 @@ void CalculateFlow::FinalizeFlowEP()
   
   
   for(Int_t charge=0; charge<fCharge; charge++){
-    for (Int_t h=0;h<fFlowNHarm;h++) {
-      for(Int_t pt=1;pt<=fFlowEPIntPro[h][p][charge]->GetNbinsX();pt++) {
+    for (Int_t p=0;p<fNParticles; p++){
+      for (Int_t h=0;h<fFlowNHarm;h++) {
+        for(Int_t pt=1;pt<=fFlowEPIntPro[h][p][charge]->GetNbinsX();pt++) {
+          
+          
+          Float_t Corr_QQ_y = 0; Double_t CorrErr_QQ_y = 0;
+          
+          
+          Corr_QQ_y = GetWeightedCorrelations(fFlowEPIntPro[h][P][charge], pt);
+          CorrErr_QQ_y = GetWeightedCorrelationsError(fFlowEPIntPro[h][P][charge], pt);
+          
+          //  EP_res = GetWeightedCorrelations(fEPEPresolutionPro[h][charge],pt);
+          
+          fFlowEPIntFlow2Hist[h][p][charge]->SetBinContent(pt, Corr_QQ_y);
+          fFlowEPIntFlow2Hist[h][p][charge]->SetBinError(pt, CorrErr_QQ_y);
+        }
         
+        for(Int_t pt=1;pt<=fFlowEPCorPro[h][p][charge]->GetNbinsX();pt++) {
+          Float_t Corr = 0; Double_t CorrErr = 0;
+          Corr= GetWeightedCorrelations(fFlowEPCorPro[h][p][charge], pt);
+          CorrErr = GetWeightedCorrelationsError(fFlowEPCorPro[h][p][charge], pt);
+          if(Corr && CorrErr){
+            fFlowEPDiffFlow2Hist[h][p][charge]->SetBinContent(pt, Corr);
+            fFlowEPDiffFlow2Hist[h][p][charge]->SetBinError(pt, CorrErr);}
+          else {
+            fFlowEPDiffFlow2Hist[h][p][charge]->SetBinContent(pt, 0);
+          }
+        }
         
-        Float_t Corr_QQ_y = 0; Double_t CorrErr_QQ_y = 0;
-        
-        
-        Corr_QQ_y = GetWeightedCorrelations(fFlowEPIntPro[h][P][charge], pt);
-        CorrErr_QQ_y = GetWeightedCorrelationsError(fFlowEPIntPro[h][P][charge], pt);
-        
-      //  EP_res = GetWeightedCorrelations(fEPEPresolutionPro[h][charge],pt);
-        
-        fFlowEPIntFlow2Hist[h][p][charge]->SetBinContent(pt, Corr_QQ_y);
-        fFlowEPIntFlow2Hist[h][p][charge]->SetBinError(pt, CorrErr_QQ_y);
-      }
-    }
-  }// end of for(Int_t charge=0; charge<fCharge; charge++)
-  for(Int_t pt=1;pt<=fFlowEPCorPro[h][p][charge]->GetNbinsX();pt++) {
-    Float_t Corr = 0; Double_t CorrErr = 0;
-    Corr= GetWeightedCorrelations(fFlowEPCorPro[h][p][charge], pt);
-    CorrErr = GetWeightedCorrelationsError(fFlowEPCorPro[h][p][charge], pt);
-    if(Corr && CorrErr){
-      fFlowEPDiffFlow2Hist[h][p][charge]->SetBinContent(pt, Corr);
-      fFlowEPDiffFlow2Hist[h][p][charge]->SetBinError(pt, CorrErr);}
-    else {
-      fFlowEPDiffFlow2Hist[h][p][charge]->SetBinContent(pt, 0);
-    }
-  }
+      } // end of harm
+    }// end of p
+  }// end of charge
 }
 
 //=====================================================================================================
