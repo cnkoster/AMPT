@@ -468,7 +468,6 @@ void CalculateFlow::UserCreateOutputObjects() {
   
   for (Int_t p=0;p<fNParticles;p++) {
     for(Int_t charge=0; charge<fCharge; charge++){
-      std::cout << "loop again" <<std::endl;
       for (Int_t c=0;c<fQVecPower;c++) {
         for (Int_t h=0;h<fFlowNHarmMax;h++) {
           fPOIPtDiffQRe[c][h][p][charge] = new TH1D(Form("fPOIPtDiffQRe[%d][%d][%d][%d]",c,h,p,charge),Form("fPOIPtDiffQRe[%d][%d][%d][%d]",c,h,p,charge), fNBins, fBins);
@@ -901,7 +900,6 @@ void CalculateFlow::Make(Event* anEvent) {
         fPOIPtDiffMul[k][h][0][0]->Fill(xval,pow(wPhiEta,k));
         
         
-        
         if(dCharge>0){
           //if(dPhi>TMath::Pi)
           fPOIPtDiffQRe[k][h][0][1]->Fill(xval,pow(wPhiEta,k)*TMath::Cos((h+1.)*dPhi));
@@ -1199,7 +1197,7 @@ void CalculateFlow::Make(Event* anEvent) {
   // cout <<"Generic Framework matrix loop: " << totaltime << endl;
   
   //sw.tick();
-  //CalculateFlowQC();
+  CalculateFlowQC();
   // CalculateFlowGF();
   CalculateFlowEP();
   //    CalculateFlowEP1();
