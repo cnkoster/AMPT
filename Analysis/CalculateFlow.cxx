@@ -1797,7 +1797,7 @@ void CalculateFlow::CalculateFlowQC()
                 Double_t CorrErr = termA*spread*termB; // final error (unbiased estimator for standard deviation)
                 if(CorrErr) {
                   fFlowQCCorHist[h][hr][j][p][charge]->SetBinContent(pt,Corr);
-                  //std::cout<<"for h="<<h<<" hr="<<hr<<" j="<<j<<" | Corr="<<Corr<< " for pt="<<pt<<"\n";
+                  std::cout<<"for h="<<h<<" hr="<<hr<<" j="<<j<<" | Corr="<<Corr<< " for pt="<<pt<<"\n";
                   fFlowQCCorHist[h][hr][j][p][charge]->SetBinError(pt,CorrErr);
                 }
               }
@@ -1810,7 +1810,6 @@ void CalculateFlow::CalculateFlowQC()
           // Now depends on particle and charge taken as POI
           // 2- and 4-particle cumulants
           Double_t QC2    = fFlowQCRefCorHist[hr][0][p][charge]->GetBinContent(h+1);
-          std::cout<<QC2<<std::endl; 
           Double_t QC2E = fFlowQCRefCorHist[hr][0][p][charge]->GetBinError(h+1);
           Double_t QC4    = fFlowQCRefCorHist[hr][1][p][charge]->GetBinContent(h+1);
           Double_t QC4E = fFlowQCRefCorHist[hr][1][p][charge]->GetBinError(h+1);
@@ -1852,7 +1851,7 @@ void CalculateFlow::CalculateFlowQC()
           // pt-differential
           for(Int_t pt=1; pt<=fNBins; pt++) {
             Double_t qp2    = fFlowQCCorHist[h][hr][1][p][charge]->GetBinContent(pt);
-            //std::cout<<"for h="<<h<<" hr="<<hr<<" j="<<1<<" | pt: "<<pt<<" qp2="<<qp2<<std::endl;
+            std::cout<<"for h="<<h<<" hr="<<hr<<" j="<<1<<" | pt: "<<pt<<" qp2="<<qp2<<std::endl;
             Double_t qp2E = fFlowQCCorHist[h][hr][1][p][charge]->GetBinError(pt);
             Double_t qp4    = fFlowQCCorHist[h][hr][2][p][charge]->GetBinContent(pt);
             Double_t qp4E = fFlowQCCorHist[h][hr][2][p][charge]->GetBinError(pt);
@@ -1869,7 +1868,7 @@ void CalculateFlow::CalculateFlowQC()
             
             if(Cn2) {
               Double_t Flow2 = Dn2/sqrt(fabs(Cn2));
-              //std::cout<<"for h="<<h<<" hr="<<hr<<" j="<<1<<" | pt: "<<pt<<" Flow2="<<Flow2<<std::endl;
+              std::cout<<"for h="<<h<<" hr="<<hr<<" j="<<1<<" | pt: "<<pt<<" Flow2="<<Flow2<<std::endl;
               Double_t Flow2E = 0.;
               // change vocabulary, to be changed
               Double_t two = QC2; //std::cout<<two<<std::endl;
