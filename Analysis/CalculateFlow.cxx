@@ -752,6 +752,7 @@ void CalculateFlow::Make(Event* anEvent) {
   Double_t fQ2TPC = 0, fQ2V0A = 0., fQ2V0C = 0., fQ2 = 0.;
   
   fCenBin = GetCRCCenBin(fCentralityEBE);
+  std::cout<< " Centrality bin is: "<< fCenBin < <std::endl; 
   nPrim = anEvent->getNtrack();
   fNumberOfParticipants = anEvent->getnPart();
   fImpactParameter = anEvent->getb();
