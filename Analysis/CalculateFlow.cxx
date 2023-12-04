@@ -548,8 +548,8 @@ void CalculateFlow::UserCreateOutputObjects() {
             fFlowQCFinalPtDifHist[h][i][k][p][charge] = new TH1D(Form("fFlowQCFinalPtDifHist[%d][%d][%d][%d][%d]",h,i,k,p,charge),Form("fFlowQCFinalPtDifHist[%d][%d][%d][%d][%d]",h,i,k,p,charge), fNBins, fBins);//,fPtDiffNBins,fCRCPtBins);
             fFlowQCFinalPtDifHist[h][i][k][p][charge]->Sumw2();
             
-            if(h==GetCRCCenBin(fCentralityEBE)){
-              fFlowQCList->Add(fFlowQCFinalPtDifHist[GetCRCCenBin(fCentralityEBE)][i][k][p][charge]);} //we say cen=1 so the histo is filled only for h=6
+           // if(h==GetCRCCenBin(fCentralityEBE)){
+              fFlowQCList->Add(fFlowQCFinalPtDifHist[GetCRCCenBin(fCentralityEBE)][i][k][p][charge]); //we say cen=1 so the histo is filled only for h=6
           }
         }
       }
