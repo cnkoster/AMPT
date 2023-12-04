@@ -1853,7 +1853,7 @@ void CalculateFlow::CalculateFlowQC()
           // pt-differential
           for(Int_t pt=1; pt<=fNBins; pt++) {
             Double_t qp2    = fFlowQCCorHist[h][hr][1][p][charge]->GetBinContent(pt);
-            if(qp2){std::cout<<"for h="<<h<<" hr="<<hr<<" j="<<1<<" | pt: "<<pt<<" qp2="<<qp2<<" Cn2: "<<Cn2<<std::endl;}
+//            if(qp2){std::cout<<"for h="<<h<<" hr="<<hr<<" j="<<1<<" | pt: "<<pt<<" qp2="<<qp2<<" Cn2: "<<Cn2<<std::endl;}
             Double_t qp2E = fFlowQCCorHist[h][hr][1][p][charge]->GetBinError(pt);
             Double_t qp4    = fFlowQCCorHist[h][hr][2][p][charge]->GetBinContent(pt);
             Double_t qp4E = fFlowQCCorHist[h][hr][2][p][charge]->GetBinError(pt);
@@ -1870,7 +1870,7 @@ void CalculateFlow::CalculateFlowQC()
             
             if(Cn2) {
               Double_t Flow2 = Dn2/sqrt(fabs(Cn2));
-              std::cout<<"for h="<<h<<" hr="<<hr<<" j="<<1<<" | pt: "<<pt<<" Flow2="<<Flow2<<std::endl;
+//              std::cout<<"for h="<<h<<" hr="<<hr<<" j="<<1<<" | pt: "<<pt<<" Flow2="<<Flow2<<std::endl;
               Double_t Flow2E = 0.;
               // change vocabulary, to be changed
               Double_t two = QC2; //std::cout<<two<<std::endl;
@@ -1885,7 +1885,7 @@ void CalculateFlow::CalculateFlowQC()
               
               
               if(Flow2E>0.) {
-                std::cout<< "Flow2: h="<<h<<" voor v="<<Flow2<<std::endl;
+                std::cout<< "Flow2: h="<<h<<" hr = " <<hr<< "p="<<p<<" c="<<c<<" voor v="<<Flow2<<std::endl;
                 fFlowQCFinalPtDifHist[h][hr][0][p][charge]->SetBinContent(pt,Flow2);
                 fFlowQCFinalPtDifHist[h][hr][0][p][charge]->SetBinError(pt,Flow2E);
               }
