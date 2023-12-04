@@ -737,17 +737,14 @@ void CalculateFlow::Make(Event* anEvent) {
   
   fCenBin = GetCRCCenBin(fCentralityEBE);
   nPrim = anEvent->getNtrack();
-  //std::cout<<"nPrim is: " <<nPrim<< "   "<< "minTraks is: "<< minNtracks<<std::endl;
   fNumberOfParticipants = anEvent->getnPart();
   fImpactParameter = anEvent->getb();
-  // std::cout<<fImpactParameter<<std::endl;
   Int_t cw = 0;
   Int_t nChargedParticles = 0;
   // multiplicity for charged particles
   Double_t fNumOfPos = 0;
   Double_t fNumOfNeg = 0;
-  Double_t xval;
-  
+  Double_t xval; // used for pt or eta diff flow
   
   
   if (nPrim < minNtracks) return;
@@ -759,22 +756,19 @@ void CalculateFlow::Make(Event* anEvent) {
     dPt = anEvent->getParticle(i).getPt();
     dEta = anEvent->getParticle(i).getRapidity();  // in MC, the rapidity is stored rather than pesudorapidity (eta)
     dCharge = anEvent->getParticle(i).getCharge();
+  
     
-    // std::cout<<"before cuts "<<anEvent->getParticle(i).getSpecflag()<<std::endl
-    
-    
-    if (dPt > maxPtCut) continue;
-    if (dPt < minPtCut) continue;
-    
-    for (Int_t h=0;h<4;h++) {
+    for (Int_t h=0;h<4;h++) { // let op: vorige run was dit NA pt cut (4/12/23)
       QRe_EP[h] += pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi);
       QIm_EP[h] += pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi);
       Mul_EP[h] += pow(wPhiEta,1);
     }
     
+    if (dPt > maxPtCut) continue;
+    if (dPt < minPtCut) continue;
+    
     if (dCharge == 0) continue;
     cw = (dCharge > 0. ? 0 : 1);
-    
     
     if(EtaDiff) xval = dEta;
     if(!EtaDiff) xval = dPt;
@@ -959,27 +953,27 @@ void CalculateFlow::Make(Event* anEvent) {
 //        }
 //      }
 //
-//      if(dEta<0){
+//      if(dEta<0){ //check even: moet die min hier?
 //        for (Int_t h=0;h<4;h++) {
-//          fPOIDiffQRe_neg[h][0][0]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
-//          fPOIDiffQIm_neg[h][0][0]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
-//          fPOIDiffMul_neg[h][0][0]->Fill(xval,pow(wPhiEta,1));
+//          fPOIDiffQRe_neg[h][0][0]->Fill(xval,pow(-wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
+//          fPOIDiffQIm_neg[h][0][0]->Fill(xval,pow(-wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
+//          fPOIDiffMul_neg[h][0][0]->Fill(xval,pow(-wPhiEta,1));
 //
 //
 //
 //          if(dCharge>0){
 //            //if(dPhi>TMath::Pi)
-//            fPOIDiffQRe_neg[h][0][1]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
-//            fPOIDiffQIm_neg[h][0][1]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
-//            fPOIDiffMul_neg[h][0][1]->Fill(xval,pow(wPhiEta,1));
+//            fPOIDiffQRe_neg[h][0][1]->Fill(xval,pow(-wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
+//            fPOIDiffQIm_neg[h][0][1]->Fill(xval,pow(-wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
+//            fPOIDiffMul_neg[h][0][1]->Fill(xval,pow(-wPhiEta,1));
 //
 //          }
 //
 //
 //          if(dCharge<0){
-//            fPOIDiffQRe_neg[h][0][2]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
-//            fPOIDiffQIm_neg[h][0][2]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
-//            fPOIDiffMul_neg[h][0][2]->Fill(xval,pow(wPhiEta,1));
+//            fPOIDiffQRe_neg[h][0][2]->Fill(xval,pow(-wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
+//            fPOIDiffQIm_neg[h][0][2]->Fill(xval,pow(-wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
+//            fPOIDiffMul_neg[h][0][2]->Fill(xval,pow(-wPhiEta,1));
 //
 //          }
 //
@@ -1351,10 +1345,10 @@ void CalculateFlow::CalculateFlowEP()
         
         Denom_pty=0.;
         
-        EventPlane = TMath::ATan2(QIm_EP[hr], QRe_EP[hr]);
+        EventPlane = TMath::ATan2(QIm_EP[hr], QRe_EP[hr])/(hr+1.);
         
-//        cosEvPl = TMath::Cos(EventPlane);
-//        sinEvPl = TMath::Sin(EventPlane);
+        cosEvPl = TMath::Cos(EventPlane);
+        sinEvPl = TMath::Sin(EventPlane);
 //
 //        for(Int_t pt=0; pt<fNBins; pt++) {
 //          QRe += fPOIDiffQRe[hr][p][charge]->GetBinContent(pt+1);
