@@ -1851,7 +1851,7 @@ void CalculateFlow::CalculateFlowQC()
           // pt-differential
           for(Int_t pt=1; pt<=fNBins; pt++) {
             Double_t qp2    = fFlowQCCorHist[h][hr][1][p][charge]->GetBinContent(pt);
-            std::cout<<"for h="<<h<<" hr="<<hr<<" j="<<1<<" | pt: "<<pt<<" qp2="<<qp2<<std::endl;
+            if(qp2){std::cout<<"for h="<<h<<" hr="<<hr<<" j="<<1<<" | pt: "<<pt<<" qp2="<<qp2<<" Cn2: "<<Cn2<<std::endl;}
             Double_t qp2E = fFlowQCCorHist[h][hr][1][p][charge]->GetBinError(pt);
             Double_t qp4    = fFlowQCCorHist[h][hr][2][p][charge]->GetBinContent(pt);
             Double_t qp4E = fFlowQCCorHist[h][hr][2][p][charge]->GetBinError(pt);
