@@ -1811,7 +1811,7 @@ void CalculateFlow::CalculateFlowQC()
           // 2- and 4-particle cumulants
           
           Double_t QC2    = fFlowQCRefCorHist[hr][0][p][charge]->GetBinContent(h+1);
-          std::cout<<"Cn2: "<<QC2<<" for h = "<<h<<std::endl; 
+          std::cout<<"Cn2: "<<QC2<<" for h = "<<h<<std::endl;
           Double_t QC2E = fFlowQCRefCorHist[hr][0][p][charge]->GetBinError(h+1);
           Double_t QC4    = fFlowQCRefCorHist[hr][1][p][charge]->GetBinContent(h+1);
           Double_t QC4E = fFlowQCRefCorHist[hr][1][p][charge]->GetBinError(h+1);
@@ -2633,16 +2633,16 @@ Int_t CalculateFlow::GetCRCCenBin(Double_t Centrality)
 {
   Int_t CenBin=-1;
   if (Centrality>0. && Centrality<5.) CenBin=0;
-  if (Centrality>=5. && Centrality<10.) CenBin=1;
-  if (Centrality>10. && Centrality<20.) CenBin=2;
-  if (Centrality>20. && Centrality<30.) CenBin=3;
-  if (Centrality>30. && Centrality<60.) CenBin=4;
+  if (Centrality>=5. && Centrality<10.) CenBin=1-1;
+  if (Centrality>10. && Centrality<20.) CenBin=2-1;
+  if (Centrality>20. && Centrality<30.) CenBin=3-1;
+  if (Centrality>30. && Centrality<60.) CenBin=4-1;
   //if (Centrality>40. && Centrality<50.) CenBin=5;
   //if (Centrality>50. && Centrality<60.) CenBin=6;
-  if (Centrality>60. && Centrality<70.) CenBin=7;
-  if (Centrality>70. && Centrality<80.) CenBin=8;
-  if (Centrality>80. && Centrality<90.) CenBin=9;
-  if (Centrality>90. && Centrality<100.) CenBin=10;
+  if (Centrality>60. && Centrality<70.) CenBin=7-1;
+  if (Centrality>70. && Centrality<80.) CenBin=8-1;
+  if (Centrality>80. && Centrality<90.) CenBin=9-1;
+  if (Centrality>90. && Centrality<100.) CenBin=10-1;
   if (CenBin>=fCRCnCen) CenBin=-1;
   if (fCRCnCen==1) CenBin=0;
   return CenBin;
