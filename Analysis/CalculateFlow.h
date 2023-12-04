@@ -95,6 +95,7 @@ private:
   Double_t *fBins;
   Bool_t doQA = kFALSE;
   Double_t trkWgt = 1;
+  const static Int_t fNParticles = 4; // Incl, Pions, Kaons, Protons
   
   
   // QA Histograms
@@ -271,7 +272,7 @@ private:
   Double_t QIm_EP[fFlowNHarmMax];
   Double_t Mul_EP[fFlowNHarmMax];
   
-  const static Int_t fNParticles = 4; // Incl, Pions, Kaons, Protons
+  
   
 };
 #endif
