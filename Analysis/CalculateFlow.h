@@ -234,8 +234,8 @@ private:
 
   TH1D *fEPEPresolutionPro[fFlowNHarmMax];
   TProfile *fFlowEPIntPro[fFlowNHarmMax][fNParticles][fCharge];
-  Profile *fFlowEPIntPro_pos[fFlowNHarmMax][fNParticles][fCharge];
-  Profile *fFlowEPIntPro_neg[fFlowNHarmMax][fNParticles][fCharge];
+  TProfile *fFlowEPIntPro_pos[fFlowNHarmMax][fNParticles][fCharge];
+  TProfile *fFlowEPIntPro_neg[fFlowNHarmMax][fNParticles][fCharge];
   TH1D *fFlowEPIntCorHist[fFlowNHarmMax][fNParticles][fCharge];
   TH1D *fFlowEPIntFlow2Hist[fFlowNHarmMax][fNParticles][fCharge];
   

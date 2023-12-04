@@ -118,15 +118,18 @@ void CalculateFlow::InitializeArraysForQA()
 void CalculateFlow::InitializeArraysForFlowQC()
 {
   
-  for (Int_t c=0;c<fQVecPower;c++) {                  //fQVecPower
-    for (Int_t h=0;h<fFlowNHarmMax;h++) {
-      for(int_t p=0;p<fNParticles;p++) {
-        
-        for(Int_t charge=0; charge<fCharge;charge++){//fFlowNHarmMax
-          fPOIPtDiffQRe[c][h][p][charge] = NULL;         //POI Pt Diff Q Re [fQVecPower][fFlowHarmonic]
-          fPOIPtDiffQIm[c][h][p][charge] = NULL;
-          fPOIPtDiffMul[c][h][p][charge] = NULL;
-        }
+  
+    
+      for(Int_t p=0;p<fNParticles;p++) {
+          for(Int_t charge=0; charge<fCharge;charge++){//fFlowNHarmMax
+            
+            for (Int_t c=0;c<fQVecPower;c++) {                  //fQVecPower
+            for (Int_t h=0;h<fFlowNHarmMax;h++) {
+              fPOIPtDiffQRe[c][h][p][charge] = NULL;         //POI Pt Diff Q Re [fQVecPower][fFlowHarmonic]
+              fPOIPtDiffQIm[c][h][p][charge] = NULL;
+              fPOIPtDiffMul[c][h][p][charge] = NULL;
+            }
+          }
         
         for(Int_t i=0; i<fFlowNHarm; i++) {
           for(Int_t j=0; j<fkFlowQCnIntCorPro; j++) {
@@ -136,7 +139,6 @@ void CalculateFlow::InitializeArraysForFlowQC()
             fFlowQCIntFlow2Hist[i][j][p][charge] = NULL;
             fFlowQCIntFlow4Hist[i][j][p][charge] = NULL;
             fFlowQCIntCumHist[i][j][p][charge] = NULL;
-            
           }
         }
         
@@ -473,11 +475,11 @@ void CalculateFlow::UserCreateOutputObjects() {
       
       for (Int_t c=0;c<fQVecPower;c++) {
         for (Int_t h=0;h<fFlowNHarmMax;h++) {
-          fPOIPtDiffQRe[c][h][p]][charge] = new TH1D(Form("fPOIPtDiffQRe[%d][%d][%d]",c,h,charge),Form("fPOIPtDiffQRe[%d][%d][%d]",c,h,charge), fNBins, fBins);
+          fPOIPtDiffQRe[c][h][p][charge] = new TH1D(Form("fPOIPtDiffQRe[%d][%d][%d]",c,h,charge),Form("fPOIPtDiffQRe[%d][%d][%d]",c,h,charge), fNBins, fBins);
           //   fFlowQCList->Add(fPOIPtDiffQRe[c][h]);
-          fPOIPtDiffQIm[c][h][p]][charge] = new TH1D(Form("fPOIPtDiffQIm[%d][%d][%d]",c,h,charge),Form("fPOIPtDiffQIm[%d][%d][%d]",c,h,charge), fNBins, fBins);//,fPtDiffNBins,fCRCPtBins);
+          fPOIPtDiffQIm[c][h][p][charge] = new TH1D(Form("fPOIPtDiffQIm[%d][%d][%d]",c,h,charge),Form("fPOIPtDiffQIm[%d][%d][%d]",c,h,charge), fNBins, fBins);//,fPtDiffNBins,fCRCPtBins);
           //  fFlowQCList->Add(fPOIPtDiffQIm[c][h]);
-          fPOIPtDiffMul[c][h][p]][charge] = new TH1D(Form("fPOIPtDiffMul[%d][%d][%d]",c,h,charge),Form("fPOIPtDiffMul[%d][%d][%d]",c,h,charge), fNBins, fBins);//,fPtDiffNBins,fCRCPtBins);
+          fPOIPtDiffMul[c][h][p][charge] = new TH1D(Form("fPOIPtDiffMul[%d][%d][%d]",c,h,charge),Form("fPOIPtDiffMul[%d][%d][%d]",c,h,charge), fNBins, fBins);//,fPtDiffNBins,fCRCPtBins);
           //   fFlowQCList->Add(fPOIPtDiffMul[c][h]);
         }
       }
@@ -485,11 +487,11 @@ void CalculateFlow::UserCreateOutputObjects() {
       
       for(Int_t i=0; i<fFlowNHarm; i++) {
         for(Int_t j=0; j<fkFlowQCnIntCorPro; j++) {
-          fFlowQCIntCorPro[i][j][p]][charge] = new TProfile(Form("fFlowQCIntCorPro[%d][%d][%d]",i,j,charge),Form("fFlowQCIntCorPro[%d][%d][%d]",i,j,charge),9,ImPaBins,"s"); //here we changed the bins to nParticipants
-          fFlowQCIntCorPro[i][j][p]][charge]->Sumw2();
+          fFlowQCIntCorPro[i][j][p][charge] = new TProfile(Form("fFlowQCIntCorPro[%d][%d][%d]",i,j,charge),Form("fFlowQCIntCorPro[%d][%d][%d]",i,j,charge),9,ImPaBins,"s"); //here we changed the bins to nParticipants
+          fFlowQCIntCorPro[i][j][p][charge]->Sumw2();
           //fFlowQCList->Add(fFlowQCIntCorPro[i][j]);
-          fFlowQCIntCorHist[i][j][p]][charge] = new TH1D(Form("fFlowQCIntCorHist[%d][%d][%d]",i,j,charge),Form("fFlowQCIntCorHist[%d][%d][%d]",i,j,charge),9,ImPaBins);
-          fFlowQCIntCorHist[i][j][p]][charge]->Sumw2();
+          fFlowQCIntCorHist[i][j][p][charge] = new TH1D(Form("fFlowQCIntCorHist[%d][%d][%d]",i,j,charge),Form("fFlowQCIntCorHist[%d][%d][%d]",i,j,charge),9,ImPaBins);
+          fFlowQCIntCorHist[i][j][p][charge]->Sumw2();
           //   fFlowQCList->Add(fFlowQCIntCorHist[i][j][p][charge]);
           
           fFlowQCIntFlow2Hist[i][j][p][charge] = new TH1D(Form("fFlowQCIntFlow2Hist[%d][%d][%d]",i,j,charge),Form("fFlowQCIntFlow2Hist[%d][%d][%d]",i,j,charge),9,ImPaBins);
