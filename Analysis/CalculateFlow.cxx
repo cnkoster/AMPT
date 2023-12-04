@@ -1811,6 +1811,7 @@ void CalculateFlow::CalculateFlowQC()
           // 2- and 4-particle cumulants
           
           Double_t QC2    = fFlowQCRefCorHist[hr][0][p][charge]->GetBinContent(h+1);
+          std::cout<<"Cn2: "<<QC2<<" for h = "<<h<<std::endl; 
           Double_t QC2E = fFlowQCRefCorHist[hr][0][p][charge]->GetBinError(h+1);
           Double_t QC4    = fFlowQCRefCorHist[hr][1][p][charge]->GetBinContent(h+1);
           Double_t QC4E = fFlowQCRefCorHist[hr][1][p][charge]->GetBinError(h+1);
