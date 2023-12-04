@@ -1881,9 +1881,9 @@ void CalculateFlow::CalculateFlowQC()
                                                                    - 4.*two*twoReduced*wCovTwoTwoReduced);
               if(v2PrimeErrorSquared>0.){Flow2E = pow(v2PrimeErrorSquared,0.5);}
               
-              std::cout<< "Flow2: h="<<h<<" voor v="<<Flow2<<std::endl;
+              
               if(Flow2E>0.) {
-               
+                std::cout<< "Flow2: h="<<h<<" voor v="<<Flow2<<std::endl;
                 fFlowQCFinalPtDifHist[h][hr][0][p][charge]->SetBinContent(pt,Flow2);
                 fFlowQCFinalPtDifHist[h][hr][0][p][charge]->SetBinError(pt,Flow2E);
               }
