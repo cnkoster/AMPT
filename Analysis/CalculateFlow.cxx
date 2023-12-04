@@ -1797,7 +1797,7 @@ void CalculateFlow::CalculateFlowQC()
                 Double_t CorrErr = termA*spread*termB; // final error (unbiased estimator for standard deviation)
                 if(CorrErr) {
                   fFlowQCCorHist[h][hr][j][p][charge]->SetBinContent(pt,Corr);
-                  std::cout<<"for h="<<h<<" hr="<<hr<<" j="<<j<<" | Corr="<<Corr<< " for pt="<<pt<<"\n";
+//                  std::cout<<"for h="<<h<<" hr="<<hr<<" j="<<j<<" | Corr="<<Corr<< " for pt="<<pt<<"\n";
                   fFlowQCCorHist[h][hr][j][p][charge]->SetBinError(pt,CorrErr);
                 }
               }
@@ -1811,7 +1811,7 @@ void CalculateFlow::CalculateFlowQC()
           // 2- and 4-particle cumulants
           
           Double_t QC2    = fFlowQCRefCorHist[hr][0][p][charge]->GetBinContent(h+1);
-          std::cout<<"Cn2: "<<QC2<<" for h = "<<h<<std::endl;
+//          std::cout<<"Cn2: "<<QC2<<" for h = "<<h<<std::endl;
           Double_t QC2E = fFlowQCRefCorHist[hr][0][p][charge]->GetBinError(h+1);
           Double_t QC4    = fFlowQCRefCorHist[hr][1][p][charge]->GetBinContent(h+1);
           Double_t QC4E = fFlowQCRefCorHist[hr][1][p][charge]->GetBinError(h+1);
@@ -1885,7 +1885,7 @@ void CalculateFlow::CalculateFlowQC()
               
               
               if(Flow2E>0.) {
-                std::cout<< "Flow2: h="<<h<<" hr = " <<hr<< "p="<<p<<" c="<<charge<<" voor v="<<Flow2<<std::endl;
+                std::cout<< "Flow2: h="<<h<<" hr = " <<hr<< " p="<<p<<" c="<<charge<<" voor v="<<Flow2<<std::endl;
                 fFlowQCFinalPtDifHist[h][hr][0][p][charge]->SetBinContent(pt,Flow2);
                 fFlowQCFinalPtDifHist[h][hr][0][p][charge]->SetBinError(pt,Flow2E);
               }
