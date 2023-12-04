@@ -274,7 +274,7 @@ private:
   Double_t QIm_EP[fFlowNHarmMax];
   Double_t Mul_EP[fFlowNHarmMax];
   
-  
+  const static Int_t fCbins = 2; 
   
 };
 #endif
