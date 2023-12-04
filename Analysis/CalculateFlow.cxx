@@ -1885,7 +1885,7 @@ void CalculateFlow::CalculateFlowQC()
               
               
               if(Flow2E>0.) {
-                std::cout<< "Flow2: h="<<h<<" hr = " <<hr<< "p="<<p<<" c="<<c<<" voor v="<<Flow2<<std::endl;
+                std::cout<< "Flow2: h="<<h<<" hr = " <<hr<< "p="<<p<<" c="<<charge<<" voor v="<<Flow2<<std::endl;
                 fFlowQCFinalPtDifHist[h][hr][0][p][charge]->SetBinContent(pt,Flow2);
                 fFlowQCFinalPtDifHist[h][hr][0][p][charge]->SetBinError(pt,Flow2E);
               }
