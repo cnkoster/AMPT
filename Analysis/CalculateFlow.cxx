@@ -117,9 +117,6 @@ void CalculateFlow::InitializeArraysForQA()
 
 void CalculateFlow::InitializeArraysForFlowQC()
 {
-  
-  
-    
       for(Int_t p=0;p<fNParticles;p++) {
           for(Int_t charge=0; charge<fCharge;charge++){//fFlowNHarmMax
             
@@ -471,7 +468,7 @@ void CalculateFlow::UserCreateOutputObjects() {
   
   for (Int_t p=0;p<fNParticles;p++) {
     for(Int_t charge=0; charge<fCharge; charge++){
-      
+      std::cout << "loop again" <<std::endl;
       for (Int_t c=0;c<fQVecPower;c++) {
         for (Int_t h=0;h<fFlowNHarmMax;h++) {
           fPOIPtDiffQRe[c][h][p][charge] = new TH1D(Form("fPOIPtDiffQRe[%d][%d][%d]",c,h,charge),Form("fPOIPtDiffQRe[%d][%d][%d]",c,h,charge), fNBins, fBins);
@@ -557,6 +554,7 @@ void CalculateFlow::UserCreateOutputObjects() {
           }
         }
       }
+      
     } //end of charge
   } //end of particles
     
@@ -667,6 +665,14 @@ void CalculateFlow::UserCreateOutputObjects() {
         
         fFlowEPIntFlow2Hist[h][p][c] = new TH1D(Form("fFlowEPIntFlow2Hist[%d][%d][%d]",h,p,c),Form("fFlowEPIntFlow2Hist[%d][%d][%d]",h,p,c),9,ImPaBins);
         fFlowEPIntFlow2Hist[h][p][c]->Sumw2();
+        //      fFlowEPList->Add(fFlowEPIntFlow2Hist[h][p][c]);
+        
+        fFlowEPIntFlow2Hist_pos[h][p][c] = new TH1D(Form("fFlowEPIntFlow2Hist_pos[%d][%d][%d]",h,p,c),Form("fFlowEPIntFlow2Hist_pos[%d][%d][%d]",h,p,c),9,ImPaBins);
+        fFlowEPIntFlow2Hist_pos[h][p][c]->Sumw2();
+        //      fFlowEPList->Add(fFlowEPIntFlow2Hist[h][p][c]);
+        
+        fFlowEPIntFlow2Hist_neg[h][p][c] = new TH1D(Form("fFlowEPIntFlow2Hist_neg[%d][%d][%d]",h,p,c),Form("fFlowEPIntFlow2Hist_neg[%d][%d][%d]",h,p,c),9,ImPaBins);
+        fFlowEPIntFlow2Hist_neg[h][p][c]->Sumw2();
         //      fFlowEPList->Add(fFlowEPIntFlow2Hist[h][p][c]);
         
         fFlowEPCorPro[h][p][c]= new TProfile(Form("fFlowEPCorPro[%d][%d][%d]",h,p,c),Form("fFlowEPCorPro[%d][%d][%d]",h,p,c), fNBins, fBins, "s");//, fNBins, fBins,"s");
