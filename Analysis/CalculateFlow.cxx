@@ -775,7 +775,7 @@ void CalculateFlow::Make(Event* anEvent) {
     dEta = anEvent->getParticle(i).getRapidity();  // in MC, the rapidity is stored rather than pesudorapidity (eta)
     dCharge = anEvent->getParticle(i).getCharge();
   
-    if(TMath::Abs(Pid)<23 && Pid>-23){std::cout<<"We have a lepton / foton? ID: "<<Pid<<std::endl;}
+    if(TMath::Abs(Pid)<23 && Pid>-23)continue;
     
     for (Int_t h=0;h<4;h++) { // let op: vorige run was dit NA pt cut (4/12/23)
       QRe_EP[h] += pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi);
