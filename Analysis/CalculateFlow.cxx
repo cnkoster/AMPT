@@ -2641,8 +2641,8 @@ Int_t CalculateFlow::GetCRCCenBin(Double_t Centrality)
   if (Centrality>=10. && Centrality<20.) CenBin=2-1;
   if (Centrality>=20. && Centrality<30.) CenBin=3-1;
   if (Centrality>=30. && Centrality<60.) CenBin=4-1;
-  if (Centrality>=40. && Centrality<50.) CenBin=5;
-  if (Centrality>=50. && Centrality<60.) CenBin=6;
+  if (Centrality>=40. && Centrality<50.) CenBin=5-1;
+  if (Centrality>=50. && Centrality<60.) CenBin=6-1;
   if (Centrality>=60. && Centrality<70.) CenBin=7-1;
   if (Centrality>=70. && Centrality<80.) CenBin=8-1;
   if (Centrality>=80. && Centrality<90.) CenBin=9-1;
