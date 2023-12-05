@@ -28,7 +28,7 @@
 //10-20: 25% @ 2.19, 50% @ 3.20, 75% @ 4.34, 100% @ 20
 //========================q2=======================//
 
-void runFlow(Bool_t etaFlag = kTRUE, TString centrality="", Double_t gCentrality=1., Int_t iGroupMin=0, Int_t iGroupMax=2000, Double_t gSpectatorMin=0, Double_t gSpectatorMax=500) {
+void runFlow(Bool_t etaFlag = kTRUE, TString centrality="", Double_t gCentrality=31, Int_t iGroupMin=0, Int_t iGroupMax=2000, Double_t gSpectatorMin=0, Double_t gSpectatorMax=500) {
   
   TFile *f= new TFile(Form("/data/alice/nkoster/TreeOutput_Group0-6000_Cent30_60.root"));
   //"/dcache/alice/nkoster/PhD/AMPT_out/Run2_Energy_PbPb/nEvents100/TreeOutput/TreeOutput_Group%i-%i.root",iGroupMin, iGroupMax));
@@ -54,7 +54,7 @@ void runFlow(Bool_t etaFlag = kTRUE, TString centrality="", Double_t gCentrality
   TBranch *bnevent = tree->GetBranch("event");
   bnevent->SetAddress(&event);
   
-  Long64_t nevent = 100;//tree->GetEntries();
+  Long64_t nevent = tree->GetEntries();
   Int_t nselected = 0;
   Int_t nb = 0;
   Double_t nSpectators = 0;
@@ -94,15 +94,15 @@ void runFlow(Bool_t etaFlag = kTRUE, TString centrality="", Double_t gCentrality
   fQC->Terminate(nevent);
   
   // Save list holding histogram with weights:
-  TFile *fResultsFile = new TFile(Form("AnalysisResults_Group0-6000_%sDiff_PID_3060.root", diff.Data()),"RECREATE");
+  TFile *fResultsFile = new TFile(Form("AnalysisResults_Group0-6000_%sDiff_PID_3060_QC.root", diff.Data()),"RECREATE");
   //"AnalysisResults_Group%i-%i_%sDiff_All.root",iGroupMin, iGroupMax, diff.Data()),"RECREATE");
   //"AnalysisResults_Group%i-%i_%sDiff_Full_Cent%s.root",iGroupMin, iGroupMax, diff.Data(), centrality.Data()),"RECREATE");
   fResultsFile->WriteObject(fQC->GetQAList(),"QAList","SingleKey");
   fResultsFile->WriteObject(fQC->GetSpectraList(),"SpectraList","SingleKey");
-  //fResultsFile->WriteObject(fQC->GetFlowQCList(),"FLowQCList","SingleKey");
+  fResultsFile->WriteObject(fQC->GetFlowQCList(),"FLowQCList","SingleKey");
   //fResultsFile->WriteObject(fQC->GetFlowGFList(),"FLowGFList","SingleKey");
-  fResultsFile->WriteObject(fQC->GetFlowEPList(),"FlowEPList","SingleKey");
-  fResultsFile->WriteObject(fQC->GetFlowRPList(),"FlowRPList","SingleKey");
+//  fResultsFile->WriteObject(fQC->GetFlowEPList(),"FlowEPList","SingleKey");
+//  fResultsFile->WriteObject(fQC->GetFlowRPList(),"FlowRPList","SingleKey");
   fResultsFile->Close();
   
   

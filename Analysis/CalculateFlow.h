@@ -95,7 +95,8 @@ private:
   Double_t *fBins;
   Bool_t doQA = kFALSE;
   Double_t trkWgt = 1;
-  const static Int_t fNParticles = 4; // Incl, Pions, Protons, Kaons
+  const static Int_t fNParticles = 4; // Incl, Pions, Kaons, Protons
+  
   
   // QA Histograms
   TList *fQAList;
@@ -188,32 +189,32 @@ private:
   Int_t fEtaDiffNBins;
   Int_t fNBins;
   
-  TH1D *fPOIPtDiffQRe[fQVecPower][fFlowNHarmMax][fCharge]; // real part
-  TH1D *fPOIPtDiffQIm[fQVecPower][fFlowNHarmMax][fCharge]; // imaginary part
-  TH1D *fPOIPtDiffMul[fQVecPower][fFlowNHarmMax][fCharge]; // imaginary part
+  TH1D *fPOIPtDiffQRe[fQVecPower][fFlowNHarmMax][fNParticles][fCharge]; // real part
+  TH1D *fPOIPtDiffQIm[fQVecPower][fFlowNHarmMax][fNParticles][fCharge]; // imaginary part
+  TH1D *fPOIPtDiffMul[fQVecPower][fFlowNHarmMax][fNParticles][fCharge]; // imaginary part
   
   const static Int_t fkFlowQCnIntCorPro = 5;
-  TProfile *fFlowQCIntCorPro[fFlowNHarm][fkFlowQCnIntCorPro][fCharge]; //
-  TH1D *fFlowQCIntCorHist[fFlowNHarm][fkFlowQCnIntCorPro][fCharge]; //
-  TH1D *fFlowQCIntFlow2Hist[fFlowNHarm][fkFlowQCnIntCorPro][fCharge];
-  TH1D *fFlowQCIntFlow4Hist[fFlowNHarm][fkFlowQCnIntCorPro][fCharge];
-  TH1D *fFlowQCIntCumHist[fFlowNHarm][fkFlowQCnIntCorPro][fCharge];
+  TProfile *fFlowQCIntCorPro[fFlowNHarm][fkFlowQCnIntCorPro][fNParticles][fCharge]; //
+  TH1D *fFlowQCIntCorHist[fFlowNHarm][fkFlowQCnIntCorPro][fNParticles][fCharge]; //
+  TH1D *fFlowQCIntFlow2Hist[fFlowNHarm][fkFlowQCnIntCorPro][fNParticles][fCharge];
+  TH1D *fFlowQCIntFlow4Hist[fFlowNHarm][fkFlowQCnIntCorPro][fNParticles][fCharge];
+  TH1D *fFlowQCIntCumHist[fFlowNHarm][fkFlowQCnIntCorPro][fNParticles][fCharge];
   
   const static Int_t fFlowQCNPro = 4;
   const static Int_t fCRCMaxnCen = 10;
   const static Int_t fFlowQCNCov = 8;
-  TProfile *fFlowQCCorPro[fCRCMaxnCen][fFlowNHarm][fFlowQCNPro][fCharge];
-  TProfile *fFlowQCCorCovPro[fCRCMaxnCen][fFlowNHarm][fFlowQCNCov][fCharge];
-  TH1D *fFlowQCCorHist[fCRCMaxnCen][fFlowNHarm][fFlowQCNPro][fCharge]; // <<2'>>, [CRCBin][eg]
-  TH1D *fFlowQCCorCovHist[fCRCMaxnCen][fFlowNHarm][fFlowQCNCov][fCharge]; // histo for covariances
-  TH1D *fFlowQCFinalPtDifHist[fCRCMaxnCen][fFlowNHarm][fFlowQCNCov][fCharge]; //
+  TProfile *fFlowQCCorPro[fCRCMaxnCen][fFlowNHarm][fFlowQCNPro][fNParticles][fCharge];
+  TProfile *fFlowQCCorCovPro[fCRCMaxnCen][fFlowNHarm][fFlowQCNCov][fNParticles][fCharge];
+  TH1D *fFlowQCCorHist[fCRCMaxnCen][fFlowNHarm][fFlowQCNPro][fNParticles][fCharge]; // <<2'>>, [CRCBin][eg]
+  TH1D *fFlowQCCorCovHist[fCRCMaxnCen][fFlowNHarm][fFlowQCNCov][fNParticles][fCharge]; // histo for covariances
+  TH1D *fFlowQCFinalPtDifHist[fCRCMaxnCen][fFlowNHarm][fFlowQCNCov][fNParticles][fCharge]; //
   
   Int_t fFlowQCCenBin;
   
   const static Int_t fFlowQCNRef = 14;
-  TProfile *fFlowQCRefCorPro[fFlowNHarm][fFlowQCNRef][fCharge]; //
-  TH1D *fFlowQCRefCorHist[fFlowNHarm][fFlowQCNRef][fCharge]; //
-  TH1D *fFlowQCRefCorFinal[fFlowNHarm][4][fCharge]; //
+  TProfile *fFlowQCRefCorPro[fFlowNHarm][fFlowQCNRef][fNParticles][fCharge]; //
+  TH1D *fFlowQCRefCorHist[fFlowNHarm][fFlowQCNRef][fNParticles][fCharge]; //
+  TH1D *fFlowQCRefCorFinal[fFlowNHarm][4][fNParticles][fCharge]; //
   
   //Flow EP & RP Part
   
@@ -233,8 +234,12 @@ private:
 
   TH1D *fEPEPresolutionPro[fFlowNHarmMax];
   TProfile *fFlowEPIntPro[fFlowNHarmMax][fNParticles][fCharge];
+  TProfile *fFlowEPIntPro_pos[fFlowNHarmMax][fNParticles][fCharge];
+  TProfile *fFlowEPIntPro_neg[fFlowNHarmMax][fNParticles][fCharge];
   TH1D *fFlowEPIntCorHist[fFlowNHarmMax][fNParticles][fCharge];
   TH1D *fFlowEPIntFlow2Hist[fFlowNHarmMax][fNParticles][fCharge];
+  TH1D *fFlowEPIntFlow2Hist_pos[fFlowNHarmMax][fNParticles][fCharge];
+  TH1D *fFlowEPIntFlow2Hist_neg[fFlowNHarmMax][fNParticles][fCharge];
   
   TProfile *fFlowEPCorPro[fFlowNHarmMax][fNParticles][fCharge];
   TH1D *fFlowEPDiffFlow2Hist[fFlowNHarmMax][fNParticles][fCharge];
@@ -268,6 +273,8 @@ private:
   Double_t QRe_EP[fFlowNHarmMax];
   Double_t QIm_EP[fFlowNHarmMax];
   Double_t Mul_EP[fFlowNHarmMax];
+  
+  const static Int_t fCbins = 2; 
   
 };
 #endif
