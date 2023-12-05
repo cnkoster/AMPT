@@ -549,7 +549,7 @@ void CalculateFlow::UserCreateOutputObjects() {
             fFlowQCFinalPtDifHist[h][i][k][p][charge]->Sumw2();
             
             if(h==GetCRCCenBin(fCentralityEBE)){
-              if(k==0 || k==1){fFlowQCList->Add(fFlowQCFinalPtDifHist[h][i][k][p][charge]);} //Only print for v{2} and v{4} [k] k=5,6 give Dn2, Dn4 
+              if(k==0 || k==1){fFlowQCList->Add(fFlowQCFinalPtDifHist[h][i][k][p][charge]);} //Only print for v{2} and v{4} [k] k=5,6 give Dn2, Dn4
             }
           }
         }
@@ -1886,7 +1886,7 @@ void CalculateFlow::CalculateFlowQC()
               
               
               if(Flow2E>0.) {
-                std::cout<< "Flow2: h="<<h<<" hr = " <<hr<< " p="<<p<<" c="<<charge<<" voor v="<<Flow2<<std::endl;
+//                std::cout<< "Flow2: h="<<h<<" hr = " <<hr<< " p="<<p<<" c="<<charge<<" voor v="<<Flow2<<std::endl;
                 fFlowQCFinalPtDifHist[h][hr][0][p][charge]->SetBinContent(pt,Flow2);
                 fFlowQCFinalPtDifHist[h][hr][0][p][charge]->SetBinError(pt,Flow2E);
               }
