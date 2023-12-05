@@ -56,7 +56,7 @@ CalculateFlow::CalculateFlow(const char* name):fQAList(NULL),fSpectraList(NULL),
   
   InitializeArraysForFlowQC();
   // InitializeArraysForFlowGF();
-//  InitializeArraysForFlowEPRP();
+  InitializeArraysForFlowEPRP();
   //  InitializeArraysForFlowRP();
   
   InitializeArraysForQA();
@@ -775,12 +775,14 @@ void CalculateFlow::Make(Event* anEvent) {
     dEta = anEvent->getParticle(i).getRapidity();  // in MC, the rapidity is stored rather than pesudorapidity (eta)
     dCharge = anEvent->getParticle(i).getCharge();
   
+    if(TMath::Abs(Pid)<20 && Pid>-20){std::cout<<"We have a lepton? ID: "<<Pid<<std::endl;}
     
     for (Int_t h=0;h<4;h++) { // let op: vorige run was dit NA pt cut (4/12/23)
       QRe_EP[h] += pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi);
       QIm_EP[h] += pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi);
       Mul_EP[h] += pow(wPhiEta,1);
     }
+    
     
     if (dPt > maxPtCut) continue;
     if (dPt < minPtCut) continue;
@@ -984,206 +986,206 @@ void CalculateFlow::Make(Event* anEvent) {
     // ====== for calculateFlowEP/RP =========
     
     // All hadrons +/-
-//    for (Int_t h=0;h<4;h++) {
-//
-//      fPOIDiffQRe[h][0][0]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
-//      fPOIDiffQIm[h][0][0]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
-//      fPOIDiffMul[h][0][0]->Fill(xval,pow(wPhiEta,1));
-//
-//      if(dCharge>0){
-//        //if(dPhi>TMath::Pi)
-//        fPOIDiffQRe[h][0][1]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
-//        fPOIDiffQIm[h][0][1]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
-//        fPOIDiffMul[h][0][1]->Fill(xval,pow(wPhiEta,1));
-//
-//      }
-//      if(dCharge<0){
-//        fPOIDiffQRe[h][0][2]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
-//        fPOIDiffQIm[h][0][2]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
-//        fPOIDiffMul[h][0][2]->Fill(xval,pow(wPhiEta,1));
-//      }
-//
-//
-//
-////      if(dEta>=0){
-////        for (Int_t h=0;h<4;h++) {
-////          fPOIDiffQRe_pos[h][0][0]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
-////          fPOIDiffQIm_pos[h][0][0]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
-////          fPOIDiffMul_pos[h][0][0]->Fill(xval,pow(wPhiEta,1));
-////
-////
-////
-////          if(dCharge>0){
-////            //if(dPhi>TMath::Pi)
-////            fPOIDiffQRe_pos[h][0][1]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
-////            fPOIDiffQIm_pos[h][0][1]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
-////            fPOIDiffMul_pos[h][0][1]->Fill(xval,pow(wPhiEta,1));
-////
-////          }
-////
-////
-////          if(dCharge<0){
-////            fPOIDiffQRe_pos[h][0][2]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
-////            fPOIDiffQIm_pos[h][0][2]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
-////            fPOIDiffMul_pos[h][0][2]->Fill(xval,pow(wPhiEta,1));}
-////
-////        }
-////      }
-////
-////      if(dEta<0){ //check even: moet die min hier?
-////        for (Int_t h=0;h<4;h++) {
-////          fPOIDiffQRe_neg[h][0][0]->Fill(xval,pow(-wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
-////          fPOIDiffQIm_neg[h][0][0]->Fill(xval,pow(-wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
-////          fPOIDiffMul_neg[h][0][0]->Fill(xval,pow(-wPhiEta,1));
-////
-////
-////
-////          if(dCharge>0){
-////            //if(dPhi>TMath::Pi)
-////            fPOIDiffQRe_neg[h][0][1]->Fill(xval,pow(-wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
-////            fPOIDiffQIm_neg[h][0][1]->Fill(xval,pow(-wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
-////            fPOIDiffMul_neg[h][0][1]->Fill(xval,pow(-wPhiEta,1));
-////
-////          }
-////
-////
-////          if(dCharge<0){
-////            fPOIDiffQRe_neg[h][0][2]->Fill(xval,pow(-wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
-////            fPOIDiffQIm_neg[h][0][2]->Fill(xval,pow(-wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
-////            fPOIDiffMul_neg[h][0][2]->Fill(xval,pow(-wPhiEta,1));
-////
-////          }
-////
-////        }
-////      }
-//
-//
-//      //+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-
-//      //PID
-//
-//      // Pions
-//      if (Pid == 211 || Pid == -211) {
-//        fPOIDiffQRe[h][1][0]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
-//        fPOIDiffQIm[h][1][0]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
-//        fPOIDiffMul[h][1][0]->Fill(xval,pow(wPhiEta,1));
-//        if(dCharge>0){
-//          //if(dPhi>TMath::Pi)
-//          fPOIDiffQRe[h][1][1]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
-//          fPOIDiffQIm[h][1][1]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
-//          fPOIDiffMul[h][1][1]->Fill(xval,pow(wPhiEta,1));
-//
-//        }
-//        if(dCharge<0){
-//          fPOIDiffQRe[h][1][2]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
-//          fPOIDiffQIm[h][1][2]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
-//          fPOIDiffMul[h][1][2]->Fill(xval,pow(wPhiEta,1));
-//        }
-////        if(dEta>=0){
-////          if(dCharge>0){
-////            fPOIDiffQRe_pos[h][1][1]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
-////            fPOIDiffQIm_pos[h][1][1]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
-////            fPOIDiffMul_pos[h][1][1]->Fill(xval,pow(wPhiEta,1));}
-////          if(dCharge<0){
-////            fPOIDiffQRe_pos[h][1][2]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
-////            fPOIDiffQIm_pos[h][1][2]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
-////            fPOIDiffMul_pos[h][1][2]->Fill(xval,pow(wPhiEta,1));}
-////        }
-////
-////        if(dEta<0){
-////          if(dCharge>0){
-////            //if(dPhi>TMath::Pi)
-////            fPOIDiffQRe_neg[h][1][1]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
-////            fPOIDiffQIm_neg[h][1][1]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
-////            fPOIDiffMul_neg[h][1][1]->Fill(xval,pow(wPhiEta,1));}
-////          if(dCharge<0){
-////            fPOIDiffQRe_neg[h][1][2]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
-////            fPOIDiffQIm_neg[h][1][2]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
-////            fPOIDiffMul_neg[h][1][2]->Fill(xval,pow(wPhiEta,1));}
-////        }
-//      }//end of Pid ±221
-//
-//      // Kaons
-//      if (Pid == 321 || Pid == -321) {
-//        fPOIDiffQRe[h][2][0]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
-//        fPOIDiffQIm[h][2][0]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
-//        fPOIDiffMul[h][2][0]->Fill(xval,pow(wPhiEta,1));
-//        if(dCharge>0){
-//          //if(dPhi>TMath::Pi)
-//          fPOIDiffQRe[h][2][1]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
-//          fPOIDiffQIm[h][2][1]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
-//          fPOIDiffMul[h][2][1]->Fill(xval,pow(wPhiEta,1));
-//        }
-//        if(dCharge<0){
-//          fPOIDiffQRe[h][2][2]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
-//          fPOIDiffQIm[h][2][2]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
-//          fPOIDiffMul[h][2][2]->Fill(xval,pow(wPhiEta,1));
-//        }
-////        if(dEta>=0){
-////          if(dCharge>0){
-////            fPOIDiffQRe_pos[h][2][1]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
-////            fPOIDiffQIm_pos[h][2][1]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
-////            fPOIDiffMul_pos[h][2][1]->Fill(xval,pow(wPhiEta,1));}
-////          if(dCharge<0){
-////            fPOIDiffQRe_pos[h][2][2]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
-////            fPOIDiffQIm_pos[h][2][2]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
-////            fPOIDiffMul_pos[h][2][2]->Fill(xval,pow(wPhiEta,1));}
-////        }
-////
-////        if(dEta<0){
-////          if(dCharge>0){
-////            fPOIDiffQRe_neg[h][2][1]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
-////            fPOIDiffQIm_neg[h][2][1]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
-////            fPOIDiffMul_neg[h][2][1]->Fill(xval,pow(wPhiEta,1));}
-////          if(dCharge<0){
-////            fPOIDiffQRe_neg[h][2][2]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
-////            fPOIDiffQIm_neg[h][2][2]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
-////            fPOIDiffMul_neg[h][2][2]->Fill(xval,pow(wPhiEta,1));}
-////        }
-//      } //end of Pid ±321
-//
-//      // Protons
-//      if (Pid == 2212 || Pid == -2212) {
-//        fPOIDiffQRe[h][3][0]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
-//        fPOIDiffQIm[h][3][0]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
-//        fPOIDiffMul[h][3][0]->Fill(xval,pow(wPhiEta,1));
-//
-//        if(dCharge>0){
-//          //if(dPhi>TMath::Pi)
-//          fPOIDiffQRe[h][3][1]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
-//          fPOIDiffQIm[h][3][1]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
-//          fPOIDiffMul[h][3][1]->Fill(xval,pow(wPhiEta,1));
-//
-//        }
-//        if(dCharge<0){
-//          fPOIDiffQRe[h][3][2]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
-//          fPOIDiffQIm[h][3][2]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
-//          fPOIDiffMul[h][3][2]->Fill(xval,pow(wPhiEta,1));
-//        }
-////        if(dEta>=0){
-////          if(dCharge>0){
-////            //if(dPhi>TMath::Pi)
-////            fPOIDiffQRe_pos[h][3][1]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
-////            fPOIDiffQIm_pos[h][3][1]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
-////            fPOIDiffMul_pos[h][3][1]->Fill(xval,pow(wPhiEta,1));}
-////          if(dCharge<0){
-////            fPOIDiffQRe_pos[h][3][2]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
-////            fPOIDiffQIm_pos[h][3][2]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
-////            fPOIDiffMul_pos[h][3][2]->Fill(xval,pow(wPhiEta,1));}
-////        }
-////        if(dEta<0){
-////          if(dCharge>0){
-////            //if(dPhi>TMath::Pi)
-////            fPOIDiffQRe_neg[h][3][1]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
-////            fPOIDiffQIm_neg[h][3][1]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
-////            fPOIDiffMul_neg[h][3][1]->Fill(xval,pow(wPhiEta,1));}
-////          if(dCharge<0){
-////            fPOIDiffQRe_neg[h][3][2]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
-////            fPOIDiffQIm_neg[h][3][2]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
-////            fPOIDiffMul_neg[h][3][2]->Fill(xval,pow(wPhiEta,1));}
-////        }
-//      }//end of Pid ±2212
+    for (Int_t h=0;h<4;h++) {
+
+      fPOIDiffQRe[h][0][0]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
+      fPOIDiffQIm[h][0][0]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
+      fPOIDiffMul[h][0][0]->Fill(xval,pow(wPhiEta,1));
+
+      if(dCharge>0){
+        //if(dPhi>TMath::Pi)
+        fPOIDiffQRe[h][0][1]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
+        fPOIDiffQIm[h][0][1]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
+        fPOIDiffMul[h][0][1]->Fill(xval,pow(wPhiEta,1));
+
+      }
+      if(dCharge<0){
+        fPOIDiffQRe[h][0][2]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
+        fPOIDiffQIm[h][0][2]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
+        fPOIDiffMul[h][0][2]->Fill(xval,pow(wPhiEta,1));
+      }
+
+
+
+      if(dEta>=0){
+        for (Int_t h=0;h<4;h++) {
+          fPOIDiffQRe_pos[h][0][0]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
+          fPOIDiffQIm_pos[h][0][0]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
+          fPOIDiffMul_pos[h][0][0]->Fill(xval,pow(wPhiEta,1));
+
+
+
+          if(dCharge>0){
+            //if(dPhi>TMath::Pi)
+            fPOIDiffQRe_pos[h][0][1]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
+            fPOIDiffQIm_pos[h][0][1]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
+            fPOIDiffMul_pos[h][0][1]->Fill(xval,pow(wPhiEta,1));
+
+          }
+
+
+          if(dCharge<0){
+            fPOIDiffQRe_pos[h][0][2]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
+            fPOIDiffQIm_pos[h][0][2]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
+            fPOIDiffMul_pos[h][0][2]->Fill(xval,pow(wPhiEta,1));}
+
+        }
+      }
+
+      if(dEta<0){ //check even: moet die min hier?
+        for (Int_t h=0;h<4;h++) {
+          fPOIDiffQRe_neg[h][0][0]->Fill(xval,pow(-wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
+          fPOIDiffQIm_neg[h][0][0]->Fill(xval,pow(-wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
+          fPOIDiffMul_neg[h][0][0]->Fill(xval,pow(-wPhiEta,1));
+
+
+
+          if(dCharge>0){
+            //if(dPhi>TMath::Pi)
+            fPOIDiffQRe_neg[h][0][1]->Fill(xval,pow(-wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
+            fPOIDiffQIm_neg[h][0][1]->Fill(xval,pow(-wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
+            fPOIDiffMul_neg[h][0][1]->Fill(xval,pow(-wPhiEta,1));
+
+          }
+
+
+          if(dCharge<0){
+            fPOIDiffQRe_neg[h][0][2]->Fill(xval,pow(-wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
+            fPOIDiffQIm_neg[h][0][2]->Fill(xval,pow(-wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
+            fPOIDiffMul_neg[h][0][2]->Fill(xval,pow(-wPhiEta,1));
+
+          }
+
+        }
+      }
+
+
+      //+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-
+      //PID
+
+      // Pions
+      if (Pid == 211 || Pid == -211) {
+        fPOIDiffQRe[h][1][0]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
+        fPOIDiffQIm[h][1][0]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
+        fPOIDiffMul[h][1][0]->Fill(xval,pow(wPhiEta,1));
+        if(dCharge>0){
+          //if(dPhi>TMath::Pi)
+          fPOIDiffQRe[h][1][1]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
+          fPOIDiffQIm[h][1][1]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
+          fPOIDiffMul[h][1][1]->Fill(xval,pow(wPhiEta,1));
+
+        }
+        if(dCharge<0){
+          fPOIDiffQRe[h][1][2]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
+          fPOIDiffQIm[h][1][2]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
+          fPOIDiffMul[h][1][2]->Fill(xval,pow(wPhiEta,1));
+        }
+        if(dEta>=0){
+          if(dCharge>0){
+            fPOIDiffQRe_pos[h][1][1]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
+            fPOIDiffQIm_pos[h][1][1]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
+            fPOIDiffMul_pos[h][1][1]->Fill(xval,pow(wPhiEta,1));}
+          if(dCharge<0){
+            fPOIDiffQRe_pos[h][1][2]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
+            fPOIDiffQIm_pos[h][1][2]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
+            fPOIDiffMul_pos[h][1][2]->Fill(xval,pow(wPhiEta,1));}
+        }
+
+        if(dEta<0){
+          if(dCharge>0){
+            //if(dPhi>TMath::Pi)
+            fPOIDiffQRe_neg[h][1][1]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
+            fPOIDiffQIm_neg[h][1][1]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
+            fPOIDiffMul_neg[h][1][1]->Fill(xval,pow(wPhiEta,1));}
+          if(dCharge<0){
+            fPOIDiffQRe_neg[h][1][2]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
+            fPOIDiffQIm_neg[h][1][2]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
+            fPOIDiffMul_neg[h][1][2]->Fill(xval,pow(wPhiEta,1));}
+        }
+      }//end of Pid ±221
+
+      // Kaons
+      if (Pid == 321 || Pid == -321) {
+        fPOIDiffQRe[h][2][0]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
+        fPOIDiffQIm[h][2][0]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
+        fPOIDiffMul[h][2][0]->Fill(xval,pow(wPhiEta,1));
+        if(dCharge>0){
+          //if(dPhi>TMath::Pi)
+          fPOIDiffQRe[h][2][1]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
+          fPOIDiffQIm[h][2][1]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
+          fPOIDiffMul[h][2][1]->Fill(xval,pow(wPhiEta,1));
+        }
+        if(dCharge<0){
+          fPOIDiffQRe[h][2][2]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
+          fPOIDiffQIm[h][2][2]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
+          fPOIDiffMul[h][2][2]->Fill(xval,pow(wPhiEta,1));
+        }
+        if(dEta>=0){
+          if(dCharge>0){
+            fPOIDiffQRe_pos[h][2][1]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
+            fPOIDiffQIm_pos[h][2][1]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
+            fPOIDiffMul_pos[h][2][1]->Fill(xval,pow(wPhiEta,1));}
+          if(dCharge<0){
+            fPOIDiffQRe_pos[h][2][2]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
+            fPOIDiffQIm_pos[h][2][2]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
+            fPOIDiffMul_pos[h][2][2]->Fill(xval,pow(wPhiEta,1));}
+        }
+
+        if(dEta<0){
+          if(dCharge>0){
+            fPOIDiffQRe_neg[h][2][1]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
+            fPOIDiffQIm_neg[h][2][1]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
+            fPOIDiffMul_neg[h][2][1]->Fill(xval,pow(wPhiEta,1));}
+          if(dCharge<0){
+            fPOIDiffQRe_neg[h][2][2]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
+            fPOIDiffQIm_neg[h][2][2]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
+            fPOIDiffMul_neg[h][2][2]->Fill(xval,pow(wPhiEta,1));}
+        }
+      } //end of Pid ±321
+
+      // Protons
+      if (Pid == 2212 || Pid == -2212) {
+        fPOIDiffQRe[h][3][0]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
+        fPOIDiffQIm[h][3][0]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
+        fPOIDiffMul[h][3][0]->Fill(xval,pow(wPhiEta,1));
+
+        if(dCharge>0){
+          //if(dPhi>TMath::Pi)
+          fPOIDiffQRe[h][3][1]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
+          fPOIDiffQIm[h][3][1]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
+          fPOIDiffMul[h][3][1]->Fill(xval,pow(wPhiEta,1));
+
+        }
+        if(dCharge<0){
+          fPOIDiffQRe[h][3][2]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
+          fPOIDiffQIm[h][3][2]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
+          fPOIDiffMul[h][3][2]->Fill(xval,pow(wPhiEta,1));
+        }
+        if(dEta>=0){
+          if(dCharge>0){
+            //if(dPhi>TMath::Pi)
+            fPOIDiffQRe_pos[h][3][1]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
+            fPOIDiffQIm_pos[h][3][1]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
+            fPOIDiffMul_pos[h][3][1]->Fill(xval,pow(wPhiEta,1));}
+          if(dCharge<0){
+            fPOIDiffQRe_pos[h][3][2]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
+            fPOIDiffQIm_pos[h][3][2]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
+            fPOIDiffMul_pos[h][3][2]->Fill(xval,pow(wPhiEta,1));}
+        }
+        if(dEta<0){
+          if(dCharge>0){
+            //if(dPhi>TMath::Pi)
+            fPOIDiffQRe_neg[h][3][1]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
+            fPOIDiffQIm_neg[h][3][1]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
+            fPOIDiffMul_neg[h][3][1]->Fill(xval,pow(wPhiEta,1));}
+          if(dCharge<0){
+            fPOIDiffQRe_neg[h][3][2]->Fill(xval,pow(wPhiEta,1)*TMath::Cos((h+1.)*dPhi));
+            fPOIDiffQIm_neg[h][3][2]->Fill(xval,pow(wPhiEta,1)*TMath::Sin((h+1.)*dPhi));
+            fPOIDiffMul_neg[h][3][2]->Fill(xval,pow(wPhiEta,1));}
+        }
+      }//end of Pid ±2212
       
-//    }// end of h loop
+    }// end of h loop
     //+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-
     
   } // end of event  loop
@@ -1201,9 +1203,9 @@ void CalculateFlow::Make(Event* anEvent) {
   //sw.tick();
   CalculateFlowQC();
   // CalculateFlowGF();
-//  CalculateFlowEP();
+  CalculateFlowEP();
   //    CalculateFlowEP1();
-//  CalculateFlowRP();
+  CalculateFlowRP();
   
   // sw.tock();
   // cout << "Time for CalculateFlowCQ() "<< sw.takeTime() << endl;
@@ -1271,8 +1273,8 @@ void CalculateFlow::Terminate(Int_t Nevents)
   FinalizeSpectra(Nevents);
    FinalizeFlowQC();
   //  FinalizeFlowGF();
-//  FinalizeFlowEP();
-//  FinalizeFlowRP();
+  FinalizeFlowEP();
+  FinalizeFlowRP();
   FinalizeQA();
 }
 
@@ -2632,18 +2634,19 @@ void CalculateFlow::FinalizeQA()
 
 Int_t CalculateFlow::GetCRCCenBin(Double_t Centrality)
 {
+  /// Let op: We hebben maar 9 bins for impact parameter en we starten bij b van 5% centrality. So we skip the most central events.
   Int_t CenBin=-1;
-  if (Centrality>0. && Centrality<5.) CenBin=0;
+//  if (Centrality>0. && Centrality<5.) CenBin=0;
   if (Centrality>=5. && Centrality<10.) CenBin=1-1;
-  if (Centrality>10. && Centrality<20.) CenBin=2-1;
-  if (Centrality>20. && Centrality<30.) CenBin=3-1;
-  if (Centrality>30. && Centrality<60.) CenBin=4-1;
-  //if (Centrality>40. && Centrality<50.) CenBin=5;
-  //if (Centrality>50. && Centrality<60.) CenBin=6;
-  if (Centrality>60. && Centrality<70.) CenBin=7-1;
-  if (Centrality>70. && Centrality<80.) CenBin=8-1;
-  if (Centrality>80. && Centrality<90.) CenBin=9-1;
-  if (Centrality>90. && Centrality<100.) CenBin=10-1;
+  if (Centrality>=10. && Centrality<20.) CenBin=2-1;
+  if (Centrality>=20. && Centrality<30.) CenBin=3-1;
+  if (Centrality>=30. && Centrality<60.) CenBin=4-1;
+  if (Centrality>=40. && Centrality<50.) CenBin=5;
+  if (Centrality>=50. && Centrality<60.) CenBin=6;
+  if (Centrality>=60. && Centrality<70.) CenBin=7-1;
+  if (Centrality>=70. && Centrality<80.) CenBin=8-1;
+  if (Centrality>=80. && Centrality<90.) CenBin=9-1;
+  if (Centrality>=90. && Centrality<100.) CenBin=10-1;
   if (CenBin>=fCRCnCen) CenBin=-1;
   if (fCRCnCen==1) CenBin=0;
   return CenBin;

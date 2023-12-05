@@ -9,30 +9,14 @@
 #include "Event.h"
 #include "Particle.h"
 #include "CalculateFlow.h"
-//test
-//====================Spectators===================//
-//60-70: 25% @ 376, 50% @ 382, 75% @ 388, 100% @ 499
-//50-60: 25% @ 348, 50% @ 356, 75% @ 365, 100% @ 499
-//40-50: 25% @ 311, 50% @ 323, 75% @ 332, 100% @ 499
-//30-40: 25% @ 266, 50% @ 280, 75% @ 291, 100% @ 499
-//20-30: 25% @ 204, 50% @ 223, 75% @ 239, 100% @ 499
-//10-20: 25% @ 124, 50% @ 144, 75% @ 167, 100% @ 499
-//=================================================//
 
-//========================q2=======================//
-//60-70: 25% @ 1.17, 50% @ 1.79, 75% @ 2.46, 100% @ 20
-//50-60: 25% @ 1.55, 50% @ 2.31, 75% @ 3.13, 100% @ 20
-//40-50: 25% @ 2.02, 50% @ 2.95, 75% @ 3.88, 100% @ 20
-//30-40: 25% @ 2.46, 50% @ 3.42, 75% @ 4.39, 100% @ 20
-//20-30: 25% @ 2.47, 50% @ 3.56, 75% @ 4.64, 100% @ 20
-//10-20: 25% @ 2.19, 50% @ 3.20, 75% @ 4.34, 100% @ 20
-//========================q2=======================//
 
-void runFlow(Bool_t etaFlag = kTRUE, TString centrality="", Double_t gCentrality=31, Int_t iGroupMin=0, Int_t iGroupMax=2000, Double_t gSpectatorMin=0, Double_t gSpectatorMax=500) {
+void runFlow(Bool_t etaFlag = kTRUE, TString centrality="", Double_t gCentrality=35, Int_t iGroupMin=0, Int_t iGroupMax=3000, Double_t gSpectatorMin=0, Double_t gSpectatorMax=500) {
   
-  TFile *f= new TFile(Form("/data/alice/nkoster/TreeOutput_Group0-6000_Cent30_60.root"));
+  TFile *f= new TFile(Form("/dcache/alice/nkoster/PhD/AMPT_out/Run2_Energy_PbPb/Cent%s/TreeOutput_Group%i-%i_Cent%s.root",centrality.Data(),iGroupMin, iGroupMax, centrality.Data()));
+                           //"/data/alice/nkoster/TreeOutput_Group0-6000_Cent30_60.root"));
   //"/dcache/alice/nkoster/PhD/AMPT_out/Run2_Energy_PbPb/nEvents100/TreeOutput/TreeOutput_Group%i-%i.root",iGroupMin, iGroupMax));
-  //"/dcache/alice/nkoster/PhD/AMPT_out/Run2_Energy_PbPb/Cent%s/TreeOutput_Group%i-%i_Cent%s.root",centrality.Data(),iGroupMin, iGroupMax+1000, centrality.Data()));
+  
   //"/dcache/alice/nkoster/PhD/AMPT_out/Run2_Energy_PbPb/nEvents100/TreeOutput/TreeOutput_Group%i-%i.root",iGroupMin, iGroupMax));
   //"/dcache/alice/nkoster/PhD/AMPT_out/Run2_Energy_PbPb/Cent%s/TreeOutput_Group%i-%i_Cent%s.root",centrality.Data(),iGroupMin, iGroupMax, centrality.Data()));
   
@@ -94,15 +78,15 @@ void runFlow(Bool_t etaFlag = kTRUE, TString centrality="", Double_t gCentrality
   fQC->Terminate(nevent);
   
   // Save list holding histogram with weights:
-  TFile *fResultsFile = new TFile(Form("AnalysisResults_Group0-6000_%sDiff_PID_3060_QC.root", diff.Data()),"RECREATE");
+  TFile *fResultsFile = new TFile(Form("AnalysisResults_Group%i-%i_%sDiff_Full_Cent%s.root",iGroupMin, iGroupMax, diff.Data(), centrality.Data()),"RECREATE");
+                                       //"AnalysisResults_Group0-6000_%sDiff_PID_3060_QC.root", diff.Data()),"RECREATE");
   //"AnalysisResults_Group%i-%i_%sDiff_All.root",iGroupMin, iGroupMax, diff.Data()),"RECREATE");
-  //"AnalysisResults_Group%i-%i_%sDiff_Full_Cent%s.root",iGroupMin, iGroupMax, diff.Data(), centrality.Data()),"RECREATE");
   fResultsFile->WriteObject(fQC->GetQAList(),"QAList","SingleKey");
   fResultsFile->WriteObject(fQC->GetSpectraList(),"SpectraList","SingleKey");
   fResultsFile->WriteObject(fQC->GetFlowQCList(),"FLowQCList","SingleKey");
   //fResultsFile->WriteObject(fQC->GetFlowGFList(),"FLowGFList","SingleKey");
-//  fResultsFile->WriteObject(fQC->GetFlowEPList(),"FlowEPList","SingleKey");
-//  fResultsFile->WriteObject(fQC->GetFlowRPList(),"FlowRPList","SingleKey");
+  fResultsFile->WriteObject(fQC->GetFlowEPList(),"FlowEPList","SingleKey");
+  fResultsFile->WriteObject(fQC->GetFlowRPList(),"FlowRPList","SingleKey");
   fResultsFile->Close();
   
   
