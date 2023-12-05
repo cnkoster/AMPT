@@ -549,7 +549,8 @@ void CalculateFlow::UserCreateOutputObjects() {
             fFlowQCFinalPtDifHist[h][i][k][p][charge]->Sumw2();
             
             if(h==GetCRCCenBin(fCentralityEBE)){
-              fFlowQCList->Add(fFlowQCFinalPtDifHist[h][i][k][p][charge]);} //we say cen=1 so the histo is filled only for h=6 //GetCRCCenBin(fCentralityEBE)
+              if(k==0 || k==1){fFlowQCList->Add(fFlowQCFinalPtDifHist[h][i][k][p][charge]);} //Only print for v{2} and v{4} [k] k=5,6 give Dn2, Dn4 
+            }
           }
         }
       }
