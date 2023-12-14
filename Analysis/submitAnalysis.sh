@@ -20,7 +20,7 @@ rm -rf ${outdir}/runStbcJob${addon}.sh
 cp runStbcJob${addon}.sh ${outdir}
 
 cd ${outdir}
-qsub -o ${outdir}/logs/logOut${addon} -e ${outdir}/logs/logErr${addon} -q generic -v ETAFLAG=${etaflag} OUTPUTDIR=${outdir} runStbcJob${addon}.sh
+qsub -o ${outdir}/logs/logOut${addon} -e ${outdir}/logs/logErr${addon} -q generic -v ETAFLAG=${etaflag},OUTPUTDIR=${outdir} runStbcJob${addon}.sh
 cd -
 
 
