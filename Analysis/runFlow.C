@@ -11,9 +11,11 @@
 #include "CalculateFlow.h"
 
 
-void runFlow(Bool_t etaFlag = kTRUE, TString centrality="", Double_t gCentrality=35, Int_t iGroupMin=0, Int_t iGroupMax=3000, Double_t gSpectatorMin=0, Double_t gSpectatorMax=500) {
+void runFlow(Bool_t etaFlag = kTRUE, TString centrality="", Double_t gCentrality=45, Int_t iGroupMin=0, Int_t iGroupMax=3000, Double_t gSpectatorMin=0, Double_t gSpectatorMax=500) {
   
-  TFile *f= new TFile(Form("/dcache/alice/nkoster/PhD/AMPT_out/Run2_Energy_PbPb/Cent%s/TreeOutput_Group%i-%i_Cent%s.root",centrality.Data(),iGroupMin, iGroupMax, centrality.Data()));
+  TFile *f= new TFile(Form("/dcache/alice/nkoster/PhD/AMPT_out/Run2_Energy_PbPb/nEvents100/NTMAX1000/C4050/TreeOutput_Group0-2000_NTMAX1000_Cent4050.root"
+                           
+                           //"/dcache/alice/nkoster/PhD/AMPT_out/Run2_Energy_PbPb/Cent%s/TreeOutput_Group%i-%i_Cent%s.root",centrality.Data(),iGroupMin, iGroupMax, centrality.Data()));
                            //"/data/alice/nkoster/TreeOutput_Group0-6000_Cent30_60.root"));
   //"/dcache/alice/nkoster/PhD/AMPT_out/Run2_Energy_PbPb/nEvents100/TreeOutput/TreeOutput_Group%i-%i.root",iGroupMin, iGroupMax));
   
