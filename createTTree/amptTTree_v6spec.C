@@ -55,7 +55,7 @@ void amptTTree_v6spec(Int_t Njobs = 2001, Int_t Nsplit = 1, Int_t nEventsperJob 
             endJob = (batch+1)*Ngroups; //=n n, 2n, 3n
          //   cout<< "we starten de for loop over batches"<<endl;
             // Create a .root file to fill with the tree
-            string treePath = Form("/dcache/alice/nkoster/PhD/AMPT_out/Run2_Energy_PbPb/NTMAX1000/C%s/TreeOutput_Group%i-%i_NTMAX1000_Cent%s.root", cent.c_str(),  beginJob-1,endJob-1, cent.c_str());
+            string treePath = Form("/dcache/alice/nkoster/PhD/AMPT_out/Run2_Energy_PbPb/nEvents100/NTMAX1000/C%s/TreeOutput_Group%i-%i_NTMAX1000_Cent%s.root", cent.c_str(),  beginJob-1,endJob-1, cent.c_str());
 //            string treePath = Form("/dcache/alice/nkoster/PhD/AMPT_out/Run2_Energy_PbPb/nEvents100/TreeOutput/TreeOutput_Group%i-%i.root", beginJob-1,endJob-1);
             cout << " path to rootfile: " << treePath << endl;
             
