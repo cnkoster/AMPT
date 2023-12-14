@@ -39,8 +39,7 @@ void amptTTree_v6spec(Int_t Njobs = 2001, Int_t Nsplit = 1, Int_t nEventsperJob 
     Int_t beginJob, endJob;
     Float_t epsilon=0.0001f;
     Int_t Anumber = 136;
-    string Centrality[1] = {" "}; //{"30_40", "40_50", "50_60"};
-    
+    string Centrality[1] = {"4050"};
     Bool_t fileFilled = false;
     TH1F *hEventCounter = new TH1F("hEventCounter","Number of events",10,0,1);
     TH1F *hPtDist = new TH1F("hPtDist", "Pt distribution (no spectators)",100,0,10);
@@ -56,8 +55,8 @@ void amptTTree_v6spec(Int_t Njobs = 2001, Int_t Nsplit = 1, Int_t nEventsperJob 
             endJob = (batch+1)*Ngroups; //=n n, 2n, 3n
          //   cout<< "we starten de for loop over batches"<<endl;
             // Create a .root file to fill with the tree
-           // string treePath = Form("/dcache/alice/nkoster/PhD/AMPT_out/Run2_Energy_PbPb/Cent%s/TreeOutput_Group%i-%i_Cent%s.root", cent.c_str(),  beginJob-1,endJob-1, cent.c_str());
-            string treePath = Form("/dcache/alice/nkoster/PhD/AMPT_out/Run2_Energy_PbPb/nEvents100/TreeOutput/TreeOutput_Group%i-%i.root", beginJob-1,endJob-1);
+            string treePath = Form("/dcache/alice/nkoster/PhD/AMPT_out/Run2_Energy_PbPb/NTMAX1000/C%s/TreeOutput_Group%i-%i_NTMAX1000_Cent%s.root", cent.c_str(),  beginJob-1,endJob-1, cent.c_str());
+//            string treePath = Form("/dcache/alice/nkoster/PhD/AMPT_out/Run2_Energy_PbPb/nEvents100/TreeOutput/TreeOutput_Group%i-%i.root", beginJob-1,endJob-1);
             cout << " path to rootfile: " << treePath << endl;
             
             TFile *f = new TFile(treePath.c_str(),"recreate");
@@ -90,7 +89,7 @@ void amptTTree_v6spec(Int_t Njobs = 2001, Int_t Nsplit = 1, Int_t nEventsperJob 
                // }
                 // Open the .dat file
                 
-                string Path = Form("/dcache/alice/nkoster/PhD/AMPT_out/Run2_Energy_PbPb/nEvents100/Group"); //, cent.c_str());
+                string Path = Form("/dcache/alice/nkoster/PhD/AMPT_out/Run2_Energy_PbPb/nEvents100/NTMAX1000/C4050/Group"); //, cent.c_str());
                 
                 string FilePath = Path + to_string(i-1) + "/ampt.dat"; //add $i to get folder Group{i}/ampt.dat file
                 
@@ -127,7 +126,6 @@ void amptTTree_v6spec(Int_t Njobs = 2001, Int_t Nsplit = 1, Int_t nEventsperJob 
                             }
                             Nevent++;
                             //
-                            
                             event = Event(nTrack,b,nPartP,nPartT,nElP,nInelP,nElT,nInelT,particle); //Define event here when particle vector is full
                             // kan ook hier toevoegen welke centralilty bin je wil!!!!! 
                             eventTree->Fill();
@@ -152,7 +150,7 @@ void amptTTree_v6spec(Int_t Njobs = 2001, Int_t Nsplit = 1, Int_t nEventsperJob 
                     auto part = Particle(pid,specFlag,px,py,pz,mass,charge,x,y,z,t); //add all particles including spectator. Use flag later to eliminate spectators.
                     particle.push_back(part);
                     hPtDist_specIncluded->Fill(part.getPt());
-                    if(!specFlag){hPtDist->Fill(part.getPt());} //fill pt distribution WITHOUT spectators
+                  if(specFlag>0){hPtDist->Fill(part.getPt());}//fill pt distribution WITHOUT spectators
                     j++;
                     
                 }
