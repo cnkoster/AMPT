@@ -11,11 +11,12 @@
 #include "CalculateFlow.h"
 
 
-void runFlow(Bool_t etaFlag = kTRUE, TString centrality="", Double_t gCentrality=45, Int_t iGroupMin=0, Int_t iGroupMax=3000, Double_t gSpectatorMin=0, Double_t gSpectatorMax=500) {
+void runFlow(Bool_t etaFlag = kTRUE, TString centrality="40_50", Double_t gCentrality=45, Int_t iGroupMin=0, Int_t iGroupMax=3000, Double_t gSpectatorMin=0, Double_t gSpectatorMax=500) {
   
-  TFile *f= new TFile(Form("/dcache/alice/nkoster/PhD/AMPT_out/Run2_Energy_PbPb/nEvents100/NTMAX1000/C4050/TreeOutput_Group0-2000_NTMAX1000_Cent4050.root"
+  TFile *f= new TFile(Form(
+                           //"/dcache/alice/nkoster/PhD/AMPT_out/Run2_Energy_PbPb/nEvents100/NTMAX1000/C4050/TreeOutput_Group0-2000_NTMAX1000_Cent4050.root"
                            
-                           //"/dcache/alice/nkoster/PhD/AMPT_out/Run2_Energy_PbPb/Cent%s/TreeOutput_Group%i-%i_Cent%s.root",centrality.Data(),iGroupMin, iGroupMax, centrality.Data()));
+                           "/dcache/alice/nkoster/PhD/AMPT_out/Run2_Energy_PbPb/Cent%s/TreeOutput_Group%i-%i_Cent%s.root",centrality.Data(),iGroupMin, iGroupMax, centrality.Data()));
                            //"/data/alice/nkoster/TreeOutput_Group0-6000_Cent30_60.root"));
   //"/dcache/alice/nkoster/PhD/AMPT_out/Run2_Energy_PbPb/nEvents100/TreeOutput/TreeOutput_Group%i-%i.root",iGroupMin, iGroupMax));
   
@@ -57,7 +58,7 @@ void runFlow(Bool_t etaFlag = kTRUE, TString centrality="", Double_t gCentrality
   fQC->SetEtaDiff(etaFlag); // pt differential flow -> kTRUE for eta diff flow.
   fQC->SetCentralityEBE(gCentrality);
   fQC->UserCreateOutputObjects();
-  fQC->SetmaxPtCut(10);
+  fQC->SetmaxPtCut(3);
   fQC->SetminPtCut(0.2);
   fQC->SetminNtrackCut(500);
   fQC->SetmaxEtaCut(0.8);
