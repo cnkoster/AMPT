@@ -1221,51 +1221,51 @@ void CalculateFlow::Make(Event* anEvent) {
 //
 void CalculateFlow::ResetEventByEventQuantities()
 {
-  //FlowGF
-  fReQGF->Zero();
-  fImQGF->Zero();
-  for(Int_t i=0; i<fkGFPtB; i++) {
-    fReQGFPt[i]->Zero();
-    fImQGFPt[i]->Zero();
-  }
-
-  //FlowQC
-  for(Int_t c=0;c<fQVecPower;c++) {
-    for (Int_t h=0;h<fFlowNHarmMax;h++) {
-      for (Int_t p=0; p<fNParticles; p++){
-        for (Int_t charge=0; charge<fCharge; charge++){
-          if(fPOIPtDiffQRe[c][h][p][charge]) fPOIPtDiffQRe[c][h][p][charge]->Reset();
-          if(fPOIPtDiffQIm[c][h][p][charge]) fPOIPtDiffQIm[c][h][p][charge]->Reset();
-          if(fPOIPtDiffMul[c][h][p][charge]) fPOIPtDiffMul[c][h][p][charge]->Reset();
-        }
-      }
-    }
-  }
-
-  //FlowEP & RP
-  for (Int_t h=0;h<fFlowNHarmMax;h++) {
-
-    if(QRe_EP[h]!=0) QRe_EP[h]=0;
-    if(QIm_EP[h]!=0) QIm_EP[h]=0;
-    if(Mul_EP[h]!=0) Mul_EP[h]=0;
-
-    for(Int_t p=0;p<fNParticles;p++){
-      for (Int_t charge=0; charge<fCharge; charge++){
-
-        if(fPOIDiffQRe_pos[h][p][charge]) fPOIDiffQRe_pos[h][p][charge]->Reset();
-        if(fPOIDiffQIm_pos[h][p][charge]) fPOIDiffQIm_pos[h][p][charge]->Reset();
-        if(fPOIDiffMul_pos[h][p][charge]) fPOIDiffMul_pos[h][p][charge]->Reset();
-
-        if(fPOIDiffQRe_neg[h][p][charge]) fPOIDiffQRe_neg[h][p][charge]->Reset();
-        if(fPOIDiffQIm_neg[h][p][charge]) fPOIDiffQIm_neg[h][p][charge]->Reset();
-        if(fPOIDiffMul_neg[h][p][charge]) fPOIDiffMul_neg[h][p][charge]->Reset();
-
-        if(fPOIDiffQRe[h][p][charge]) fPOIDiffQRe[h][p][charge]->Reset();
-        if(fPOIDiffQIm[h][p][charge]) fPOIDiffQIm[h][p][charge]->Reset();
-        if(fPOIDiffMul[h][p][charge]) fPOIDiffMul[h][p][charge]->Reset();
-      }
-    }
-  }
+//  //FlowGF
+//  fReQGF->Zero();
+//  fImQGF->Zero();
+//  for(Int_t i=0; i<fkGFPtB; i++) {
+//    fReQGFPt[i]->Zero();
+//    fImQGFPt[i]->Zero();
+//  }
+//
+//  //FlowQC
+//  for(Int_t c=0;c<fQVecPower;c++) {
+//    for (Int_t h=0;h<fFlowNHarmMax;h++) {
+//      for (Int_t p=0; p<fNParticles; p++){
+//        for (Int_t charge=0; charge<fCharge; charge++){
+//          if(fPOIPtDiffQRe[c][h][p][charge]) fPOIPtDiffQRe[c][h][p][charge]->Reset();
+//          if(fPOIPtDiffQIm[c][h][p][charge]) fPOIPtDiffQIm[c][h][p][charge]->Reset();
+//          if(fPOIPtDiffMul[c][h][p][charge]) fPOIPtDiffMul[c][h][p][charge]->Reset();
+//        }
+//      }
+//    }
+//  }
+//
+//  //FlowEP & RP
+//  for (Int_t h=0;h<fFlowNHarmMax;h++) {
+//
+//    if(QRe_EP[h]!=0) QRe_EP[h]=0;
+//    if(QIm_EP[h]!=0) QIm_EP[h]=0;
+//    if(Mul_EP[h]!=0) Mul_EP[h]=0;
+//
+//    for(Int_t p=0;p<fNParticles;p++){
+//      for (Int_t charge=0; charge<fCharge; charge++){
+//
+//        if(fPOIDiffQRe_pos[h][p][charge]) fPOIDiffQRe_pos[h][p][charge]->Reset();
+//        if(fPOIDiffQIm_pos[h][p][charge]) fPOIDiffQIm_pos[h][p][charge]->Reset();
+//        if(fPOIDiffMul_pos[h][p][charge]) fPOIDiffMul_pos[h][p][charge]->Reset();
+//
+//        if(fPOIDiffQRe_neg[h][p][charge]) fPOIDiffQRe_neg[h][p][charge]->Reset();
+//        if(fPOIDiffQIm_neg[h][p][charge]) fPOIDiffQIm_neg[h][p][charge]->Reset();
+//        if(fPOIDiffMul_neg[h][p][charge]) fPOIDiffMul_neg[h][p][charge]->Reset();
+//
+//        if(fPOIDiffQRe[h][p][charge]) fPOIDiffQRe[h][p][charge]->Reset();
+//        if(fPOIDiffQIm[h][p][charge]) fPOIDiffQIm[h][p][charge]->Reset();
+//        if(fPOIDiffMul[h][p][charge]) fPOIDiffMul[h][p][charge]->Reset();
+//      }
+//    }
+//  }
   
   
 }
