@@ -137,7 +137,7 @@ private:
   TH1D *fAntiProtonsPtSpectra;
   TH1D *fAntiProtonsEtaSpectra;
   TH1D *fAntiProtonsPhiSpectra;
-  
+  TH1D *fPDGSpectra; 
   // Particle Spectra
   virtual void FinalizeSpectra(Int_t Nevents);
   TList *fSpectraList;
